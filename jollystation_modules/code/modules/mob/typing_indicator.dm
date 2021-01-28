@@ -1,3 +1,5 @@
+/// Typing indicator wrappers, for the say hotkey and the emote hotkey.
+
 /mob/verb/say_wrapper()
 	set name = ".say"
 	set hidden = TRUE
@@ -32,9 +34,9 @@
 	set name = ".me"
 	set hidden = TRUE
 
-	var/image/typing_indicator = image('icons/mob/talk.dmi', src, "default0", FLY_LAYER)
+	var/image/typing_indicator = image('jollystation_modules/icons/mob/talk.dmi', src, "default0", FLY_LAYER)
 	if(isliving(src)) //only living mobs have the bubble_icon var
-		typing_indicator = image('icons/mob/talk.dmi', src, "emoting", FLY_LAYER)
+		typing_indicator = image('jollystation_modules/icons/mob/talk.dmi', src, "emoting", FLY_LAYER)
 
 	typing_indicator.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
 
