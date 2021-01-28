@@ -1,5 +1,5 @@
 /datum/quirk/size_change
-	name = "Size - Average Height"
+	name = "Size D - Average Height"
 	desc = "You are average. (0% size change.)"
 	value = 0
 	gain_text = "<span class='notice'>You feel average.</span>"
@@ -9,25 +9,25 @@
 	var/resize_amount = 1
 
 /datum/quirk/size_change/add()
-	if(resize_amount > 1)
+	if(resize_amount > 1.1)
 		ADD_TRAIT(quirk_holder, TRAIT_GIANT, ROUNDSTART_TRAIT)
-	else if(resize_amount < 1)
+	else if(resize_amount < 0.9)
 		ADD_TRAIT(quirk_holder, TRAIT_DWARF, ROUNDSTART_TRAIT)
 
 	quirk_holder.resize = resize_amount
 	quirk_holder.update_transform()
 
 /datum/quirk/size_change/remove()
-	if(resize_amount > 1)
+	if(resize_amount > 1.1)
 		REMOVE_TRAIT(quirk_holder, TRAIT_GIANT, ROUNDSTART_TRAIT)
-	else if(resize_amount < 1)
+	else if(resize_amount < 0.9)
 		REMOVE_TRAIT(quirk_holder, TRAIT_DWARF, ROUNDSTART_TRAIT)
 
 	quirk_holder.resize = 1/resize_amount
 	quirk_holder.update_transform()
 
 /datum/quirk/size_change/vv_large
-	name = "Size - Extremely Large"
+	name = "Size A - Extremely Large"
 	desc = "You're massive. (50% larger)"
 	gain_text = "<span class='notice'>You feel even more taller.</span>"
 	lose_text = "<span class='notice'>You feel even more shorter.</span>"
@@ -35,7 +35,7 @@
 	resize_amount = 1.5
 
 /datum/quirk/size_change/v_large
-	name = "Size - Very Large"
+	name = "Size B - Very Large"
 	desc = "You're huge. (20% larger)"
 	gain_text = "<span class='notice'>You feel even taller.</span>"
 	lose_text = "<span class='notice'>You feel even shorter.</span>"
@@ -43,7 +43,7 @@
 	resize_amount = 1.2
 
 /datum/quirk/size_change/large
-	name = "Size - Large"
+	name = "Size C - Large"
 	desc = "You're large and in charge. (10% larger)"
 	gain_text = "<span class='notice'>You feel taller.</span>"
 	lose_text = "<span class='notice'>You feel shorter.</span>"
@@ -51,7 +51,7 @@
 	resize_amount = 1.1
 
 /datum/quirk/size_change/short
-	name = "Size - Small"
+	name = "Size E - Small"
 	desc = "You're pretty small. (10% smaller)"
 	gain_text = "<span class='notice'>You feel shorter.</span>"
 	lose_text = "<span class='notice'>You feel taller.</span>"
@@ -59,7 +59,7 @@
 	resize_amount = 0.9
 
 /datum/quirk/size_change/v_short
-	name = "Size - Very Small"
+	name = "Size F - Very Small"
 	desc = "You're VERY small. (20% smaller)"
 	gain_text = "<span class='notice'>You feel even shorter.</span>"
 	lose_text = "<span class='notice'>You feel even taller.</span>"
@@ -67,9 +67,9 @@
 	resize_amount = 0.8
 
 /datum/quirk/size_change/vv_short
-	name = "Size - Extremely Small"
+	name = "Size G - Extremely Small"
 	desc = "You're EXTREMELY small. (30% smaller)"
 	gain_text = "<span class='notice'>You feel even more shorter.</span>"
 	lose_text = "<span class='notice'>You feel even more taller.</span>"
 	medical_record_text = "Patient is extremely un-naturally short in stature."
-	resize_amount = 0.3
+	resize_amount = 0.7
