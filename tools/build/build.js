@@ -48,9 +48,9 @@ const taskDm = new Task('dm')
   .depends('tgui/public/tgui.html')
   .depends('tgui/public/*.bundle.*')
   .depends('tgui/public/*.chunk.*')
-  .depends('tgstation.dme')
-  .provides('tgstation.dmb')
-  .provides('tgstation.rsc')
+  .depends('jollystation.dme')
+  .provides('jollystation.dmb')
+  .provides('jollystation.rsc')
   .build(async () => {
     let compiler = 'dm';
     // Let's do some registry queries on Windows, because dm is not in PATH.
@@ -69,7 +69,7 @@ const taskDm = new Task('dm')
     } else {
       compiler = 'DreamMaker';
     }
-    await exec(compiler, ['tgstation.dme']);
+    await exec(compiler, ['jollystation.dme']);
   });
 
 // Frontend
