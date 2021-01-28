@@ -3323,6 +3323,7 @@
 #include "interface\menu.dm"
 #include "interface\stylesheet.dm"
 #include "interface\skin.dmf"
+#include "jollystation_modules\code\__DEFINES\~module_defines.dm"
 #include "jollystation_modules\code\datums\traits\_quirk_blacklist.dm"
 #include "jollystation_modules\code\datums\traits\neutral.dm"
 #include "jollystation_modules\code\modules\mob\typing_indicator.dm"
