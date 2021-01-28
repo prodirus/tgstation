@@ -1,11 +1,14 @@
+/// -- Neutral quirks module file. Add neutral quirks to the end of this file. --
+
+/// High change quirks.
 /datum/quirk/size_change
 	name = "Size D - Average Height"
-	desc = "You are average. (0% size change.)"
+	desc = "You are average. (0% size change - this quirk does nothing.)"
 	value = 0
 	gain_text = "<span class='notice'>You feel average.</span>"
 	lose_text = "<span class='notice'>You still feel average.</span>"
 	medical_record_text = "Patient is of average height."
-	//The amount we resize the quirk holder for.
+	/// The amount we resize the quirk holder for.
 	var/resize_amount = 1
 
 /datum/quirk/size_change/add()
