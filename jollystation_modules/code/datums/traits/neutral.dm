@@ -1,6 +1,8 @@
 /// -- Neutral quirks module file. Add neutral quirks to the end of this file. --
 
-/// High change quirks.
+/// Height changing quirks.
+// The default parent quirk shows up in the quirk list because it adds all subtypes of quirks.
+// So it's just "average height" Screw it..
 /datum/quirk/size_change
 	name = "Size D - Average Height"
 	desc = "You are average. (0% size change - this quirk does nothing.)"
@@ -29,6 +31,10 @@
 	quirk_holder.resize = 1/resize_amount
 	quirk_holder.update_transform()
 
+// All the height changing quirks.
+// They're alphabetized because the quirk list is and I wanted to sort them by height order.
+
+// Very very larage
 /datum/quirk/size_change/vv_large
 	name = "Size A - Extremely Large"
 	desc = "You're massive. (50% larger)"
@@ -37,6 +43,7 @@
 	medical_record_text = "Patient has extremely un-natural height and size."
 	resize_amount = 1.5
 
+// Very large
 /datum/quirk/size_change/v_large
 	name = "Size B - Very Large"
 	desc = "You're huge. (20% larger)"
@@ -45,6 +52,7 @@
 	medical_record_text = "Patient has very un-natural height and size."
 	resize_amount = 1.2
 
+// Large
 /datum/quirk/size_change/large
 	name = "Size C - Large"
 	desc = "You're large and in charge. (10% larger)"
@@ -53,6 +61,7 @@
 	medical_record_text = "Patient has un-natural height and size."
 	resize_amount = 1.1
 
+// Short
 /datum/quirk/size_change/short
 	name = "Size E - Small"
 	desc = "You're pretty small. (10% smaller)"
@@ -61,6 +70,7 @@
 	medical_record_text = "Patient is un-naturally short in stature."
 	resize_amount = 0.9
 
+// Very Short
 /datum/quirk/size_change/v_short
 	name = "Size F - Very Small"
 	desc = "You're VERY small. (20% smaller)"
@@ -69,6 +79,7 @@
 	medical_record_text = "Patient is very un-naturally short in stature."
 	resize_amount = 0.8
 
+// Very Very Short
 /datum/quirk/size_change/vv_short
 	name = "Size G - Extremely Small"
 	desc = "You're EXTREMELY small. (30% smaller)"
