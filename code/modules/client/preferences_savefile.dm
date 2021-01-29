@@ -86,7 +86,12 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 
 		if (!found_block_movement)
 			LAZYADD(key_bindings["Ctrl"], "block_movement")
-
+		//NON-MODULE CHANGES:
+		features["general_records"]			= strip_html_simple(features["general_records"], MAX_FLAVOR_LEN, TRUE)
+		features["security_records"]			= strip_html_simple(features["security_records"], MAX_FLAVOR_LEN, TRUE)
+		features["medical_records"]			= strip_html_simple(features["medical_records"], MAX_FLAVOR_LEN, TRUE)
+		features["exploitable_info"]			= strip_html_simple(features["exploitable_info"], MAX_FLAVOR_LEN, TRUE)
+		//NON-MODULE CHANGES END
 /datum/preferences/proc/update_character(current_version, savefile/S)
 	return
 
@@ -249,6 +254,12 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	pda_style		= sanitize_inlist(pda_style, GLOB.pda_styles, initial(pda_style))
 	pda_color		= sanitize_hexcolor(pda_color, 6, 1, initial(pda_color))
 	key_bindings 	= sanitize_keybindings(key_bindings)
+	//NON-MODULE CHANGES:
+	security_records = sanitize_text(S["security_records"])
+	medical_records = sanitize_text(S["medical_records"])
+	general_records = sanitize_text(S["general_records"])
+	exploitable_info = sanitize_text(S["exploitable_info"])
+	//NON-MODULE CHANGES END
 
 	if(needs_update >= 0) //save the updated version
 		var/old_default_slot = default_slot
@@ -388,6 +399,12 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	READ_FILE(S["feature_moth_antennae"], features["moth_antennae"])
 	READ_FILE(S["feature_moth_markings"], features["moth_markings"])
 	READ_FILE(S["persistent_scars"] , persistent_scars)
+	//NON-MODULE CHANGES:
+	READ_FILE(S["security_records"]			, security_records)
+	READ_FILE(S["medical_records"]			, medical_records)
+	READ_FILE(S["general_records"]			, general_records)
+	READ_FILE(S["exploitable_info"]			, exploitable_info)
+	//NON-MODULE CHANGES END
 	if(!CONFIG_GET(flag/join_with_mutant_humans))
 		features["tail_human"] = "none"
 		features["ears"] = "none"
@@ -539,7 +556,12 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	WRITE_FILE(S["feature_moth_antennae"]			, features["moth_antennae"])
 	WRITE_FILE(S["feature_moth_markings"]		, features["moth_markings"])
 	WRITE_FILE(S["persistent_scars"]			, persistent_scars)
-
+	//NON-MODULE CHANGES:
+	WRITE_FILE(S["general_records"]			, general_records)
+	WRITE_FILE(S["security_records"]			, security_records)
+	WRITE_FILE(S["medical_records"]			, medical_records)
+	WRITE_FILE(S["exploitable_info"]			, exploitable_info)
+	//NON-MODULE CHANGES END
 	//Custom names
 	for(var/custom_name_id in GLOB.preferences_custom_names)
 		var/savefile_slot_name = custom_name_id + "_name" //TODO remove this
