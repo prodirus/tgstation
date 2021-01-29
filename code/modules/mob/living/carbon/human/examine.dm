@@ -421,9 +421,31 @@
 					"<a href='?src=[REF(src)];hud=s;add_comment=1'>\[Add comment\]</a>"), "")
 	else if(isobserver(user))
 		. += "<span class='info'><b>Traits:</b> [get_quirk_string(FALSE, CAT_QUIRK_ALL)]</span>"
-	. += "*---------*</span>"
 
 	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, user, .)
+	//NON-MODULE CHANGES:
+	if(client)
+		var/list/line = list()
+		if(user.client?.holder && isobserver(user))
+			if(client.prefs.general_records)
+				line += "<a href='?src=[REF(src)];general_records=1'>\[GEN\]</a>"
+			if(client.prefs.security_records)
+				line += "<a href='?src=[REF(src)];security_records=1'>\[SEC\]</a>"
+			if(client.prefs.medical_records)
+				line += "<a href='?src=[REF(src)];medical_records=1'>\[MED\]</a>"
+			if(client.prefs.exploitable_info)
+				line += "<a href='?src=[REF(src)];exploitable_info=1'>\[EXP\]</a>"
+		else if(user.mind?.antag_datums && client.prefs.exploitable_info)
+			for(var/a in user.mind.antag_datums)
+				var/datum/antagonist/curious_antag = a
+				if(!(curious_antag.antag_flags & CAN_SEE_EXPOITABLE_INFO))
+					continue
+				line += "<a href='?src=[REF(src)];exploitable_info=1'>\[Exploitable Info\]</a>"
+				break
+
+		. += line.Join()
+	. += "*---------*</span>"
+	//NON-MODULE CHANGES END
 
 /mob/living/proc/status_effect_examines(pronoun_replacement) //You can include this in any mob's examine() to show the examine texts of status effects!
 	var/list/dat = list()
