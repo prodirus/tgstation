@@ -178,10 +178,13 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	update_preview_icon()
 	var/list/dat = list("<center>")
 
+//NON-MODULE CHANGE:
 	dat += "<a href='?_src_=prefs;preference=tab;tab=0' [current_tab == 0 ? "class='linkOn'" : ""]>Character Settings</a>"
-	dat += "<a href='?_src_=prefs;preference=tab;tab=1' [current_tab == 1 ? "class='linkOn'" : ""]>Game Preferences</a>"
-	dat += "<a href='?_src_=prefs;preference=tab;tab=2' [current_tab == 2 ? "class='linkOn'" : ""]>OOC Preferences</a>"
-	dat += "<a href='?_src_=prefs;preference=tab;tab=3' [current_tab == 3 ? "class='linkOn'" : ""]>Custom Keybindings</a>"
+	dat += "<a href='?_src_=prefs;preference=tab;tab=1' [current_tab == 1 ? "class='linkOn'" : ""]>Character Background</a>"
+	dat += "<a href='?_src_=prefs;preference=tab;tab=2' [current_tab == 2 ? "class='linkOn'" : ""]>Game Preferences</a>"
+	dat += "<a href='?_src_=prefs;preference=tab;tab=3' [current_tab == 3 ? "class='linkOn'" : ""]>OOC Preferences</a>"
+	dat += "<a href='?_src_=prefs;preference=tab;tab=4' [current_tab == 4 ? "class='linkOn'" : ""]>Custom Keybindings</a>"
+//NON-MODULE CHANGE END
 
 	if(!path)
 		dat += "<div class='notice'>Please create an account to save your preferences</div>"
@@ -558,9 +561,66 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				dat += "</td>"
 				mutant_category = 0
 			dat += "</tr></table>"
+		//NON-MODULE CHANGES:
+		if (1) // character details
+			if(path)
+				var/savefile/S = new /savefile(path)
+				if(S)
+					dat += "<center>"
+					var/name
+					var/unspaced_slots = 0
+					for(var/i=1, i<=max_save_slots, i++)
+						unspaced_slots++
+						if(unspaced_slots > 4)
+							dat += "<br>"
+							unspaced_slots = 0
+						S.cd = "/character[i]"
+						S["real_name"] >> name
+						if(!name)
+							name = "Character[i]"
+						dat += "<a style='white-space:nowrap;' href='?_src_=prefs;preference=changeslot;num=[i];' [i == default_slot ? "class='linkOn'" : ""]>[name]</a> "
+					dat += "</center>"
 
-
-		if (1) // Game Preferences
+			dat += "<table><tr><td width='340px' height='300px' valign='top'>"
+			dat += 	"<h2>Records</h2>"
+			dat += 	"<a href='?_src_=prefs;preference=general_records;task=input'><b>General</b></a><br>"
+			if(length(general_records) <= 40)
+				if(!length(general_records))
+					dat += "\[...\]"
+				else
+					dat += "[general_records]"
+			else
+				dat += "[TextPreview(general_records)]..."
+			dat += "<BR>"
+			dat += 	"<a href='?_src_=prefs;preference=security_records;task=input'><b>Security</b></a><br>"
+			if(length(security_records) <= 40)
+				if(!length(security_records))
+					dat += "\[...\]"
+				else
+					dat += "[security_records]"
+			else
+				dat += "[TextPreview(security_records)]..."
+			dat += "<BR>"
+			dat += 	"<a href='?_src_=prefs;preference=medical_records;task=input'><b>Medical</b></a><br>"
+			if(length(medical_records) <= 40)
+				if(!length(medical_records))
+					dat += "\[...\]"
+				else
+					dat += "[medical_records]"
+			else
+				dat += "[TextPreview(medical_records)]..."
+			dat += "<BR>"
+			dat += 	"<a href='?_src_=prefs;preference=exploitable_info;task=input'><b>Exploitable Information</b></a><br>"
+			if(length(exploitable_info) <= 40)
+				if(!length(exploitable_info))
+					dat += "\[...\]"
+				else
+					dat += "[exploitable_info]"
+			else
+				dat += "[TextPreview(exploitable_info)]..."
+			dat += "<BR><BR>"
+			//NON-MODULE CHANGES END
+		if (2) // Game Preferences, NON-MODULE CHANGES
 			dat += "<table><tr><td width='340px' height='300px' valign='top'>"
 			dat += "<h2>General Settings</h2>"
 			dat += "<b>UI Style:</b> <a href='?_src_=prefs;task=input;preference=ui'>[UI_style]</a><br>"
@@ -694,7 +754,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			dat += "<br>"
 			dat += "<b>Midround Antagonist:</b> <a href='?_src_=prefs;preference=allow_midround_antag'>[(toggles & MIDROUND_ANTAG) ? "Enabled" : "Disabled"]</a><br>"
 			dat += "</td></tr></table>"
-		if(2) //OOC Preferences
+		if(3) //OOC Preferences, NON-MODULE CHANGES
 			dat += "<table><tr><td width='340px' height='300px' valign='top'>"
 			dat += "<h2>OOC Settings</h2>"
 			dat += "<b>Window Flashing:</b> <a href='?_src_=prefs;preference=winflash'>[(windowflashing) ? "Enabled":"Disabled"]</a><br>"
@@ -770,7 +830,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 				dat += "</td>"
 			dat += "</tr></table>"
-		if(3) // Custom keybindings
+		if(4) // Custom keybindings, NON-MODULE CHANGES
 			// Create an inverted list of keybindings -> key
 			var/list/user_binds = list()
 			for (var/key in key_bindings)
@@ -1286,10 +1346,31 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					if(new_age)
 						age = max(min( round(text2num(new_age)), AGE_MAX),AGE_MIN)
 
+				//NON-MODULE CHANGES:
+				if("general_records")
+					var/msg = input(usr, "Set your general records", "General Records", general_records) as message|null
+					if(msg)
+						general_records = strip_html_simple(msg, MAX_FLAVOR_LEN, TRUE)
+
+				if("security_records")
+					var/msg = input(usr, "Set your security records", "Security Records", security_records) as message|null
+					if(msg)
+						security_records = strip_html_simple(msg, MAX_FLAVOR_LEN, TRUE)
+
+				if("medical_records")
+					var/msg = input(usr, "Set your medical records", "Medical Records", medical_records) as message|null
+					if(msg)
+						medical_records = strip_html_simple(msg, MAX_FLAVOR_LEN, TRUE)
+
+				if("exploitable_info")
+					var/msg = input(usr, "Set your exploitable information, this rarely will be showed to antagonists", "Exploitable Info", exploitable_info) as message|null
+					if(msg)
+						exploitable_info = strip_html_simple(msg, MAX_FLAVOR_LEN, TRUE)
 				if("hair")
 					var/new_hair = input(user, "Choose your character's hair colour:", "Character Preference","#"+hair_color) as color|null
 					if(new_hair)
 						hair_color = sanitize_hexcolor(new_hair)
+				//NON-MODULE CHANGES END
 
 				if("hairstyle")
 					var/new_hairstyle
