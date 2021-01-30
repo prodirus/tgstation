@@ -12,3 +12,5 @@ sound/ambience/title2.ogg
 sound/ambience/clown.ogg
 sound/ambience/title1.ogg
 sound/ambience/title1.ogg
+config/title_music/sounds/Bonetrousle.ogg
+config/title_music/sounds/ASGORE.ogg

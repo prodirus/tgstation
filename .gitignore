@@ -1,8 +1,9 @@
 ###Files and folders specified here will never be tracked.
 
 #Ignore everything in datafolder and subdirectories
-/data/**/*
+#/data/**/*
 /tmp/**/*
+/data/logs/*
 
 #Ignore byond config folder.
 /cfg/**/*
