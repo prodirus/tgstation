@@ -3347,7 +3347,6 @@
 #include "jollystation_modules\code\modules\antagonists\_common\antag_datum.dm"
 #include "jollystation_modules\code\modules\client\preferences.dm"
 #include "jollystation_modules\code\modules\client\verbs\looc.dm"
-#include "jollystation_modules\code\modules\jobs\job_types\toxicologist.dm"
 #include "jollystation_modules\code\modules\mob\typing_indicator.dm"
 #include "jollystation_modules\code\modules\mob\dead\new_player\sprite_accessories.dm"
 #include "jollystation_modules\code\modules\jobs\job_types\scientist.dm"
