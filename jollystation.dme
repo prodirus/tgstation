@@ -3337,6 +3337,7 @@
 #include "interface\skin.dmf"
 #include "jollystation_modules\code\__DEFINES\keybinding.dm"
 #include "jollystation_modules\code\__DEFINES\~module_defines.dm"
+#include "jollystation_modules\code\__DEFINES\jobs.dm"
 #include "jollystation_modules\code\__HELPERS\text_vr.dm"
 #include "jollystation_modules\code\datums\keybinding\communication.dm"
 #include "jollystation_modules\code\datums\traits\_quirk_blacklist.dm"
@@ -3348,4 +3349,7 @@
 #include "jollystation_modules\code\modules\client\verbs\looc.dm"
 #include "jollystation_modules\code\modules\mob\typing_indicator.dm"
 #include "jollystation_modules\code\modules\mob\dead\new_player\sprite_accessories.dm"
+#include "jollystation_modules\code\modules\jobs\job_types\xenobiologist.dm"
+#include "jollystation_modules\code\modules\jobs\job_types\toxicologist.dm" 
+
 // END_INCLUDE
