@@ -9,6 +9,7 @@
 	exp_requirements = 60
 	exp_type = EXP_TYPE_CREW
 
+//most likely can be subtyped later
 
 	outfit = /datum/outfit/job/scientist/toxicologist
 
