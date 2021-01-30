@@ -27,7 +27,7 @@ GLOBAL_LIST_INIT(science_positions, list(
 	"Geneticist",
 	"Roboticist",
 	"Xenobiologist",
-	"Toxicologist"))
+	"Toxicologist")) //NON-MODULE CHANGE
 
 
 GLOBAL_LIST_INIT(supply_positions, list(
