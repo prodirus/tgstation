@@ -1,12 +1,9 @@
 {
 	"version": 1,
-	"map_name": "Lima Station",
-	"map_path": "map_files/LimaStation",
-	"map_file": "LimaStation.dmm",
+	"map_name": "Runtime Station",
+	"map_path": "map_files/debug",
+	"map_file": "runtimestation.dmm",
 	"shuttles": {
-		"emergency": "emergency_lima",
-		"whiteship": "whiteship_pubby",
-		"ferry": "ferry_fancy",
-		"cargo": "cargo_lima"
+		"cargo": "cargo_delta"
 	}
 }

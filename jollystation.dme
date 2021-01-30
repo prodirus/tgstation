@@ -3337,6 +3337,8 @@
 #include "interface\skin.dmf"
 #include "jollystation_modules\code\__DEFINES\keybinding.dm"
 #include "jollystation_modules\code\__DEFINES\~module_defines.dm"
+#include "jollystation_modules\code\__DEFINES\access.dm"
+#include "jollystation_modules\code\__DEFINES\jobs.dm"
 #include "jollystation_modules\code\__HELPERS\text_vr.dm"
 #include "jollystation_modules\code\datums\keybinding\communication.dm"
 #include "jollystation_modules\code\datums\traits\_quirk_blacklist.dm"
@@ -3346,6 +3348,11 @@
 #include "jollystation_modules\code\modules\antagonists\_common\antag_datum.dm"
 #include "jollystation_modules\code\modules\client\preferences.dm"
 #include "jollystation_modules\code\modules\client\verbs\looc.dm"
+#include "jollystation_modules\code\modules\jobs\job_types\toxicologist.dm"
 #include "jollystation_modules\code\modules\mob\typing_indicator.dm"
 #include "jollystation_modules\code\modules\mob\dead\new_player\sprite_accessories.dm"
+#include "jollystation_modules\code\modules\jobs\job_types\scientist.dm"
+#include "jollystation_modules\code\modules\jobs\job_types\xenobiologist.dm"
+#include "jollystation_modules\code\modules\jobs\job_types\toxicologist.dm" //can we fucking space these its like im reading a textbook with size 5 font
+
 // END_INCLUDE
