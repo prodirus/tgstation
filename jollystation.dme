@@ -3353,6 +3353,6 @@
 #include "jollystation_modules\code\modules\mob\dead\new_player\sprite_accessories.dm"
 #include "jollystation_modules\code\modules\jobs\job_types\scientist.dm"
 #include "jollystation_modules\code\modules\jobs\job_types\xenobiologist.dm"
-#include "jollystation_modules\code\modules\jobs\job_types\toxicologist.dm" //can we fucking space these its like im reading a textbook with size 5 font
+#include "jollystation_modules\code\modules\jobs\job_types\toxicologist.dm" 
 
 // END_INCLUDE
