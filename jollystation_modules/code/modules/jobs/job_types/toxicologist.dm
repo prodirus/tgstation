@@ -25,12 +25,3 @@
 /datum/outfit/job/scientist/toxicologist
 	name = "Toxicologist"
 	jobtype = /datum/job/toxicologist
-
-	belt = /obj/item/pda/toxins
-	ears = /obj/item/radio/headset/headset_sci
-	uniform = /obj/item/clothing/under/rank/rnd/scientist
-	shoes = /obj/item/clothing/shoes/sneakers/white
-	suit = /obj/item/clothing/suit/toggle/labcoat/science
-
-	backpack = /obj/item/storage/backpack/science
-	satchel = /obj/item/storage/backpack/satchel/tox
