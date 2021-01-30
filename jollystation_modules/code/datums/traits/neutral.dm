@@ -12,6 +12,8 @@
 	medical_record_text = "Patient is of average height."
 	/// The amount we resize the quirk holder for.
 	var/resize_amount = 1
+	/// the amount we offset the person for, with their new size.
+	var/y_offset = 0
 
 /datum/quirk/size_change/add()
 	if(resize_amount > 1.1)
@@ -21,6 +23,8 @@
 
 	quirk_holder.resize = resize_amount
 	quirk_holder.update_transform()
+	quirk_holder.base_pixel_y += y_offset
+	quirk_holder.pixel_y += y_offset
 
 /datum/quirk/size_change/remove()
 	if(resize_amount > 1.1)
@@ -30,6 +34,8 @@
 
 	quirk_holder.resize = 1/resize_amount
 	quirk_holder.update_transform()
+	quirk_holder.base_pixel_y -= y_offset
+	quirk_holder.pixel_y -= y_offset
 
 // All the height changing quirks.
 // They're alphabetized because the quirk list is and I wanted to sort them by height order.
@@ -42,6 +48,7 @@
 	lose_text = "<span class='notice'>You feel even more shorter.</span>"
 	medical_record_text = "Patient has extremely un-natural height and size."
 	resize_amount = 1.5
+	y_offset = 8
 
 // Very large
 /datum/quirk/size_change/v_large
@@ -51,6 +58,7 @@
 	lose_text = "<span class='notice'>You feel even shorter.</span>"
 	medical_record_text = "Patient has very un-natural height and size."
 	resize_amount = 1.2
+	y_offset = 3
 
 // Large
 /datum/quirk/size_change/large
@@ -60,6 +68,7 @@
 	lose_text = "<span class='notice'>You feel shorter.</span>"
 	medical_record_text = "Patient has un-natural height and size."
 	resize_amount = 1.1
+	y_offset = 2
 
 // Short
 /datum/quirk/size_change/short
@@ -69,6 +78,7 @@
 	lose_text = "<span class='notice'>You feel taller.</span>"
 	medical_record_text = "Patient is un-naturally short in stature."
 	resize_amount = 0.9
+	y_offset = -2
 
 // Very Short
 /datum/quirk/size_change/v_short
@@ -78,6 +88,7 @@
 	lose_text = "<span class='notice'>You feel even taller.</span>"
 	medical_record_text = "Patient is very un-naturally short in stature."
 	resize_amount = 0.8
+	y_offset = -3
 
 // Very Very Short
 /datum/quirk/size_change/vv_short
@@ -87,3 +98,4 @@
 	lose_text = "<span class='notice'>You feel even more taller.</span>"
 	medical_record_text = "Patient is extremely un-naturally short in stature."
 	resize_amount = 0.7
+	y_offset = -5
