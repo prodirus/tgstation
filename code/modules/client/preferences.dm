@@ -582,6 +582,16 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					dat += "</center>"
 
 			dat += "<table><tr><td width='340px' height='300px' valign='top'>"
+			dat += 	"<h2>Flavor</h2>"
+			dat += 	"<a href='?_src_=prefs;preference=flavor_text;task=input'><b>Examine Flavor Text</b></a><br>"
+			if(length(flavor_text) <= 40)
+				if(!length(flavor_text))
+					dat += "\[...\]"
+				else
+					dat += "[flavor_text]"
+			else
+				dat += "[TextPreview(flavor_text)]..."
+			dat += "<BR>"
 			dat += 	"<h2>Records</h2>"
 			dat += 	"<a href='?_src_=prefs;preference=general_records;task=input'><b>General</b></a><br>"
 			if(length(general_records) <= 40)
@@ -1347,6 +1357,11 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						age = max(min( round(text2num(new_age)), AGE_MAX),AGE_MIN)
 
 				//NON-MODULE CHANGES:
+				if("flavor_text")
+					var/msg = input(usr, "Set your flavor text on examine", "Flavor Text", flavor_text) as message|null
+					if(msg)
+						flavor_text = strip_html_simple(msg, MAX_FLAVOR_LEN, TRUE)
+
 				if("general_records")
 					var/msg = input(usr, "Set your general records", "General Records", general_records) as message|null
 					if(msg)
@@ -1366,11 +1381,12 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					var/msg = input(usr, "Set your exploitable information, this rarely will be showed to antagonists", "Exploitable Info", exploitable_info) as message|null
 					if(msg)
 						exploitable_info = strip_html_simple(msg, MAX_FLAVOR_LEN, TRUE)
+				//NON-MODULE CHANGES END
+
 				if("hair")
 					var/new_hair = input(user, "Choose your character's hair colour:", "Character Preference","#"+hair_color) as color|null
 					if(new_hair)
 						hair_color = sanitize_hexcolor(new_hair)
-				//NON-MODULE CHANGES END
 
 				if("hairstyle")
 					var/new_hairstyle
