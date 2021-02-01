@@ -2,6 +2,8 @@ GLOBAL_LIST_INIT(command_positions, list(
 	"Captain",
 	"Head of Personnel",
 	"Head of Security",
+	"Head of Service", //NON-MODULE CHANGE
+	"Quartermaster", //NON-MODULE CHANGE
 	"Chief Engineer",
 	"Research Director",
 	"Chief Medical Officer"))
@@ -38,6 +40,7 @@ GLOBAL_LIST_INIT(supply_positions, list(
 
 GLOBAL_LIST_INIT(service_positions, list(
 	"Head of Personnel",
+	"Head of Service", // NON-MODULE CHANGE
 	"Bartender",
 	"Botanist",
 	"Cook",
