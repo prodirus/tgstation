@@ -3,3 +3,4 @@
 	desc = "The headset of the ex janitor-lawyer-clown-botanist-mime-chef."
 	icon_state = "com_headset"
 	keyslot = new /obj/item/encryptionkey/heads/hosv
+	
