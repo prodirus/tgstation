@@ -1,10 +1,10 @@
 /datum/job/bartender
 	title = "Bartender"
-	department_head = list("Head of Personnel")
+	department_head = list("Head of Service") // NON-MODULE CHANGE
 	faction = "Station"
 	total_positions = 1
 	spawn_positions = 1
-	supervisors = "the head of personnel"
+	supervisors = "the head of service" // NON-MODULE CHANGE
 	selection_color = "#bbe291"
 
 	outfit = /datum/outfit/job/bartender
