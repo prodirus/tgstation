@@ -39,7 +39,6 @@ GLOBAL_LIST_INIT(supply_positions, list(
 
 
 GLOBAL_LIST_INIT(service_positions, list(
-	"Head of Personnel",
 	"Head of Service", // NON-MODULE CHANGE
 	"Bartender",
 	"Botanist",
