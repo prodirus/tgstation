@@ -1,5 +1,30 @@
 /// -- Extension of examine, examine_more, and flavortext code. --
 
+/*
+ *	Flavor text and Personal Records On Examine INS AND OUTS (implementation by mrmelbert)
+ *	- Admin ghosts, when examining, are given a list of buttons for all the records of a player.
+ *		(This can probably be moved to examine_more if it's too annoying)
+ *	- When you examine yourself, you will always see your own records and flavor text, no matter what.
+ *	- When another person examines you, the following happens:
+ *		> If your face is covered (by helmet or mask), they will not see your favor text or records, unless you're wearing your ID.
+ *		> If you are wearing another player's ID (In disguise as another active player), they will see the other player's records and flavor instead.
+ *		> If you are not wearing another player's ID (if you are unknown, or wearing a non-player's ID), no records or flavor text will show up as if none were set.
+ *		> If you do not have any flavor text or records set, nothing special happens. The examine is normal.
+ *
+ *	- Flavor text is displayed to other players without any pre-requisites. It displays [EXAMINE_FLAVOR_MAX_DISPLAYED] (65 by default) characters before being trimmed.
+ *	- Exploitive information is displayed via link to antagonists with the proper flags.
+ *	- Security records are displayed via link to people with sechuds that have security access.
+ *	- Medical records are displayed via link to people with medhuds that have medical access.
+ *
+ *	- To actually access the additional records (if you have the allowance to)...
+ *		You need to double examine (examine_more) the person, which will display the buttons for each record.
+ *		Double-examining wil also print out the full flavor text of the person being examined in addition to links to records.
+ *
+ *	- Bonus: If you are not connected to the server and someone examines you...
+ *		Instead of showing flavor text or records (as they are saved on the client)
+ *		an AFK timer is shown to the examiner, which displays how long you have been disconnected for.
+ */
+
 /// Defines for the message to display when finding more info.
 #define ADDITIONAL_INFO_RECORDS (1<<0)
 #define ADDITIONAL_INFO_EXPLOITABLE (1<<1)
@@ -88,7 +113,7 @@
 		expanded_examine += "</span>*---------*\n"
 		. += expanded_examine
 
-// This isn't even an extension of examine_more this is the only definition for human/examine_more, isn't that neat?
+// This isn't even an extension of examine_more this is the only definition for /human/examine_more, isn't that neat?
 /mob/living/carbon/human/examine_more(mob/user)
 	. = ..()
 	// Who's identity are we dealing with? In most cases it's the same as [src], but it could be disguised people.
