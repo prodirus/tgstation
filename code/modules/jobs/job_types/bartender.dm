@@ -1,6 +1,6 @@
 /datum/job/bartender
 	title = "Bartender"
-	department_head = list("Head of Service")
+	department_head = list("Head of Service") // NON-MODULE CHANGE
 	faction = "Station"
 	total_positions = 1
 	spawn_positions = 1
