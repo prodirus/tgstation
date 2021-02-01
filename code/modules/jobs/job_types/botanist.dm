@@ -1,10 +1,10 @@
 /datum/job/hydro
 	title = "Botanist"
-	department_head = list("Head of Personnel")
+	department_head = list("Head of Service") // NON-MODULE CHANGE
 	faction = "Station"
 	total_positions = 3
 	spawn_positions = 2
-	supervisors = "the head of personnel"
+	supervisors = "the head of service" // NON-MODULE CHANGE
 	selection_color = "#bbe291"
 
 	outfit = /datum/outfit/job/botanist

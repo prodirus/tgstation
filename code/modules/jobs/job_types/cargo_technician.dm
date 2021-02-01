@@ -1,15 +1,15 @@
 /datum/job/cargo_tech
 	title = "Cargo Technician"
-	department_head = list("Head of Personnel")
+	department_head = list("Quartermaster") // NON-MODULE CHANGE
 	faction = "Station"
 	total_positions = 3
 	spawn_positions = 2
-	supervisors = "the quartermaster and the head of personnel"
+	supervisors = "the quartermaster" // NON-MODULE CHANGE
 	selection_color = "#dcba97"
 
 	outfit = /datum/outfit/job/cargo_tech
 
-	access = list(ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_QM, ACCESS_MINING, ACCESS_MECH_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM)
+	access = list(ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_MINING, ACCESS_MECH_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_MAINT_TUNNELS, ACCESS_CARGO, ACCESS_MAILSORTING, ACCESS_MINERAL_STOREROOM, ACCESS_MECH_MINING)
 	paycheck = PAYCHECK_EASY
 	paycheck_department = ACCOUNT_CAR

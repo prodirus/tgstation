@@ -1,9 +1,10 @@
 ###Files and folders specified here will never be tracked.
 
 #Ignore everything in datafolder and subdirectories
-#/data/**/*
+/data/**/*
 /tmp/**/*
 /data/logs/*
+data/next_map.json
 
 #Ignore byond config folder.
 /cfg/**/*
@@ -235,3 +236,4 @@ tools/LinuxOneShot/TGS_Logs
 
 # Common build tooling
 !/tools/build
+
