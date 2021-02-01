@@ -1,10 +1,10 @@
 /datum/job/janitor
 	title = "Janitor"
-	department_head = list("Head of Service")
+	department_head = list("Head of Service") // NON-MODULE CHANGE
 	faction = "Station"
 	total_positions = 2
 	spawn_positions = 1
-	supervisors = "the head of service"
+	supervisors = "the head of service" // NON-MODULE CHANGE
 	selection_color = "#bbe291"
 
 	outfit = /datum/outfit/job/janitor

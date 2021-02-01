@@ -1,10 +1,10 @@
 /datum/job/cargo_tech
 	title = "Cargo Technician"
-	department_head = list("Quartermaster")
+	department_head = list("Quartermaster") // NON-MODULE CHANGE
 	faction = "Station"
 	total_positions = 3
 	spawn_positions = 2
-	supervisors = "the quartermaster and the head of personnel"
+	supervisors = "the quartermaster" // NON-MODULE CHANGE
 	selection_color = "#dcba97"
 
 	outfit = /datum/outfit/job/cargo_tech

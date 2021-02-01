@@ -1,10 +1,10 @@
 /datum/job/mining
 	title = "Shaft Miner"
-	department_head = list("Quartermaster")
+	department_head = list("Quartermaster") // NON-MODULE CHANGE
 	faction = "Station"
 	total_positions = 3
 	spawn_positions = 3
-	supervisors = "the quartermaster"
+	supervisors = "the quartermaster" // NON-MODULE CHANGE
 	selection_color = "#dcba97"
 
 	outfit = /datum/outfit/job/miner
