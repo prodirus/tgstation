@@ -33,7 +33,7 @@
 
 	return null
 
-// Returns the mob's flavor text if it has any.
+// Returns the mob's flavor text if it has any. Includes a newline
 /mob/living/carbon/human/proc/get_flavor_text(shorten = TRUE)
 	if(!client)
 		CRASH("get_flavor_text() called on something without a client")
@@ -44,10 +44,8 @@
 	if(!client.prefs.flavor_text)
 		return null
 
-	/// Returned text.
-	var/returned_flavor = ""
 	/// The text we display, formatted
-	var/displayed_flavor_text = "<span class='info'><i>"
+	var/displayed_flavor_text = ""
 	/// The raw flavor text.
 	var/found_flavor_text = client.prefs.flavor_text
 	// Shorten the flavor text if it exceeds our limit and we are told to.
@@ -58,12 +56,10 @@
 		displayed_flavor_text += found_flavor_text
 		displayed_flavor_text += "</i>"
 
-	displayed_flavor_text += "</span>\n"
-	returned_flavor = displayed_flavor_text
+	displayed_flavor_text += "\n"
+	return displayed_flavor_text
 
-	return returned_flavor
-
-// Returns href buttons to the mob's records text - exploitable stuff, security, and medical.
+// Returns href buttons to the mob's records text - exploitable stuff, security, and medical. Includes a newline
 /mob/living/carbon/human/proc/get_records_text(mob/living/carbon/human/examiner)
 	if(!client)
 		CRASH("get_records_text() called on something without a client")
@@ -72,7 +68,7 @@
 		CRASH("get_records_text() called on something without a saved data prefs")
 
 	if(!examiner)
-		CRASH("get_records_text() called without a user argument - proc is not implemented for null examiner")
+		CRASH("get_records_text() called without a user argument - proc is not implemented for a null examiner")
 
 	// Record links, formatted, to return.
 	var/returned_links = ""
@@ -94,4 +90,5 @@
 	if(client.prefs.security_records && HAS_TRAIT(examiner, TRAIT_SECURITY_HUD) && access && (ACCESS_SECURITY in access))
 		returned_links += "<a href='?src=[REF(src)];security_records=1'>\[Past Security Records\]</a>"
 
+	returned_links += "\n"
 	return returned_links

@@ -13,17 +13,17 @@
 	var/expanded_examine = "<span class='info'>"
 	// Whether or not we would have additional info on `examine_more()`.
 	var/has_additional_info
-	// Who's identity are we dealing with? In most cases it's the same as [src], but it could be disguised people.
+	// Who's identity are we dealing with? In most cases it's the same as [src], but it could be disguised people, or null.
 	var/mob/living/carbon/human/known_identity = get_visible_identity(user)
 
-	// Admins can view all records.
 	if(client)
+		// Admins can view all records.
 		if(user.client.holder && isAdminObserver(user))
 			// Formatted output list of records.
 			var/list/line = list()
 
 			if(client.prefs.flavor_text)
-				line += "<a href='?src=[REF(src)];flavor_text=1'>\[FLAVOR\]</a>"
+				line += "<a href='?src=[REF(src)];flavor_text=1'>\[FLA\]</a>"
 			if(client.prefs.general_records)
 				line += "<a href='?src=[REF(src)];general_records=1'>\[GEN\]</a>"
 			if(client.prefs.security_records)
@@ -33,11 +33,16 @@
 			if(client.prefs.exploitable_info)
 				line += "<a href='?src=[REF(src)];exploitable_info=1'>\[EXP\]</a>"
 
-			expanded_examine += line.Join()
-			expanded_examine += "\n"
+			if(line.len)
+				expanded_examine += "[ADMIN_LOOKUPFLW(src)] - "
+				expanded_examine += line.Join()
+				expanded_examine += "\n"
 
-		// if we've got a client, and an identity with a client, then we can check for prefs
-		if(known_identity?.client)
+		if(!known_identity)
+			expanded_examine += "<span class='smallnoticeital'>You can't make out any details of this individual.</span>\n"
+
+		// if we have an identity, we can check for flavor and records
+		else if(known_identity.client)
 			// If the client has flavor text set.
 			if(known_identity.client.prefs.flavor_text)
 				expanded_examine += known_identity.get_flavor_text(TRUE)
@@ -75,15 +80,13 @@
 			if(added_info)
 				expanded_examine += "<span class='smallnoticeital'>This individual has [added_info] if you <b>examine closer.<b/></span>\n"
 
-		// if the mob doesn't have a client, show how long they've been disconnected for.
+	// if the mob doesn't have a client, show how long they've been disconnected for.
 	else if(last_connection_time)
 		expanded_examine += "<span class='info'><i>[p_theyve(TRUE)] been unresponsive for <b>[round((world.time - last_connection_time) / (60*60), 0.1)] minute(s).</b></i></span>\n"
 
 	if(length(expanded_examine) >= 20) // >= 20 instead of 0 to account for the span
-		expanded_examine += "*---------*</span>\n"
+		expanded_examine += "</span>*---------*\n"
 		. += expanded_examine
-
-	return .
 
 // This isn't even an extension of examine_more this is the only definition for human/examine_more, isn't that neat?
 /mob/living/carbon/human/examine_more(mob/user)
@@ -91,7 +94,7 @@
 	// Who's identity are we dealing with? In most cases it's the same as [src], but it could be disguised people.
 	var/mob/living/carbon/human/known_identity = get_visible_identity(user)
 	if(client && known_identity?.client)
-		return . + "<span class='info'>[known_identity.get_flavor_text(FALSE)][known_identity.get_records_text(user)]</span>"
+		. += "<span class='info'>[known_identity.get_flavor_text(FALSE)][known_identity.get_records_text(user)]</span>"
 
 #undef ADDITIONAL_INFO_RECORDS
 #undef ADDITIONAL_INFO_EXPLOITABLE
