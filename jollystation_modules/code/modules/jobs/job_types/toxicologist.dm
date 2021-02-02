@@ -28,3 +28,4 @@
 	jobtype = /datum/job/toxicologist
 
 	id = /obj/item/card/id/module
+	
