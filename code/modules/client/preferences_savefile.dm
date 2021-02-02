@@ -86,12 +86,15 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 
 		if (!found_block_movement)
 			LAZYADD(key_bindings["Ctrl"], "block_movement")
+
 		//NON-MODULE CHANGES:
-		features["general_records"]			= strip_html_simple(features["general_records"], MAX_FLAVOR_LEN, TRUE)
-		features["security_records"]			= strip_html_simple(features["security_records"], MAX_FLAVOR_LEN, TRUE)
-		features["medical_records"]			= strip_html_simple(features["medical_records"], MAX_FLAVOR_LEN, TRUE)
-		features["exploitable_info"]			= strip_html_simple(features["exploitable_info"], MAX_FLAVOR_LEN, TRUE)
+		features["flavor_text"]	= strip_html_simple(features["flavor_text"], MAX_FLAVOR_LEN, TRUE)
+		features["general_records"] = strip_html_simple(features["general_records"], MAX_FLAVOR_LEN, TRUE)
+		features["security_records"] = strip_html_simple(features["security_records"], MAX_FLAVOR_LEN, TRUE)
+		features["medical_records"] = strip_html_simple(features["medical_records"], MAX_FLAVOR_LEN, TRUE)
+		features["exploitable_info"] = strip_html_simple(features["exploitable_info"], MAX_FLAVOR_LEN, TRUE)
 		//NON-MODULE CHANGES END
+
 /datum/preferences/proc/update_character(current_version, savefile/S)
 	return
 
@@ -255,6 +258,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	pda_color		= sanitize_hexcolor(pda_color, 6, 1, initial(pda_color))
 	key_bindings 	= sanitize_keybindings(key_bindings)
 	//NON-MODULE CHANGES:
+	flavor_text = sanitize_text(S["flavor_text"])
 	security_records = sanitize_text(S["security_records"])
 	medical_records = sanitize_text(S["medical_records"])
 	general_records = sanitize_text(S["general_records"])
@@ -400,10 +404,11 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	READ_FILE(S["feature_moth_markings"], features["moth_markings"])
 	READ_FILE(S["persistent_scars"] , persistent_scars)
 	//NON-MODULE CHANGES:
-	READ_FILE(S["security_records"]			, security_records)
-	READ_FILE(S["medical_records"]			, medical_records)
-	READ_FILE(S["general_records"]			, general_records)
-	READ_FILE(S["exploitable_info"]			, exploitable_info)
+	READ_FILE(S["flavor_text"] , flavor_text)
+	READ_FILE(S["security_records"] , security_records)
+	READ_FILE(S["medical_records"] , medical_records)
+	READ_FILE(S["general_records"] , general_records)
+	READ_FILE(S["exploitable_info"] , exploitable_info)
 	//NON-MODULE CHANGES END
 	if(!CONFIG_GET(flag/join_with_mutant_humans))
 		features["tail_human"] = "none"
@@ -557,10 +562,11 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	WRITE_FILE(S["feature_moth_markings"]		, features["moth_markings"])
 	WRITE_FILE(S["persistent_scars"]			, persistent_scars)
 	//NON-MODULE CHANGES:
-	WRITE_FILE(S["general_records"]			, general_records)
-	WRITE_FILE(S["security_records"]			, security_records)
-	WRITE_FILE(S["medical_records"]			, medical_records)
-	WRITE_FILE(S["exploitable_info"]			, exploitable_info)
+	WRITE_FILE(S["flavor_text"] , flavor_text)
+	WRITE_FILE(S["general_records"] , general_records)
+	WRITE_FILE(S["security_records"] , security_records)
+	WRITE_FILE(S["medical_records"] , medical_records)
+	WRITE_FILE(S["exploitable_info"] , exploitable_info)
 	//NON-MODULE CHANGES END
 	//Custom names
 	for(var/custom_name_id in GLOB.preferences_custom_names)
