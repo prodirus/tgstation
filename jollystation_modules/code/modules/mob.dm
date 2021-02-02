@@ -9,3 +9,4 @@
                 var/image/I = image('jollystation_modules/icons/mob/hud.dmi', src, "")
                 I.appearance_flags = RESET_COLOR|RESET_TRANSFORM
                 hud_list[hud] = I
+                
