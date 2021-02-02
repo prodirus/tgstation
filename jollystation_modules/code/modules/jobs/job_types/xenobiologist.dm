@@ -27,3 +27,4 @@
 	jobtype = /datum/job/xenobiologist
 	
 	id = /obj/item/card/id/module
+	
