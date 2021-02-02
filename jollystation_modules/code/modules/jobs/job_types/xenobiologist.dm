@@ -25,3 +25,5 @@
 /datum/outfit/job/scientist/xenobiologist
 	name = "Xenobiologist"
 	jobtype = /datum/job/xenobiologist
+	
+	id = /obj/item/card/id/module
