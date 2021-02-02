@@ -9,3 +9,4 @@
 	desc = "A headset used by the QM."
 	icon_state = "cargo_headset"
 	keyslot = new /obj/item/encryptionkey/heads/qm
+	
