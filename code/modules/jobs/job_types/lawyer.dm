@@ -1,10 +1,10 @@
 /datum/job/lawyer
 	title = "Lawyer"
-	department_head = list("Head of Service", "Head of Security") // NON-MODULE CHANGE
+	department_head = list("Head of Personnel", "Head of Security") // NON-MODULE CHANGE
 	faction = "Station"
 	total_positions = 2
 	spawn_positions = 2
-	supervisors = "the head of serivce and head of security" // NON-MODULE CHANGE
+	supervisors = "the head of personnel and head of security" // NON-MODULE CHANGE
 	selection_color = "#bbe291"
 	var/lawyers = 0 //Counts lawyer amount
 
