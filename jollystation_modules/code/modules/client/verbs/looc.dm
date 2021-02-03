@@ -3,9 +3,10 @@
 /// For admin disabling LOOC
 GLOBAL_VAR_INIT(looc_allowed, TRUE)
 
+/// The color for LOOC chat.
+#define LOOC_SPAN_COLOR "#00a8c5"
 /// The color the prefix for LOOC uses.
 #define LOOC_PREFIX_COLOR "#5f008b"
-
 
 /// The LOOC verb
 /client/verb/looc(msg as text)
@@ -38,7 +39,10 @@ GLOBAL_VAR_INIT(looc_allowed, TRUE)
 
 	// Really?
 	if(!SSticker.HasRoundStarted())
-		to_chat(src, "<span class='danger'>The round hasn't started yet dummy. Use OOC.</span>")
+		to_chat(src, "<span class='danger'>The round hasn't started yet, dummy! Just use OOC.</span>")
+		return
+	if(istype(mob, /mob/dead/new_player))
+		to_chat(src, "<span class='danger'>You're not in game to broadcast LOOC anywhere! Use OOC.</span>")
 		return
 
 	// Check for people with OOC muted
@@ -93,8 +97,6 @@ GLOBAL_VAR_INIT(looc_allowed, TRUE)
 		if(target.prefs.toggles & CHAT_OOC)
 			/// What to prefix their display name
 			var/prefix = ""
-			/// Bonus logging stuff for admins
-			var/display_admin = ""
 			/// Whether or not to send this target a message at the end
 			var/send = FALSE
 
@@ -122,11 +124,11 @@ GLOBAL_VAR_INIT(looc_allowed, TRUE)
 				if(!send)
 					prefix += " (Relayed)"
 				if(target != src)
-					display_admin = "([ADMIN_LOOKUPFLW(key)])"
+					display_name = "([ADMIN_LOOKUPFLW(mob)])"
 				send = TRUE
 
 			if(send)
-				to_chat(target, "<span class='ooc'><span class='prefix'><font color='[LOOC_PREFIX_COLOR]'>LOOC[prefix]:</font> </span><EM>[display_admin ? "[display_admin]" : "[display_name]"]:</EM> <span class='message'>[msg]</span></span></span>")
+				to_chat(target, "<span class='looc'><b><span class='prefix'><font color='[LOOC_PREFIX_COLOR]'>LOOC[prefix]:</font> </span><font color='[LOOC_SPAN_COLOR]'><EM>["[display_name]"]:</EM> <span class='message'>[msg]</span></span></b></font></span>")
 
 // OOP getters be like
 /mob/proc/get_looc_source()
