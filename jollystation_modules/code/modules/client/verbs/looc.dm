@@ -128,7 +128,7 @@ GLOBAL_VAR_INIT(looc_allowed, TRUE)
 				send = TRUE
 
 			if(send)
-				to_chat(target, "<font color='[LOOC_SPAN_COLOR]'><b><span class='prefix'><font color='[LOOC_PREFIX_COLOR]'>LOOC[prefix]:</font> </span><EM>[display_name]:</EM> <span class='message'>[msg]</span></span></b></font>", type=MESSAGE_TYPE_LOCALCHAT)
+				to_chat(target, "<span class='looc'><b><span class='prefix'><font color='[LOOC_PREFIX_COLOR]'>LOOC[prefix]:</font> </span><font color='[LOOC_SPAN_COLOR]'><EM>["[display_name]"]:</EM> <span class='message'>[msg]</span></span></b></font></span>")
 
 // OOP getters be like
 /mob/proc/get_looc_source()
