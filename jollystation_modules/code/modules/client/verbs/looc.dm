@@ -99,6 +99,8 @@ GLOBAL_VAR_INIT(looc_allowed, TRUE)
 			var/prefix = ""
 			/// Whether or not to send this target a message at the end
 			var/send = FALSE
+			/// Admin-logging
+			var/display_admin = ""
 
 			// If our target is in hearing range, then send them the message
 			if(target.mob in heard)
@@ -124,11 +126,11 @@ GLOBAL_VAR_INIT(looc_allowed, TRUE)
 				if(!send)
 					prefix += " (Relayed)"
 				if(target != src)
-					display_name = "([ADMIN_LOOKUPFLW(mob)])"
+					display_admin = "([ADMIN_LOOKUPFLW(mob)])"
 				send = TRUE
 
 			if(send)
-				to_chat(target, "<span class='looc'><b><span class='prefix'><font color='[LOOC_PREFIX_COLOR]'>LOOC[prefix]:</font> </span><font color='[LOOC_SPAN_COLOR]'><EM>["[display_name]"]:</EM> <span class='message'>[msg]</span></span></b></font></span>")
+				to_chat(target, "<span class='looc'><b><span class='prefix'><font color='[LOOC_PREFIX_COLOR]'>LOOC[prefix]:</font> </span><font color='[LOOC_SPAN_COLOR]'><EM>[display_admin? "[display_admin]" : "[display_name]"]:</EM> <span class='message'>[msg]</span></span></b></font></span>")
 
 // OOP getters be like
 /mob/proc/get_looc_source()
