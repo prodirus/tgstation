@@ -236,5 +236,4 @@ tools/LinuxOneShot/TGS_Logs
 
 # Common build tooling
 !/tools/build
-
-data/player_saves/j/jolly66/preferences.sav
+code/modules/tgui/USE_BUILD_BAT_INSTEAD_OF_DREAM_MAKER.dm
