@@ -87,9 +87,19 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 		if (!found_block_movement)
 			LAZYADD(key_bindings["Ctrl"], "block_movement")
 
+<<<<<<< HEAD
+		//NON-MODULE CHANGES:
+		features["flavor_text"]	= strip_html_simple(features["flavor_text"], MAX_FLAVOR_LEN, TRUE)
+		features["general_records"] = strip_html_simple(features["general_records"], MAX_FLAVOR_LEN, TRUE)
+		features["security_records"] = strip_html_simple(features["security_records"], MAX_FLAVOR_LEN, TRUE)
+		features["medical_records"] = strip_html_simple(features["medical_records"], MAX_FLAVOR_LEN, TRUE)
+		features["exploitable_info"] = strip_html_simple(features["exploitable_info"], MAX_FLAVOR_LEN, TRUE)
+		//NON-MODULE CHANGES END
+=======
 	if (current_version < 39)
 		LAZYADD(key_bindings["F"], "toggle_combat_mode")
 		LAZYADD(key_bindings["4"], "toggle_combat_mode")
+>>>>>>> 691bf2585cb211762788a5be527d20b5f7220f88
 
 /datum/preferences/proc/update_character(current_version, savefile/S)
 	return
