@@ -16,3 +16,5 @@ config/title_music/sounds/Bonetrousle.ogg
 config/title_music/sounds/ASGORE.ogg
 config/title_music/sounds/Once Upon A Time .ogg
 config/title_music/sounds/ASGORE.ogg
+config/title_music/sounds/DISGRACE TO THE UNIFORM.ogg
+config/title_music/sounds/ASGORE.ogg
