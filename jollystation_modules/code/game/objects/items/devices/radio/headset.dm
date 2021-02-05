@@ -1,8 +1,9 @@
-/obj/item/radio/headset/heads/hosv
-	name = "\proper the head of service's headset"
-	desc = "The headset of the ex janitor-lawyer-clown-botanist-mime-chef."
-	icon_state = "com_headset"
-	keyslot = new /obj/item/encryptionkey/heads/hosv
+/obj/item/radio/headset/heads/bo/alt
+	name = "\proper the bridge officers's bowman headset"
+	desc = "The headset of the man or woman in charge of assisting and protecting the heads of staff. Protects ears from flashbangs."
+	icon_state = "com_headset_alt"
+	inhand_icon_state = "com_headset_alt"
+	keyslot = new /obj/item/encryptionkey/heads/bo/alt
 	
 /obj/item/radio/headset/heads/headset_qm
 	name = "supply radio headset"

@@ -1,10 +1,10 @@
 /datum/job/curator
 	title = "Curator"
-	department_head = list("Head of Service") // NON-MODULE CHANGE
+	department_head = list("Head of Personnel") 
 	faction = "Station"
 	total_positions = 1
 	spawn_positions = 1
-	supervisors = "the head of service" // NON-MODULE CHANGE
+	supervisors = "the head of personnel" 
 	selection_color = "#bbe291"
 
 	outfit = /datum/outfit/job/curator
