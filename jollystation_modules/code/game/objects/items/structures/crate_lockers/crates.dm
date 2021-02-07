@@ -61,36 +61,38 @@
 	icon_state = "plasmacrate"
 	desc = "A steel crate filled to the brim with resources. This one is from centcom."
 
+/obj/structure/closet/crate/resource_cache/normal
+
 /// Basic building mats (metal and glass)
 //---
-/obj/structure/closet/crate/resource_cache/metals
+/obj/structure/closet/crate/resource_cache/normal/metals
 	icon_state = "engi_crate"
 	resources = list(/obj/item/stack/sheet/metal = 50, \
 					/obj/item/stack/sheet/glass = 50)
 
-/obj/structure/closet/crate/resource_cache/metals/low
+/obj/structure/closet/crate/resource_cache/normal/metals/low
 	resources = list(/obj/item/stack/sheet/metal = 30, \
 					/obj/item/stack/sheet/glass = 25)
 
-/obj/structure/closet/crate/resource_cache/metals/high
+/obj/structure/closet/crate/resource_cache/normal/metals/high
 	resources = list(/obj/item/stack/sheet/metal = 120, \
 					/obj/item/stack/sheet/glass = 100)
 //---
 
 /// Rare metals (silver and gold)
 //---
-/obj/structure/closet/crate/resource_cache/rare_metals
+/obj/structure/closet/crate/resource_cache/normal/rare_metals
 	icon_state = "engi_secure_crate"
 	resources = list(/obj/item/stack/sheet/mineral/gold = 20, \
 					/obj/item/stack/sheet/mineral/silver = 25, \
 					/obj/item/stack/sheet/mineral/titanium = 30 )
 
-/obj/structure/closet/crate/resource_cache/rare_metals/low
+/obj/structure/closet/crate/resource_cache/normal/rare_metals/low
 	resources = list(/obj/item/stack/sheet/mineral/gold = 10, \
 					/obj/item/stack/sheet/mineral/silver = 12, \
 					/obj/item/stack/sheet/mineral/titanium = 20 )
 
-/obj/structure/closet/crate/resource_cache/rare_metals/high
+/obj/structure/closet/crate/resource_cache/normal/rare_metals/high
 	resources = list(/obj/item/stack/sheet/mineral/gold = 30, \
 					/obj/item/stack/sheet/mineral/silver = 40, \
 					/obj/item/stack/sheet/mineral/titanium = 50 )
@@ -98,44 +100,44 @@
 
 /// Rare gems (diamonds, bluespace crystals)
 //---
-/obj/structure/closet/crate/resource_cache/rare_gems
+/obj/structure/closet/crate/resource_cache/normal/rare_gems
 	icon_state = "engi_secure_crate"
 	resources = list(/obj/item/stack/sheet/mineral/diamond = 10, \
 					/obj/item/stack/sheet/bluespace_crystal = 8)
 
-/obj/structure/closet/crate/resource_cache/rare_gems/low
+/obj/structure/closet/crate/resource_cache/normal/rare_gems/low
 	resources = list(/obj/item/stack/sheet/mineral/diamond = 6, \
 					/obj/item/stack/sheet/bluespace_crystal = 5)
 
-/obj/structure/closet/crate/resource_cache/rare_gems/high
+/obj/structure/closet/crate/resource_cache/normal/rare_gems/high
 	resources = list(/obj/item/stack/sheet/mineral/diamond = 12, \
 					/obj/item/stack/sheet/bluespace_crystal = 10)
 //---
 
 /// Hazardous resources (plasma and uranium)
 //---
-/obj/structure/closet/crate/resource_cache/hazardous_metals
+/obj/structure/closet/crate/resource_cache/normal/hazardous_metals
 	icon_state = "radiation"
 	resources = list(/obj/item/stack/sheet/mineral/uranium = 15, \
 					/obj/item/stack/sheet/mineral/plasma = 30)
 
-/obj/structure/closet/crate/resource_cache/hazardous_metals/low
+/obj/structure/closet/crate/resource_cache/normal/hazardous_metals/low
 	resources = list(/obj/item/stack/sheet/mineral/uranium = 5, \
 					/obj/item/stack/sheet/mineral/plasma = 15)
 
-/obj/structure/closet/crate/resource_cache/hazardous_metals/high
+/obj/structure/closet/crate/resource_cache/normal/hazardous_metals/high
 	resources = list(/obj/item/stack/sheet/mineral/uranium = 20, \
 					/obj/item/stack/sheet/mineral/plasma = 40)
 //---
 
 /// Basic materials (cardboard, metal, plastic, wood, glass)
 //---
-/obj/structure/closet/crate/resource_cache/basic_materials
+/obj/structure/closet/crate/resource_cache/normal/basic_materials
 	resources = list(/obj/item/stack/sheet/cardboard = 20, \
 					/obj/item/stack/sheet/metal = 80, \
 					/obj/item/stack/sheet/glass = 25)
 
-/obj/structure/closet/crate/resource_cache/poor_materials
+/obj/structure/closet/crate/resource_cache/normal/poor_materials
 	resources = list(/obj/item/stack/sheet/cardboard = 80, \
 					/obj/item/stack/sheet/mineral/wood = 50, \
 					/obj/item/stack/sheet/plastic = 20, \
@@ -156,11 +158,55 @@
 					/obj/item/stack/sheet/metal = 30, \
 					/obj/item/stack/sheet/glass = 30)
 
+/obj/structure/closet/crate/resource_cache/special/many_metals
+	bonus_mats = FALSE
+	resources = list(/obj/item/stack/sheet/metal = 30, \
+					/obj/item/stack/sheet/glass = 25, \
+					/obj/item/stack/sheet/mineral/gold = 10, \
+					/obj/item/stack/sheet/mineral/silver = 12, \
+					/obj/item/stack/sheet/mineral/titanium = 15 )
+
+/obj/structure/closet/crate/resource_cache/special/many_rare_mats
+	bonus_mats = FALSE
+	resources = list(/obj/item/stack/sheet/mineral/gold = 12, \
+					/obj/item/stack/sheet/mineral/silver = 12, \
+					/obj/item/stack/sheet/mineral/titanium = 10, \
+					/obj/item/stack/sheet/mineral/uranium = 10, \
+					/obj/item/stack/sheet/mineral/plasma = 15)
+
+/obj/structure/closet/crate/resource_cache/special/diamonds
+	bonus_mats = FALSE
+	resources = list(/obj/item/stack/sheet/mineral/diamond = 12)
+
+/obj/structure/closet/crate/resource_cache/special/bananium
+	bonus_mats = FALSE
+	resources = list(/obj/item/stack/sheet/mineral/bananium = 10)
+
+/obj/structure/closet/crate/resource_cache/lizard_things
+	name = "\improper lizard empire trade goods"
+	desc = "A rough hide crate. This one was made by the Lizard Empire, and contains various trade goods of their people."
+	icon_state = "necrocrate"
+	resources = list(/obj/item/stack/sheet/sinew = 5, \
+					/obj/item/stack/sheet/animalhide/goliath_hide = 5, \
+					/obj/item/stack/sheet/bone = 10)
+
+/obj/structure/closet/crate/resource_cache/magic_things
+	name = "\improper crate of insquisition contraband"
+	desc = "A coarse wooden crate, with a broken seal of thick wax over the lid. Maybe opening this is a bad idea?"
+	icon_state = "wooden"
+	bonus_mats = FALSE
+	resources = list(/obj/item/stack/sheet/mineral/mythril = 2, \
+					/obj/item/stack/sheet/mineral/adamantine = 4, \
+					/obj/item/stack/sheet/hauntium = 6, \
+					/obj/item/stack/sheet/mineral/runite = 12, \
+					/obj/item/stack/sheet/runed_metal = 20 )
+
 // Yes, this crate can have literally any stack item.
 // No, it's blacklisted from the events that use it for a reason.
-/obj/structure/closet/crate/resource_cache/special/random_materials
+/obj/structure/closet/crate/resource_cache/random_materials
+	desc = "A steel crate. This one seems like trouble."
 
-/obj/structure/closet/crate/resource_cache/special/random_materials/Initialize()
+/obj/structure/closet/crate/resource_cache/random_materials/Initialize()
 	for(var/i in 1 to rand(2, 4))
 		resources += list(pick(subtypesof(/obj/item/stack)) = round(rand(1, 50),5))
 	. = ..()

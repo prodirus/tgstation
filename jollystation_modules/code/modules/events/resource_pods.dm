@@ -1,4 +1,4 @@
-///Spawns a cargo pod containing a random cargo supply pack on a random area of the station
+/// This event spawns multiple cargo pods containing a few resources.
 /datum/round_event_control/resource_pods
 	name = "Resource Pods"
 	typepath = /datum/round_event/resource_pods
@@ -6,22 +6,32 @@
 	earliest_start = 5 MINUTES
 
 /datum/round_event/resource_pods
+	/// The source of the resources
+	var/source
+	/// The number of pods
 	var/num_pods = 1
+	/// The style the pod uses
 	var/pod_style = STYLE_STANDARD
+	/// The area the pods are landing in
 	var/area/impact_area
+	/// The list of possible crates to draw from
 	var/static/list/possible_crates = list()
+	/// The list of crates we're spawning
 	var/list/obj/structure/closet/crate/picked_crates = list()
+	/// Crates guaranteed to spawn with the pods
+	var/list/obj/structure/closet/crate/priority_crates = list()
+
 
 /datum/round_event/resource_pods/announce(fake)
 	switch(pod_style)
 		if(STYLE_SYNDICATE)
-			priority_announce("A recent raid on a [get_syndicate_sources()] in your sector resulted in a [get_num_pod_identifier()] of resources confiscated by Nanotrasen strike team personnel. \
+			priority_announce("A recent raid on a [source] in your sector resulted in a [get_num_pod_identifier()] of resources confiscated by Nanotrasen strike team personnel. \
 							Given the occurance of the raid in your sector, we're sharing [num_pods] of the resource caches. They'll arrive shortly in: [impact_area.name].")
 		if(STYLE_CENTCOM)
-			priority_announce("Recent company activity [get_nanotrasen_sources()] in your sector resulted in a [get_num_pod_identifier()] of resources obtained by Nanotrasen shareholders. \
+			priority_announce("Recent company activity [source] in your sector resulted in a [get_num_pod_identifier()] of resources obtained by Nanotrasen shareholders. \
 							[num_pods] of the resource caches are being shared with your station as an investment. They'll arrive shortly in: [impact_area.name].")
 		else
-			priority_announce("A [get_company_sources()] has passed through your sector, dropping off a [get_num_pod_identifier()] of resources at central command. \
+			priority_announce("A [source] has passed through your sector, dropping off a [get_num_pod_identifier()] of resources at central command. \
 							[num_pods] of the resource caches are being shared with your station. They'll arrive shortly in: [impact_area.name].")
 
 /**
@@ -37,37 +47,48 @@
 	if(!turf_test.len)
 		CRASH("Stray Cargo Pod : No valid turfs found for [impact_area] - [impact_area.type]")
 
+	// Decide how many pods we're sending.
+	num_pods = rand(2, 5)
+
 	// Get a random style of the pod. Different styles have different potential crates and reports.
 	switch(rand(1, 100))
 		if(1 to 24)
 			pod_style = STYLE_SYNDICATE
+			source = get_syndicate_sources()
 		if(25 to 69)
 			pod_style = STYLE_CENTCOM
-		if(70 to 100)
+			source = get_nanotrasen_sources()
+		if(70 to 95)
 			pod_style = STYLE_STANDARD
+			source = get_company_sources()
+		if(96 to 100)
+			pod_style = STYLE_CULT
+			source = "Nanotrasen inquisitor mission, investigating traces of [prob(50)? "Nar'sian" : "Wizard Federation"] influence,"
 
 	//Clear and reset the list.
 	possible_crates.Cut()
 
-	// Crates we don't want to send.
-	var/list/blacklisted_crates = list(/obj/structure/closet/crate/resource_cache/special, \
-								/obj/structure/closet/crate/resource_cache/syndicate, \
-								/obj/structure/closet/crate/resource_cache/centcom, \
-								/obj/structure/closet/crate/resource_cache/special/random_materials)
+	// All subtypes of normal resource_caches
+	possible_crates = subtypesof(/obj/structure/closet/crate/resource_cache/normal)
+	// Add in extra subtypes based on the type of pod we have.
+	switch(pod_style)
+		if(STYLE_SYNDICATE)
+			possible_crates += subtypesof(/obj/structure/closet/crate/resource_cache/syndicate)
+		if(STYLE_CENTCOM)
+			possible_crates += subtypesof(/obj/structure/closet/crate/resource_cache/centcom)
+		if(STYLE_STANDARD)
+			possible_crates += subtypesof(/obj/structure/closet/crate/resource_cache/special)
+			if(source == "Lizard Empire trade route")
+				priority_crates += /obj/structure/closet/crate/resource_cache/lizard_things
+		if(STYLE_CULT)
+			priority_crates += /obj/structure/closet/crate/resource_cache/magaic_things
 
-	// All subtypes of resource_caches, minus the blacklisted crates.
-	possible_crates = subtypesof(/obj/structure/closet/crate/resource_cache) - blacklisted_crates
-	// Remove subtypes of special crates that don't match our style.
-	if(pod_style != STYLE_SYNDICATE)
-		possible_crates -= subtypesof(/obj/structure/closet/crate/resource_cache/syndicate)
-	if(pod_style != STYLE_CENTCOM)
-		possible_crates -= subtypesof(/obj/structure/closet/crate/resource_cache/centcom)
-	if(pod_style != STYLE_STANDARD)
-		possible_crates -= subtypesof(/obj/structure/closet/crate/resource_cache/special)
 
-	num_pods = rand(2, 5)
 	for(var/i in 1 to num_pods)
-		picked_crates.Add(pick(possible_crates))
+		if(priority_crates.len)
+			picked_crates.Add(pick_n_take(priority_crates))
+		else
+			picked_crates.Add(pick(possible_crates))
 
 
 /datum/round_event/resource_pods/start()
