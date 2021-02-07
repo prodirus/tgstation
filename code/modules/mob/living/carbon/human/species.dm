@@ -945,6 +945,8 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	H.apply_overlay(BODY_ADJ_LAYER)
 	H.apply_overlay(BODY_FRONT_LAYER)
 
+	handle_horns(H) //Jolly Addition
+
 
 //This exists so sprite accessories can still be per-layer without having to include that layer's
 //number in their sprite name, which causes issues when those numbers change.
@@ -956,6 +958,27 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 			return "ADJ"
 		if(BODY_FRONT_LAYER)
 			return "FRONT"
+//JOLLY ADDITION START//
+/datum/species/proc/handle_horns(mob/living/carbon/human/H)
+	var/list/standing	= list()
+	H.remove_overlay(HORN_LAYER)
+
+	var/datum/sprite_accessory/S
+	S = GLOB.horns_list[H.dna.features["horns"]]
+
+	var/obj/item/bodypart/head/HD = H.get_bodypart(BODY_ZONE_HEAD)
+
+	var/mutable_appearance/accessory_overlay = mutable_appearance(S.icon, layer = HORN_LAYER)
+	if(!H.dna.features["horns"] || H.dna.features["horns"] == "None" || H.head && (H.head.flags_inv & HIDEHAIR) || (H.wear_mask && (H.wear_mask.flags_inv & HIDEHAIR)) || !HD || HD.status == BODYPART_ROBOTIC)
+		return
+	else
+		accessory_overlay.icon_state = "m_horns_[S.icon_state]_ADJ"
+		standing += accessory_overlay
+		H.overlays_standing[HORN_LAYER] = standing.Copy()
+		standing = list()
+
+	H.apply_overlay(HORN_LAYER)
+//JOLLY ADDITION END//
 
 
 /datum/species/proc/spec_life(mob/living/carbon/human/H)
