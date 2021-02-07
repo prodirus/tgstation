@@ -2,11 +2,12 @@
 /datum/round_event_control/resource_pods
 	name = "Resource Pods"
 	typepath = /datum/round_event/resource_pods
+	// Relatively common, no maximum amount, can start early
 	weight = 25
 	earliest_start = 5 MINUTES
 
 /datum/round_event/resource_pods
-	/// The source of the resources
+	/// The source of the resources (a short descriptive string)
 	var/source
 	/// The number of pods
 	var/num_pods = 1
@@ -21,7 +22,6 @@
 	/// Crates guaranteed to spawn with the pods
 	var/list/obj/structure/closet/crate/priority_crates = list()
 
-
 /datum/round_event/resource_pods/announce(fake)
 	switch(pod_style)
 		if(STYLE_SYNDICATE)
@@ -34,18 +34,14 @@
 			priority_announce("A [source] has passed through your sector, dropping off a [get_num_pod_identifier()] of resources at central command. \
 							[num_pods] of the resource caches are being shared with your station. They'll arrive shortly in: [impact_area.name].")
 
-/**
-* Tries to find a valid area, throws an error if none are found
-* Also randomizes the start timer
-*/
 /datum/round_event/resource_pods/setup()
-	startWhen = rand(10, 15)
+	startWhen = rand(10, 25)
 	impact_area = find_event_area()
 	if(!impact_area)
-		CRASH("No valid areas for cargo pod found.")
-	var/list/turf_test = get_area_turfs(impact_area)
+		CRASH("Resource pods: No valid areas for cargo pod found.")
+	var/list/turf_test = get_valid_turfs(impact_area)
 	if(!turf_test.len)
-		CRASH("Stray Cargo Pod : No valid turfs found for [impact_area] - [impact_area.type]")
+		CRASH("Resource pods: No valid turfs found for [impact_area] - [impact_area.type]")
 
 	// Decide how many pods we're sending.
 	num_pods = rand(2, 5)
@@ -81,8 +77,10 @@
 			if(source == "Lizard Empire trade route")
 				priority_crates += /obj/structure/closet/crate/resource_cache/lizard_things
 		if(STYLE_CULT)
-			priority_crates += /obj/structure/closet/crate/resource_cache/magaic_things
+			priority_crates += /obj/structure/closet/crate/resource_cache/magic_things
 
+	if(!possible_crates.len)
+		CRASH("Resource pods: No list of possible crates found.")
 
 	for(var/i in 1 to num_pods)
 		if(priority_crates.len)
@@ -92,15 +90,7 @@
 
 
 /datum/round_event/resource_pods/start()
-	var/list/turf/valid_turfs = get_area_turfs(impact_area)
-	for(var/i in valid_turfs)
-		var/turf/T = i
-		if(T.density)
-			valid_turfs -= T
-		for(var/obj/stuff in T)
-			if(stuff.density)
-				valid_turfs -= T
-
+	var/list/turf/valid_turfs = get_valid_turfs(impact_area)
 	for(var/crate in picked_crates)
 		var/turf/LZ
 		if(valid_turfs.len >= picked_crates.len)
@@ -111,7 +101,7 @@
 		addtimer(CALLBACK(src, .proc/launch_pod, LZ, crate), (2 SECONDS * num_pods--))
 
 /datum/round_event/resource_pods/proc/launch_pod(turf/LZ, obj/structure/closet/crate/crate)
-	var/spawned_crate = new crate()
+	var/obj/structure/closet/crate/spawned_crate = new crate()
 	var/obj/structure/closet/supplypod/pod = new
 	pod.setStyle(pod_style)
 	pod.explosionSize = list(0,0,1,2)
@@ -132,26 +122,39 @@
 /datum/round_event/resource_pods/proc/find_event_area()
 	var/static/list/allowed_areas
 	if(!allowed_areas)
-		///Places too sprawling or vague to send stuff
-		var/list/bad_area_types = typecacheof(list(
-		/area/maintenance)
-		)
-
 		///Places that we shouldn't send crates.
 		var/list/safe_area_types = typecacheof(list(
-		/area/ai_monitored/,
-		/area/engine,
-		/area/shuttle)
+			/area/maintenance,
+			/area/tcommsat,
+			/area/ai_monitored,
+			/area/engine,
+			/area/shuttle)
 		)
 
 		///Subtypes of places above that are fine to send crates to.
 		var/list/unsafe_area_subtypes = typecacheof(list(/area/engine/break_room))
 
-		allowed_areas = make_associative(GLOB.the_station_areas) - safe_area_types + unsafe_area_subtypes - bad_area_types
+		allowed_areas = make_associative(GLOB.the_station_areas) - safe_area_types + unsafe_area_subtypes
 
 	var/list/possible_areas = typecache_filter_list(GLOB.sortedAreas,allowed_areas)
 	if (length(possible_areas))
-		return pick(possible_areas)
+		var/chosen_area = pick(possible_areas)
+		while(possible_areas)
+			chosen_area = pick_n_take(possible_areas)
+			if(get_valid_turfs(chosen_area).len >= num_pods)
+				break
+		return chosen_area
+
+/datum/round_event/resource_pods/proc/get_valid_turfs(area/found_area)
+	var/list/turf/valid_turfs = get_area_turfs(found_area)
+	for(var/i in valid_turfs)
+		var/turf/T = i
+		if(T.density)
+			valid_turfs -= T
+		for(var/obj/stuff in T)
+			if(stuff.density)
+				valid_turfs -= T
+	return valid_turfs
 
 /// If the pods are syndicate base, picks a source location based on the number of pods that are sent.
 /datum/round_event/resource_pods/proc/get_syndicate_sources()
