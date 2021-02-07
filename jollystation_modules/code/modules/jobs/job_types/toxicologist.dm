@@ -26,6 +26,3 @@
 /datum/outfit/job/scientist/toxicologist
 	name = "Toxicologist"
 	jobtype = /datum/job/toxicologist
-
-	id = /obj/item/card/id/module
-	
