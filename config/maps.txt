@@ -29,10 +29,6 @@ map kilostation
 	votable
 endmap
 
-map limastation
-	votable
-endmap
-
 map icebox
 	minplayers 25
 	votable
@@ -42,4 +38,16 @@ map runtimestation
 endmap
 
 map multiz_debug
+endmap
+
+##JOLLY MAPS##
+
+map shipstation
+	minplayers 0
+	maxplayers 19
+	votable
+endmap
+
+map limastation
+	votable
 endmap
