@@ -1,5 +1,6 @@
 /// Crates and crates galore!
 
+/// -- Resource cache crates used for resource related events. --
 /obj/structure/closet/crate/resource_cache
 	name = "resource cache"
 	desc = "A steel crate filled to the brim with resources."
@@ -32,12 +33,12 @@
 			if(60 to 69)
 				new /obj/item/stack/sheet/mineral/silver(src, 12)
 
-/// Special crates are rarer and can have rare materials
+/// Special crates are specialized and can have rare materials
 /obj/structure/closet/crate/resource_cache/special
 	icon_state = "securecrate"
-	desc = "A steel crate filled to the brim with resources. This one isn't from the syndicate or nanotrasen."
+	desc = "A steel crate filled to the brim with resources. You don't really recognize the branding."
 
-/// Syndicate crates can have syndie contraband hidden away
+/// Syndicate crates can have syndie contraband hidden away, and contain syndie building mats
 /obj/structure/closet/crate/resource_cache/syndicate
 	icon_state = "secgearcrate"
 	desc = "A steel crate filled to the brim with resources. This one is from the syndicate."
@@ -57,10 +58,12 @@
 				continue
 			new I.item(src)
 
+/// Centcom crates have usual advanced building mats found on NT stations
 /obj/structure/closet/crate/resource_cache/centcom
 	icon_state = "plasmacrate"
 	desc = "A steel crate filled to the brim with resources. This one is from centcom."
 
+/// Normal crates just have normal resources
 /obj/structure/closet/crate/resource_cache/normal
 
 /// Basic building mats (metal and glass)
@@ -226,3 +229,4 @@
 	resources = list(/datum/material/alloy/plasteel = 50, \
 					/obj/item/stack/sheet/plasmarglass = 30)
 //---
+// -- End resource caches. --
