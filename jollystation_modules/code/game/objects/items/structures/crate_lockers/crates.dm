@@ -35,19 +35,22 @@
 
 /// Special crates are specialized and can have rare materials
 /obj/structure/closet/crate/resource_cache/special
-	icon_state = "securecrate"
 	desc = "A steel crate filled to the brim with resources. You don't really recognize the branding."
+	icon_state = "securecrate"
 
 /// Syndicate crates can have syndie contraband hidden away, and contain syndie building mats
 /obj/structure/closet/crate/resource_cache/syndicate
-	icon_state = "secgearcrate"
+	name = "syndicate resource cache"
 	desc = "A steel crate filled to the brim with resources. This one is from the syndicate."
+	icon_state = "secgearcrate"
 	// The max amount of TC we can spend hidden contraband
 	var/contraband_value = 8
 
 /obj/structure/closet/crate/resource_cache/syndicate/PopulateContents()
 	. = ..()
 	if(bonus_mats && prob(4))
+		message_admins("A [name] at [ADMIN_VERBOSEJMP(get_turf(src))] was populated with contraband syndicate items.")
+		log_message("A [name] at [loc_name((get_turf(src))] was populated with contraband syndicate items.")
 		contraband_value += rand(-4, 4)
 		var/list/uplink_items = get_uplink_items(SSticker.mode)
 		while(contraband_value)
@@ -56,12 +59,16 @@
 			var/datum/uplink_item/I = uplink_items[category][item]
 			if(!I.surplus || prob(100 - I.surplus))
 				continue
+			if(contraband_value < I.cost)
+				continue
+			contraband_value -= I.cost
 			new I.item(src)
 
 /// Centcom crates have usual advanced building mats found on NT stations
 /obj/structure/closet/crate/resource_cache/centcom
-	icon_state = "plasmacrate"
+	name = "nanotrasen resource cache"
 	desc = "A steel crate filled to the brim with resources. This one is from centcom."
+	icon_state = "plasmacrate"
 
 /// Normal crates just have normal resources
 /obj/structure/closet/crate/resource_cache/normal
