@@ -13,6 +13,10 @@
 		"shuttlepilot": {
 			"total_positions": 1,
 			"spawn_positions": 1
+		},
+		"toxicologist": {
+			"total_positions": 0,
+			"spawn_positions": 0
 		}
 	}
 }

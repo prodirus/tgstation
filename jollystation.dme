@@ -3360,6 +3360,7 @@
 #include "jollystation_modules\code\game\gamemodes\revolution\revolution.dm"
 #include "jollystation_modules\code\game\gamemodes\traitor\traitor.dm"
 #include "jollystation_modules\code\game\objects\effects\landmarks.dm"
+#include "jollystation_modules\code\game\objects\effects\decals\vgdecals.dm"
 #include "jollystation_modules\code\game\objects\items\card_ids.dm"
 #include "jollystation_modules\code\game\objects\items\devices\radio\encryptionkey.dm"
 #include "jollystation_modules\code\game\objects\items\devices\radio\headset.dm"
