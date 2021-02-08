@@ -87,9 +87,9 @@ would only be recognisable with someone that had the syndicate trait.
 						composed_message += special_desc
 						. += composed_message
 
-	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE_MORE, user, .)
 	if(!LAZYLEN(.)) // lol ..length
-		return list("<span class='notice'><i>You examine [src] closer, but find nothing of interest...</i></span>")
+		return ..()
+	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE_MORE, user, .)
 
 //////////
 //Usage://
