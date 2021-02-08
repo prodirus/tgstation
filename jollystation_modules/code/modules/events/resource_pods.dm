@@ -141,7 +141,7 @@
 		var/chosen_area = pick(possible_areas)
 		while(possible_areas)
 			chosen_area = pick_n_take(possible_areas)
-			if(get_valid_turfs(chosen_area).len >= num_pods)
+			if(length(get_valid_turfs(chosen_area)) >= num_pods)
 				break
 		return chosen_area
 
