@@ -1427,7 +1427,7 @@
 	dir = 1
 	},
 /turf/open/floor/plating,
-/area/vacant_room)
+/area/crew_quarters/cryopod)
 "fG" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable,
@@ -6379,6 +6379,10 @@
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/dorms/barracks)
+"zw" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel,
+/area/crew_quarters/cryopod)
 "zx" = (
 /obj/machinery/light{
 	dir = 8
@@ -6929,8 +6933,11 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer2{
 	dir = 4
 	},
+/obj/machinery/cryopod{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
-/area/vacant_room)
+/area/crew_quarters/cryopod)
 "Cd" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/conveyor{
@@ -9810,8 +9817,11 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer4{
 	dir = 8
 	},
+/obj/machinery/cryopod{
+	dir = 8
+	},
 /turf/open/floor/plasteel,
-/area/vacant_room)
+/area/crew_quarters/cryopod)
 "Ov" = (
 /obj/machinery/button/door{
 	id = "commissarydoor";
@@ -9936,6 +9946,13 @@
 /obj/structure/chair/sofa/left,
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
+"Pc" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/cryopod{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/crew_quarters/cryopod)
 "Pd" = (
 /obj/structure/transit_tube/horizontal{
 	dir = 1
@@ -10003,7 +10020,7 @@
 /area/hallway/primary/central)
 "Ps" = (
 /turf/closed/wall,
-/area/vacant_room)
+/area/crew_quarters/cryopod)
 "Pu" = (
 /obj/machinery/vending/coffee,
 /obj/effect/decal/cleanable/dirt,
@@ -10034,14 +10051,14 @@
 /obj/structure/window/reinforced/spawner,
 /obj/structure/window/reinforced/spawner/east,
 /turf/open/floor/grass,
-/area/vacant_room)
+/area/crew_quarters/cryopod)
 "PB" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/flora/ausbushes/lavendergrass,
 /obj/structure/window/reinforced/spawner,
 /obj/structure/window/reinforced/spawner/west,
 /turf/open/floor/grass,
-/area/vacant_room)
+/area/crew_quarters/cryopod)
 "PD" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/delivery,
@@ -10124,8 +10141,11 @@
 /area/hydroponics)
 "PZ" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/computer/cryopod{
+	pixel_y = 32
+	},
 /turf/open/floor/plasteel,
-/area/vacant_room)
+/area/crew_quarters/cryopod)
 "Qb" = (
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
 	dir = 1
@@ -10187,13 +10207,16 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer2,
 /turf/open/floor/plasteel,
-/area/vacant_room)
+/area/crew_quarters/cryopod)
 "Qu" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/power/apc/auto_name/east,
 /obj/structure/cable,
+/obj/machinery/cryopod{
+	dir = 8
+	},
 /turf/open/floor/plasteel,
-/area/vacant_room)
+/area/crew_quarters/cryopod)
 "Qw" = (
 /turf/closed/wall/rust,
 /area/security/prison)
@@ -10409,7 +10432,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer2,
 /turf/open/floor/plasteel,
-/area/vacant_room)
+/area/crew_quarters/cryopod)
 "Rm" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/event_spawn,
@@ -11251,7 +11274,7 @@
 "UA" = (
 /obj/effect/spawner/structure/window/hollow/reinforced/end,
 /turf/open/floor/plating,
-/area/vacant_room)
+/area/crew_quarters/cryopod)
 "UB" = (
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/cyan/visible,
@@ -11691,7 +11714,7 @@
 	dir = 10
 	},
 /turf/open/floor/plasteel,
-/area/vacant_room)
+/area/crew_quarters/cryopod)
 "Wi" = (
 /obj/effect/turf_decal/plaque{
 	icon = 'icons/effects/crayondecal.dmi';
@@ -12353,6 +12376,13 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/central)
+"YE" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/cryopod{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/crew_quarters/cryopod)
 "YF" = (
 /obj/structure/cable,
 /obj/machinery/power/emitter/welded,
@@ -38573,9 +38603,9 @@ PM
 Zs
 Ps
 Pz
-PZ
+Pc
 Cc
-PZ
+Pc
 Ps
 RA
 Dw
@@ -38830,7 +38860,7 @@ PM
 Pj
 Ps
 PZ
-PZ
+zw
 Wf
 Qs
 Rl
@@ -39087,7 +39117,7 @@ PM
 Zs
 Ps
 PB
-PZ
+YE
 Ou
 Qu
 Ps

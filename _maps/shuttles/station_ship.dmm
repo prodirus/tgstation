@@ -381,7 +381,9 @@
 /obj/effect/turf_decal/trimline/white/filled/line{
 	dir = 6
 	},
-/obj/effect/decal/cleanable/dirt/dust,
+/obj/machinery/cryopod{
+	dir = 8
+	},
 /turf/open/floor/plasteel/dark,
 /area/shuttle/shipstation)
 "ci" = (
@@ -636,7 +638,9 @@
 /obj/effect/turf_decal/trimline/white/filled/line{
 	dir = 10
 	},
-/obj/effect/decal/cleanable/dirt/dust,
+/obj/machinery/cryopod{
+	dir = 4
+	},
 /turf/open/floor/plasteel/dark,
 /area/shuttle/shipstation)
 "dA" = (
@@ -697,7 +701,10 @@
 /area/shuttle/shipstation)
 "dO" = (
 /obj/effect/turf_decal/trimline/white/filled/end,
-/obj/effect/decal/cleanable/dirt/dust,
+/obj/machinery/computer/cryopod{
+	dir = 1;
+	pixel_y = -32
+	},
 /turf/open/floor/plasteel/dark,
 /area/shuttle/shipstation)
 "dP" = (
@@ -949,13 +956,6 @@
 /obj/effect/turf_decal/trimline/blue/filled/line{
 	dir = 5
 	},
-/turf/open/floor/plasteel/dark,
-/area/shuttle/shipstation)
-"fc" = (
-/obj/effect/turf_decal/trimline/white/filled/line{
-	dir = 1
-	},
-/obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plasteel/dark,
 /area/shuttle/shipstation)
 "fg" = (
@@ -2209,8 +2209,9 @@
 /obj/effect/turf_decal/trimline/white/filled/line{
 	dir = 5
 	},
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/decal/cleanable/cobweb/cobweb2,
+/obj/machinery/cryopod{
+	dir = 8
+	},
 /turf/open/floor/plasteel/dark,
 /area/shuttle/shipstation)
 "uP" = (
@@ -4303,8 +4304,9 @@
 /obj/effect/turf_decal/trimline/white/filled/line{
 	dir = 9
 	},
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/closet/crate,
+/obj/machinery/cryopod{
+	dir = 4
+	},
 /turf/open/floor/plasteel/dark,
 /area/shuttle/shipstation)
 "UU" = (
@@ -4354,7 +4356,6 @@
 /obj/effect/turf_decal/trimline/white/filled/corner{
 	dir = 8
 	},
-/obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plasteel/dark,
 /area/shuttle/shipstation)
 "Vk" = (
@@ -5062,7 +5063,7 @@ ew
 El
 wx
 Lk
-fc
+dh
 Vi
 dO
 ZH
