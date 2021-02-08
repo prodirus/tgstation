@@ -38,10 +38,12 @@
 	startWhen = rand(10, 25)
 	impact_area = find_event_area()
 	if(!impact_area)
-		CRASH("Resource pods: No valid areas for cargo pod found.")
+		stack_trace("Resource pods: No valid areas for cargo pod found.")
+		return MAP_ERROR
 	var/list/turf_test = get_valid_turfs(impact_area)
 	if(!turf_test.len)
-		CRASH("Resource pods: No valid turfs found for [impact_area] - [impact_area.type]")
+		stack_trace("Resource pods: No valid turfs found for [impact_area] - [impact_area.type]")
+		return MAP_ERROR
 
 	// Decide how many pods we're sending.
 	num_pods = rand(2, 5)
