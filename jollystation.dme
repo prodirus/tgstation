@@ -3395,6 +3395,7 @@
 #include "jollystation_modules\code\modules\mob\living\carbon\human\examine.dm"
 #include "jollystation_modules\code\modules\mob\living\carbon\human\human.dm"
 #include "jollystation_modules\code\modules\mob\living\carbon\human\human_helpers.dm"
+#include "jollystation_modules\code\modules\mob\living\carbon\human\species_types\humans.dm"
 #include "jollystation_modules\code\modules\mob\living\carbon\human\skrell.dm"
 #include "jollystation_modules\code\modules\mob\living\carbon\human\skrell_hair.dm"
 #include "jollystation_modules\code\modules\skrell\flavor_misc_js.dm"
