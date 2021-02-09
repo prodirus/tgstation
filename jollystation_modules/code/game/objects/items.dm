@@ -14,7 +14,7 @@
 
 /obj/item/storage/backpack/duffelbag/syndie/Initialize()
 	. = ..()
-	AddElement(/datum/element/unique_examine, "This bag is used to store tactical equipment and is manufactured by Donk Co. It's faster and lighter than other duffelbags without sacrificing any space.", EXAMINE_CHECK_SYNDICATE)
+	AddElement(/datum/element/unique_examine, "This bag is used to store tactical equipment and is manufactured by Donk Co. It's faster and lighter than other duffelbags without sacrificing any space.", EXAMINE_CHECK_SYNDICATE, hint = FALSE)
 	AddElement(/datum/element/unique_examine, "A large, dark colored dufflebag commonly used to transport ammunition, tools, and explosives. Its design makes it much lighter than other duffelbags without sacrificing any space.", EXAMINE_CHECK_JOB, SECURITY_JOBS_HOS_CAP)
 
 /obj/item/clothing/under/syndicate
@@ -24,7 +24,7 @@
 /obj/item/clothing/under/syndicate/Initialize()
 	. = ..()
 	if(unique_description)
-		AddElement(/datum/element/unique_examine, unique_description, EXAMINE_CHECK_SYNDICATE)
+		AddElement(/datum/element/unique_examine, unique_description, EXAMINE_CHECK_SYNDICATE, hint = FALSE)
 		AddElement(/datum/element/unique_examine, "A padded, armored outfit commonly used by syndicate operatives in the field.", EXAMINE_CHECK_JOB, SECURITY_JOBS_HOS_CAP)
 
 /obj/item/clothing/under/syndicate/skirt
@@ -78,12 +78,12 @@
 /obj/item/reagent_containers/food/drinks/bottle/lizardwine/Initialize()
 	. = ..()
 	var/vintage = rand(GLOB.year_integer + 450, GLOB.year_integer + 540) // Wine has an actual vintage var but lizardwine is special
-	AddElement(/datum/element/unique_examine, "A bottle of ethically questionable lizard wine. Rare now-a-days following the harsh regulations placed on the great wine industry. You'd place the vintage at... [(vintage >= 3000) ? "[vintage] Nanotrasen White-Green. Not my personal preference..." : "a respectable [vintage] Nanotrasen White-Green. Wonderful."]", EXAMINE_CHECK_SKILLCHIP, list(/obj/item/skillchip/wine_taster))
+	AddElement(/datum/element/unique_examine, "A bottle of ethically questionable lizard wine. Rare now-a-days following the harsh regulations placed on the great wine industry. You'd place the vintage at... [(vintage >= 3000) ? "[vintage] Nanotrasen White-Green. Not my personal preference..." : "a respectable [vintage] Nanotrasen White-Green. Wonderful."]", EXAMINE_CHECK_SKILLCHIP, list(/obj/item/skillchip/wine_taster), hint = FALSE)
 	AddElement(/datum/element/unique_examine, "A lizardperson's tail is important in keeping balance and warding off enemies in combat situations. You can't help but feel disappointed and saddened looking at this, knowing a fellow kin was robbed of such a thing.", EXAMINE_CHECK_SPECIES, list(/datum/species/lizard))
 
 /obj/item/reagent_containers/food/drinks/bottle/wine/Initialize(mapload)
 	. = ..()
-	AddElement(/datum/element/unique_examine, "A bottle of fine [name]. Classic, refreshing, usually comes with a sharp taste. The vintage is labeled as [generate_vintage()]... You'll be the one to determine that.", EXAMINE_CHECK_SKILLCHIP, list(/obj/item/skillchip/wine_taster))
+	AddElement(/datum/element/unique_examine, "A bottle of fine [name]. Classic, refreshing, usually comes with a sharp taste. The vintage is labeled as [generate_vintage()]... You'll be the one to determine that.", EXAMINE_CHECK_SKILLCHIP, list(/obj/item/skillchip/wine_taster), hint = FALSE)
 
 // FACTION EXAMINES //
 
@@ -107,7 +107,7 @@
 											is the linch pin of this self-destruct device, providing the only key to activate it - should the holder also have the authentication codes.", EXAMINE_CHECK_MINDSHIELD)
 	AddElement(/datum/element/unique_examine, "Only one person is entrusted with the Nuclear Authentication Disk on board the station - the captain (or acting captain in their absence). \
 											Being the direct line of communication to Nanotrasen, they are the only member of the crew authorized to hold the authentication disk and (should the situation call for it) enter the codes to the self-destruct. \
-											Of course, because of the importance of the disk in unlocking nuclear devices, the Nuclear Authentication Disk is a very sought after object - luckily, it's in good hands...", EXAMINE_CHECK_SKILLCHIP, list(/obj/item/skillchip/disk_verifier))
+											Of course, because of the importance of the disk in unlocking nuclear devices, the Nuclear Authentication Disk is a very sought after object - luckily, it's in good hands...", EXAMINE_CHECK_SKILLCHIP, list(/obj/item/skillchip/disk_verifier), hint = FALSE)
 
 // MORE JOB EXAMPLES
 
@@ -127,6 +127,14 @@
 	. = ..()
 	AddElement(/datum/element/unique_examine, "It's Ian! Your trusty companion through and through. It's the Head of Personnel's secondary job to keep Ian safe and sound from anything that can harm them. Ian's birthday is on September 9th - be sure to celebrate!", EXAMINE_CHECK_JOB, list("Head of Personnel"))
 
+// ON MACHINES / STRUCTURES EXAMPLES
+/obj/machinery/power/supermatter_crystal/Initialize()
+	. = ..()
+	AddElement(/datum/element/unique_examine, "Hope you're wearing meson goggles - Crystallized supermatter, one of the most deadly and reactive things in the universe. Supermatter reacts when shot fed with energy, turning the light energy of emitters into heated waste gases and bursts of gamma radiation.", EXAMINE_CHECK_JOB, list("Chief Engineer", "Station Engineer", "Atmospherics Technician"))
+
+/obj/structure/altar_of_gods/Initialize()
+	. = ..()
+	AddElement(/datum/element/unique_examine, "This religious altar is the place where chaplains can commune with their deities and undergo mystical rituals to their gods. The closest place on the station to the gods above is in front of the altar, and it's where the most successful prayers and rituals take place.", EXAMINE_CHECK_TRAIT, list(TRAIT_SPIRITUAL))
 
 #undef SECURITY_JOBS
 #undef SECURITY_JOBS_CAP

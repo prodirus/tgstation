@@ -1,5 +1,20 @@
 /// Unique examine element. Refactored from the skyrat module by Gandalf2k15.
 /// Attach to an atom with some parameters to give it unique text when examined.
+
+/*
+ * Unique examine element parameters
+ * Attach this element to an atom to give it unique examine text if it's double examined by certain people!
+ *
+ * Params:
+ *
+ * atom/thing - default element parameter, skip this
+ * desc - The unique description displayed from this instance of this element
+ * desc_requirement - What we check to see if the examiner gets the unique description - see [examine_defines.dm]
+ * desc_special - If we chose a requirement that must be supplied a list, this param is the list it uses
+ * desc_affiliation - An alternate affiliation to display to to the examiner
+ * hint - Whether the atom hints it may have special examine_more text on normal examine or not
+ */
+
 /datum/element/unique_examine
 	element_flags = ELEMENT_BESPOKE|ELEMENT_DETACH
 	id_arg_index = 2
@@ -13,7 +28,7 @@
 	/// This can be a list of ROLES, JOBS, FACTIONS, SKILL CHIPS, or TRAITS.
 	var/list/special_desc_list
 
-/datum/element/unique_examine/Attach(atom/thing, desc, desc_requirement, desc_special, desc_affiliation)
+/datum/element/unique_examine/Attach(atom/thing, desc, desc_requirement, desc_special, desc_affiliation, hint = TRUE)
 	. = ..()
 
 	/// Init our vars
@@ -33,12 +48,35 @@
 			if(!special_desc_list.len)
 				stack_trace("Unique examine element attempted to attach to something with a special examine requirement [special_desc_requirement] but provided no list to check.")
 				return ELEMENT_INCOMPATIBLE
-
+	if(hint)
+		RegisterSignal(thing, COMSIG_PARENT_EXAMINE, .proc/hint_at)
 	RegisterSignal(thing, COMSIG_PARENT_EXAMINE_MORE, .proc/examine)
 
 /datum/element/unique_examine/Detach(atom/thing)
 	. = ..()
-	UnregisterSignal(thing, COMSIG_PARENT_EXAMINE_MORE)
+	UnregisterSignal(thing, list(COMSIG_PARENT_EXAMINE, COMSIG_PARENT_EXAMINE_MORE))
+
+/datum/element/unique_examine/proc/hint_at(datum/source, mob/examiner, list/examine_list)
+	// What IS this thing anyways?
+	var/thing = "thing"
+	if(ismob(source))
+		thing = "creature"
+	if(isanimal(source))
+		thing = "animal"
+	if(ishuman(source))
+		thing = "person"
+	if(isobj(source))
+		thing = "object"
+	if(isgun(source))
+		thing = "weapon"
+	if(isclothing(source))
+		thing = "clothing"
+	if(ismachinery(source))
+		thing = "machine"
+	if(isstructure(source))
+		thing = "structure"
+
+	examine_list += "<span class='smallnoticeital'>This [thing] may have additional information if you examine closer.</span>"
 
 /datum/element/unique_examine/proc/examine(datum/source, mob/examiner, list/examine_list)
 	SIGNAL_HANDLER
