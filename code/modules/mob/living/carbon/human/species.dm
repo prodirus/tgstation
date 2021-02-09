@@ -968,9 +968,10 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 			return "ADJ"
 		if(BODY_FRONT_LAYER)
 			return "FRONT"
+
 //JOLLY ADDITION START//
 /datum/species/proc/handle_horns(mob/living/carbon/human/H)
-	var/list/standing	= list()
+	var/list/standing = list()
 	H.remove_overlay(HORN_LAYER)
 
 	var/datum/sprite_accessory/S
@@ -983,6 +984,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		return
 	else
 		accessory_overlay.icon_state = "m_horns_[S.icon_state]_ADJ"
+		accessory_overlay.color = "#[H.dna.features["mcolor"]]"
 		standing += accessory_overlay
 		H.overlays_standing[HORN_LAYER] = standing.Copy()
 		standing = list()
