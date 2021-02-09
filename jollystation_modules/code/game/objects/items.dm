@@ -137,6 +137,6 @@
 	AddElement(/datum/element/unique_examine, "This religious altar is the place where chaplains can commune with their deities and undergo mystical rituals to their gods. The closest place on the station to the gods above is in front of the altar, and it's where the most successful prayers and rituals take place.", EXAMINE_CHECK_TRAIT, list(TRAIT_SPIRITUAL))
 
 #undef SECURITY_JOBS
-#undef SECURITY_JOBS_CAP
+#undef SECURITY_JOBS_HOS
 #undef SECURITY_JOBS_HOS_CAP
 #undef SILICON_JOBS
