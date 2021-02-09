@@ -99,8 +99,8 @@
 				var/obj/item/organ/brain/examiner_brain = human_examiner.getorganslot(ORGAN_SLOT_BRAIN)
 				if(examiner_brain)
 					for(var/obj/item/skillchip/checked_skillchip in examiner_brain.skillchips)
-						if(checked_skillchip.type in special_desc_list)
-							composed_message += "You note the following because of your implanted skill chip, <font color = '#c5c900'><b>[checked_skillchip.name]</b></font>: <br>"
+						if(checked_skillchip.active && checked_skillchip.type in special_desc_list)
+							composed_message += "You note the following because of your implanted <font color = '#c5c900'><b>[checked_skillchip.name]</b></font>: <br>"
 							composed_message += special_desc
 		// Trait checks
 		if(EXAMINE_CHECK_TRAIT)
