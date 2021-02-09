@@ -294,7 +294,8 @@
 		"O-" = list("O-"),
 		"O+" = list("O-", "O+"),
 		"L" = list("L"),
-		"U" = list("A-", "A+", "B-", "B+", "O-", "O+", "AB-", "AB+", "L", "U")
+		"S" = list("S"),
+		"U" = list("A-", "A+", "B-", "B+", "O-", "O+", "AB-", "AB+", "L", "S", "U") //JollyStation Edit Adding Skrell blood support to U
 	)
 
 	var/safe = bloodtypes_safe[bloodtype]

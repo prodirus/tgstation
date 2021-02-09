@@ -140,7 +140,7 @@
 		else
 			limb.species_color = random_short_color()
 
-		limb.icon = 'icons/mob/human_parts_greyscale.dmi'
+		limb.icon = 'jollystation_modules/icons/mob/human_parts_greyscale_js.dmi' //Changing from the "icons/mob/human_parts_greyscale" file to the "jollystation_modules/icons/mob/human_parts_greyscale_js" version, to account for Skrell additions. JollyStation Edit -Jon
 		limb.should_draw_greyscale = TRUE
 	else
 		limb.icon = 'icons/mob/human_parts.dmi'

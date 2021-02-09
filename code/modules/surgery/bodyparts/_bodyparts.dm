@@ -828,7 +828,7 @@
 
 	if(is_organic_limb())
 		if(should_draw_greyscale)
-			limb.icon = 'icons/mob/human_parts_greyscale.dmi'
+			limb.icon = 'jollystation_modules/icons/mob/human_parts_greyscale_js.dmi' //Changing from the "icons/mob/human_parts_greyscale" file to the "jollystation_modules/icons/mob/human_parts_greyscale_js" version, to account for Skrell additions. JollyStation Edit -Jon
 			if(should_draw_gender)
 				limb.icon_state = "[species_id]_[body_zone]_[icon_gender]"
 			else if(use_digitigrade)

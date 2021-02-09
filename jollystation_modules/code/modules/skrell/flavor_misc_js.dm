@@ -1,0 +1,1 @@
+GLOBAL_LIST_EMPTY(skrellheadtentacles_list)

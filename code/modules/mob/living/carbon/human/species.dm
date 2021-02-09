@@ -813,6 +813,12 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		if(!H.dna.features["moth_antennae"] || H.dna.features["moth_antennae"] == "None" || !HD)
 			bodyparts_to_add -= "moth_antennae"
 
+	//JolyStation Addition Start
+	if(mutant_bodyparts["skrell_headtentacles"])
+		if(H.head && (H.head.flags_inv & HIDEHAIR) || (H.wear_mask && (H.wear_mask.flags_inv & HIDEHAIR)) || !HD || HD.status == BODYPART_ROBOTIC)
+			bodyparts_to_add -= "skrell_headtentacles"
+	//JollyStation Addition End
+
 	//Digitigrade legs are stuck in the phantom zone between true limbs and mutant bodyparts. Mainly it just needs more agressive updating than most limbs.
 	var/update_needed = FALSE
 	var/not_digitigrade = TRUE
@@ -884,6 +890,10 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 					S = GLOB.caps_list[H.dna.features["caps"]]
 				if("tail_monkey")
 					S = GLOB.tails_list_monkey[H.dna.features["tail_monkey"]]
+				//JollyStation Addition Start
+				if("skrell_headtentacles")
+					S = GLOB.skrellheadtentacles_list[H.dna.features["skrell_headtentacles"]]
+				//JollyStation Addition End
 			if(!S || S.icon_state == "none")
 				continue
 

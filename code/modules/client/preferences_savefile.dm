@@ -407,6 +407,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	READ_FILE(S["feature_moth_markings"], features["moth_markings"])
 	READ_FILE(S["persistent_scars"] , persistent_scars)
 	//NON-MODULE CHANGES:
+	READ_FILE(S["feature_skrell_headtentacles"], features["skrell_headtentacles"])
 	READ_FILE(S["flavor_text"] , flavor_text)
 	READ_FILE(S["security_records"] , security_records)
 	READ_FILE(S["medical_records"] , medical_records)
@@ -503,6 +504,9 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	features["moth_wings"] 	= sanitize_inlist(features["moth_wings"], GLOB.moth_wings_list, "Plain")
 	features["moth_antennae"] 	= sanitize_inlist(features["moth_antennae"], GLOB.moth_antennae_list, "Plain")
 	features["moth_markings"] 	= sanitize_inlist(features["moth_markings"], GLOB.moth_markings_list, "None")
+	//JollyStation Additions Start
+	features["skrell_headtentacles"] = sanitize_inlist(features["skrell_headtentacles"], GLOB.skrellheadtentacles_list, "Male")
+	//JollyStation Additions End
 
 	persistent_scars = sanitize_integer(persistent_scars)
 
@@ -565,6 +569,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	WRITE_FILE(S["feature_moth_markings"]		, features["moth_markings"])
 	WRITE_FILE(S["persistent_scars"]			, persistent_scars)
 	//NON-MODULE CHANGES:
+	WRITE_FILE(S["feature_skrell_headtentacles"]		, features["skrell_headtentacles"])
 	WRITE_FILE(S["flavor_text"] , flavor_text)
 	WRITE_FILE(S["general_records"] , general_records)
 	WRITE_FILE(S["security_records"] , security_records)

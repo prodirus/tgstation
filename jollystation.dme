@@ -3395,6 +3395,10 @@
 #include "jollystation_modules\code\modules\mob\living\carbon\human\examine.dm"
 #include "jollystation_modules\code\modules\mob\living\carbon\human\human.dm"
 #include "jollystation_modules\code\modules\mob\living\carbon\human\human_helpers.dm"
+#include "jollystation_modules\code\modules\mob\living\carbon\human\skrell.dm"
+#include "jollystation_modules\code\modules\mob\living\carbon\human\skrell_hair.dm"
+#include "jollystation_modules\code\modules\skrell\flavor_misc_js.dm"
+#include "jollystation_modules\code\modules\skrell\language.dm"
 #include "jollystation_modules\code\modules\mob\living\carbon\human\species_types\lizardpeople.dm"
 #include "jollystation_modules\code\modules\shuttle\shipstation.dm"
 // END_INCLUDE
