@@ -22,6 +22,7 @@
 	special_desc_list = desc_special
 	special_desc_affiliation = desc_affiliation
 
+	// What are we doing if we don't even have a description?
 	if(!special_desc)
 		stack_trace("Unique examine element attempted to attach to something without an examine text set.")
 		return ELEMENT_INCOMPATIBLE
@@ -105,13 +106,13 @@
 		if(EXAMINE_CHECK_TRAIT)
 			for(var/checked_trait in special_desc_list)
 				if(HAS_TRAIT(examiner, checked_trait))
-					composed_message += "You note the following because of a <font color = '#c5c900'><b>trait</b></font>: <br>"
+					composed_message += "You note the following because of a <font color = '#c5c900'><b>trait</b></font> you have: <br>"
 					composed_message += special_desc
 		// Species checks
 		if(EXAMINE_CHECK_SPECIES)
 			for(var/checked_species in special_desc_list)
 				if(is_species(examiner, checked_species))
-					composed_message += "You note the following because of a <font color = '#c5c900'><b>trait</b></font>: <br>"
+					composed_message += "You note the following because of <font color = '#008a17'><b>your species</b></font>: <br>"
 					composed_message += special_desc
 
 	if(length(composed_message) >= 20) // >= 20 instead of 0 to account for the span
