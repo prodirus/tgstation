@@ -25,7 +25,7 @@
 				chosen_speech_sounds = human_speaker.dna.species.speech_sounds_exclaim
 
 		// if we didn't get any specific speech sounds, use the default ones
-		if(!LAZYLEN(chosen_speech_sounds) && LAZYLEN(human_speaker.dna.species.speech_sounds)
+		if(!LAZYLEN(chosen_speech_sounds) && LAZYLEN(human_speaker.dna.species.speech_sounds))
 			chosen_speech_sounds = human_speaker.dna.species.speech_sounds
 
 	else if(LAZYLEN(special_speech_sounds))
