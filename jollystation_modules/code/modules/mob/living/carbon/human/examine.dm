@@ -72,7 +72,7 @@
 			if(known_identity.client.prefs.flavor_text)
 				var/found_flavor_text = known_identity.get_flavor_text(TRUE)
 				expanded_examine += found_flavor_text
-				if(found_flavor_text > EXAMINE_FLAVOR_MAX_DISPLAYED)
+				if(length(found_flavor_text) > EXAMINE_FLAVOR_MAX_DISPLAYED)
 					has_additional_info |= ADDITIONAL_INFO_FLAVOR
 
 			// Typecasted user into human, so we can check their ID for access.

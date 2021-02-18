@@ -3,7 +3,7 @@
 /proc/TextPreview(string, len = 40)
 	var/char_len = length_char(string)
 	if(char_len <= len)
-		if(char_len)
+		if(!char_len)
 			return "\[...\]"
 		else
 			return string
