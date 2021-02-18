@@ -103,7 +103,7 @@
 				added_info = "[added_info ? "[added_info], and past records" : "past records"]"
 
 			if(added_info)
-				expanded_examine += "<span class='smallnoticeital'>This individual has [added_info] if you <b>examine closer.<b/></span>\n"
+				expanded_examine += "<span class='smallnoticeital'>This individual may have [added_info] available if you <b>examine closer.<b/></span>\n"
 
 	// if the mob doesn't have a client, show how long they've been disconnected for.
 	else if(last_connection_time)

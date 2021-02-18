@@ -603,50 +603,20 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			dat += "<i>Set your color to <font color = #aaaaaa>#aaaaaa</font> to have a randomized color on spawn.</i>"
 			dat += "<h2>Flavor</h2>"
 			dat += "<a href='?_src_=prefs;preference=flavor_text;task=input'><b>Examine Flavor Text</b></a><br>"
-			if(length(flavor_text) <= 65)
-				if(!length(flavor_text))
-					dat += "\[...\]"
-				else
-					dat += "[flavor_text]"
-			else
-				dat += "[TextPreview(flavor_text, 65)]..."
+			dat += "[TextPreview(flavor_text, 65)]"
 			dat += "<BR>"
 			dat += 	"<h2>Records</h2>"
 			dat += 	"<a href='?_src_=prefs;preference=general_records;task=input'><b>General</b></a><br>"
-			if(length(general_records) <= 125)
-				if(!length(general_records))
-					dat += "\[...\]"
-				else
-					dat += "[general_records]"
-			else
-				dat += "[TextPreview(general_records,125)]..."
+			dat += "[TextPreview(general_records, 125)]"
 			dat += "<BR>"
 			dat += 	"<a href='?_src_=prefs;preference=security_records;task=input'><b>Security</b></a><br>"
-			if(length(security_records) <= 125)
-				if(!length(security_records))
-					dat += "\[...\]"
-				else
-					dat += "[security_records]"
-			else
-				dat += "[TextPreview(security_records,125)]..."
+			dat += "[TextPreview(security_records, 125)]"
 			dat += "<BR>"
 			dat += 	"<a href='?_src_=prefs;preference=medical_records;task=input'><b>Medical</b></a><br>"
-			if(length(medical_records) <= 125)
-				if(!length(medical_records))
-					dat += "\[...\]"
-				else
-					dat += "[medical_records]"
-			else
-				dat += "[TextPreview(medical_records,125)]..."
+			dat += "[TextPreview(medical_records, 125)]"
 			dat += "<BR>"
 			dat += 	"<a href='?_src_=prefs;preference=exploitable_info;task=input'><b>Exploitable Information</b></a><br>"
-			if(length(exploitable_info) <= 40)
-				if(!length(exploitable_info))
-					dat += "\[...\]"
-				else
-					dat += "[exploitable_info]"
-			else
-				dat += "[TextPreview(exploitable_info)]..."
+			dat += "[TextPreview(exploitable_info, 125)]"
 			dat += "<BR><BR>"
 			dat += "</td></tr></table>"
 			//NON-MODULE CHANGES END
@@ -1389,29 +1359,29 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 							to_chat(user, "<span class='danger'>Invalid color. Your color is not bright enough.</span>")
 
 				if("flavor_text")
-					var/msg = input(usr, "Set your flavor text on examine", "Flavor Text", flavor_text) as message|null
-					if(msg)
-						flavor_text = strip_html_simple(msg, MAX_FLAVOR_LEN, TRUE)
+					var/flavor_txt = input(usr, "Set your flavor text on examine", "Flavor Text", flavor_text) as message|null
+					if(flavor_txt)
+						flavor_text = strip_html_simple(flavor_txt, MAX_FLAVOR_LEN)
 
 				if("general_records")
-					var/msg = input(usr, "Set your general records", "General Records", general_records) as message|null
-					if(msg)
-						general_records = strip_html_simple(msg, MAX_FLAVOR_LEN, TRUE)
+					var/gen_record = input(usr, "Set your general records", "General Records", general_records) as message|null
+					if(gen_record)
+						general_records = strip_html_simple(gen_record, MAX_FLAVOR_LEN)
 
 				if("security_records")
-					var/msg = input(usr, "Set your security records", "Security Records", security_records) as message|null
-					if(msg)
-						security_records = strip_html_simple(msg, MAX_FLAVOR_LEN, TRUE)
+					var/sec_record = input(usr, "Set your security records", "Security Records", security_records) as message|null
+					if(sec_record)
+						security_records = strip_html_simple(sec_record, MAX_FLAVOR_LEN)
 
 				if("medical_records")
-					var/msg = input(usr, "Set your medical records", "Medical Records", medical_records) as message|null
-					if(msg)
-						medical_records = strip_html_simple(msg, MAX_FLAVOR_LEN, TRUE)
+					var/med_record = input(usr, "Set your medical records", "Medical Records", medical_records) as message|null
+					if(med_record)
+						medical_records = strip_html_simple(med_record, MAX_FLAVOR_LEN)
 
 				if("exploitable_info")
-					var/msg = input(usr, "Set your exploitable information, this rarely will be showed to antagonists", "Exploitable Info", exploitable_info) as message|null
-					if(msg)
-						exploitable_info = strip_html_simple(msg, MAX_FLAVOR_LEN, TRUE)
+					var/expl_info = input(usr, "Set your exploitable information, this rarely will be showed to antagonists", "Exploitable Info", exploitable_info) as message|null
+					if(expl_info)
+						exploitable_info = strip_html_simple(expl_info, MAX_FLAVOR_LEN)
 				//NON-MODULE CHANGES END
 
 				if("hair")

@@ -50,8 +50,8 @@
 	var/found_flavor_text = client.prefs.flavor_text
 	// Shorten the flavor text if it exceeds our limit and we are told to.
 	if(shorten && length(found_flavor_text) > EXAMINE_FLAVOR_MAX_DISPLAYED)
-		displayed_flavor_text += trim(found_flavor_text, EXAMINE_FLAVOR_MAX_DISPLAYED)
-		displayed_flavor_text += "... </i><a href='?src=[REF(src)];flavor_text=1'>\[More\]</a>"
+		displayed_flavor_text += TextPreview(found_flavor_text, EXAMINE_FLAVOR_MAX_DISPLAYED)
+		displayed_flavor_text += "</i><a href='?src=[REF(src)];flavor_text=1'>\[More\]</a>"
 	else
 		displayed_flavor_text += found_flavor_text
 		displayed_flavor_text += "</i>"

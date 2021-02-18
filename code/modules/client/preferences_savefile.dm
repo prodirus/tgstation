@@ -43,16 +43,6 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 
 /datum/preferences/proc/update_preferences(current_version, savefile/S)
 
-
-	//NON-MODULE CHANGES:
-	// Why do we HTML sanitize our records in `update_preferences`?
-	features["flavor_text"]	= strip_html_simple(features["flavor_text"], MAX_FLAVOR_LEN, TRUE)
-	features["general_records"] = strip_html_simple(features["general_records"], MAX_FLAVOR_LEN, TRUE)
-	features["security_records"] = strip_html_simple(features["security_records"], MAX_FLAVOR_LEN, TRUE)
-	features["medical_records"] = strip_html_simple(features["medical_records"], MAX_FLAVOR_LEN, TRUE)
-	features["exploitable_info"] = strip_html_simple(features["exploitable_info"], MAX_FLAVOR_LEN, TRUE)
-	//NON-MODULE CHANGES END
-
 	if(current_version < 33)
 		toggles |= SOUND_ENDOFROUND
 
@@ -264,13 +254,6 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	pda_style		= sanitize_inlist(pda_style, GLOB.pda_styles, initial(pda_style))
 	pda_color		= sanitize_hexcolor(pda_color, 6, 1, initial(pda_color))
 	key_bindings 	= sanitize_keybindings(key_bindings)
-	//NON-MODULE CHANGES:
-	flavor_text = sanitize_text(S["flavor_text"])
-	security_records = sanitize_text(S["security_records"])
-	medical_records = sanitize_text(S["medical_records"])
-	general_records = sanitize_text(S["general_records"])
-	exploitable_info = sanitize_text(S["exploitable_info"])
-	//NON-MODULE CHANGES END
 
 	if(needs_update >= 0) //save the updated version
 		var/old_default_slot = default_slot
@@ -419,6 +402,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	READ_FILE(S["general_records"] , general_records)
 	READ_FILE(S["exploitable_info"] , exploitable_info)
 	//NON-MODULE CHANGES END
+
 	if(!CONFIG_GET(flag/join_with_mutant_humans))
 		features["tail_human"] = "none"
 		features["ears"] = "none"
@@ -509,9 +493,16 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	features["moth_wings"] 	= sanitize_inlist(features["moth_wings"], GLOB.moth_wings_list, "Plain")
 	features["moth_antennae"] 	= sanitize_inlist(features["moth_antennae"], GLOB.moth_antennae_list, "Plain")
 	features["moth_markings"] 	= sanitize_inlist(features["moth_markings"], GLOB.moth_markings_list, "None")
-	//JollyStation Additions Start
+	//NON-MODULE CHANGES: -- Pref Sanitization --
 	features["skrell_headtentacles"] = sanitize_inlist(features["skrell_headtentacles"], GLOB.skrellheadtentacles_list, "Male")
-	//JollyStation Additions End
+
+	runechat_color = sanitize_hexcolor(runechat_color)
+	flavor_text = sanitize_text(flavor_text)
+	security_records = sanitize_text(security_records)
+	medical_records = sanitize_text(medical_records)
+	general_records = sanitize_text(general_records)
+	exploitable_info = sanitize_text(exploitable_info)
+	//NON-MODULE CHANGES END
 
 	persistent_scars = sanitize_integer(persistent_scars)
 
