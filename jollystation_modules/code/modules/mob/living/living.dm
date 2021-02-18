@@ -23,8 +23,8 @@
 /mob/living/say(message, bubble_type, list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null)
 	. = ..()
 
-	// No mesage, no sounds.
-	if(!message)
+	// If say failed for some reason we should probably fail
+	if(!.)
 		return
 
 	/// Our list of sounds we're going to play
@@ -32,7 +32,7 @@
 	/// Whether this is a question, an exclamation, or neither
 	var/sound_type
 	/// What frequency we pass to playsound for variance
-	var/sound_frequency
+	var/sound_frequency = DEFAULT_FREQUENCY
 	/// The last char of the message.
 	var/msg_end = copytext_char(message, -1)
 	// Determine if this is a question, an exclamation, or neither and update sound_type and sound_frequency accordingly.
