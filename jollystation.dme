@@ -3406,6 +3406,8 @@
 #include "jollystation_modules\code\modules\mob\living\carbon\human\species_types\species.dm"
 #include "jollystation_modules\code\modules\mob\living\carbon\human\species_types\lizardpeople.dm"
 #include "jollystation_modules\code\modules\mob\living\silicon\silicon.dm"
+#include "jollystation_modules\code\modules\mob\living\simple_animal\simple_animal.dm"
+#include "jollystation_modules\code\modules\mob\living\simple_animal\bot\bot.dm"
 #include "jollystation_modules\code\modules\skrell\flavor_misc_js.dm"
 #include "jollystation_modules\code\modules\skrell\language.dm"
 #include "jollystation_modules\code\modules\shuttle\shipstation.dm"

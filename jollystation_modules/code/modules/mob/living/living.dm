@@ -10,15 +10,13 @@
 
 /// Added vars for mob/living.
 /mob/living
-	/// Assoc list of [special speech sounds] to [volume].
-	var/special_radio_sounds
-	/// Assoc list of [special speech sounds] to [volume].
-	var/special_speech_sounds = list('jollystation_modules/sound/voice/speak_1.ogg' = 120, \
-									'jollystation_modules/sound/voice/speak_2.ogg' = 120, \
-									'jollystation_modules/sound/voice/speak_3.ogg' = 120, \
-									'jollystation_modules/sound/voice/speak_4.ogg' = 120)
-	/// Assoc list of [sounds that play on exclamation] to [volume].
-	var/speech_sounds_radio = list('jollystation_modules/sound/voice/radio.ogg' = 75, \
+	/// Assoc list of [sounds that play on speech for this mob] to [volume].
+	var/mob_speech_sounds = list('jollystation_modules/sound/voice/speak_1.ogg' = 120, \
+								'jollystation_modules/sound/voice/speak_2.ogg' = 120, \
+								'jollystation_modules/sound/voice/speak_3.ogg' = 120, \
+								'jollystation_modules/sound/voice/speak_4.ogg' = 120)
+	/// Assoc list of [sounds that play on radio message] to [volume].
+	var/mob_radio_sounds = list('jollystation_modules/sound/voice/radio.ogg' = 75, \
 								'jollystation_modules/sound/voice/radio_2.ogg' = 75)
 
 /// Extend say so we can have talking make sounds.
@@ -54,14 +52,14 @@
 	// If we ARE a human, check for species specific speech sounds
 	if(istype(human_speaker) && human_speaker.dna?.species)
 		if(sound_type & SOUND_QUESTION)
-			chosen_speech_sounds = human_speaker.dna.species.speech_sounds_ask
+			chosen_speech_sounds = human_speaker.dna.species.species_speech_sounds_ask
 		if(sound_type & SOUND_EXCLAMATION)
-			chosen_speech_sounds = human_speaker.dna.species.speech_sounds_exclaim
+			chosen_speech_sounds = human_speaker.dna.species.species_speech_sounds_exclaim
 		if(sound_type & SOUND_NORMAL || !LAZYLEN(chosen_speech_sounds)) //default sounds if the other ones are empty
-			chosen_speech_sounds = human_speaker.dna.species.speech_sounds
-	// If we're not a human, use preset special speech sounds (which is default speech noises)(which can be set to null, too).
-	else if(LAZYLEN(special_speech_sounds))
-		chosen_speech_sounds = special_speech_sounds
+			chosen_speech_sounds = human_speaker.dna.species.species_speech_sounds
+	// If we're not a human with a species, use the mob speech sounds
+	else if(LAZYLEN(mob_speech_sounds))
+		chosen_speech_sounds = mob_speech_sounds
 
 	if(!LAZYLEN(chosen_speech_sounds))
 		return
@@ -102,18 +100,14 @@
 	else
 		return
 
-	// If we've got special sounds for the radio, use them. Otherwise use the defaults.
-	if(LAZYLEN(living_speaker.special_radio_sounds))
-		chosen_speech_sounds = living_speaker.special_radio_sounds
-	else
-		chosen_speech_sounds = living_speaker.speech_sounds_radio
+	chosen_speech_sounds = living_speaker.mob_radio_sounds
 
 	if(!LAZYLEN(chosen_speech_sounds))
 		return
 
 	/// Pick a sound from our found sounds and play it.
 	var/picked_sound = pick(chosen_speech_sounds)
-	if(speaker == src)
+	if(living_speaker == src)
 		playsound(src, picked_sound, chosen_speech_sounds[picked_sound], vary = TRUE, extrarange = -13, ignore_walls = FALSE)
 	else
 		playsound(src, picked_sound, chosen_speech_sounds[picked_sound] - 15, vary = TRUE, extrarange = -15, ignore_walls = FALSE)
