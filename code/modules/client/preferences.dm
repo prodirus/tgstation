@@ -596,44 +596,48 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						dat += "<a style='white-space:nowrap;' href='?_src_=prefs;preference=changeslot;num=[i];' [i == default_slot ? "class='linkOn'" : ""]>[name]</a> "
 					dat += "</center>"
 
-			dat += "<table><tr><td width='340px' height='300px' valign='top'>"
-			dat += 	"<h2>Flavor</h2>"
-			dat += 	"<a href='?_src_=prefs;preference=flavor_text;task=input'><b>Examine Flavor Text</b></a><br>"
-			if(length(flavor_text) <= 40)
+			dat += "<table><tr><td width='500px' height='300px' valign='center'>"
+			dat += "<h2>Misc. Character Settings</h2>"
+			dat += "<b>Runechat Text Color: &nbsp;</b>"
+			dat += "<span style='border: 1px solid #161616; background-color: #[runechat_color];'>&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=rune_chat_text;task=input'>Change</a><BR>"
+			dat += "<i>Set your color to <font color = #aaaaaa>#aaaaaa</font> to have a randomized color on spawn.</i>"
+			dat += "<h2>Flavor</h2>"
+			dat += "<a href='?_src_=prefs;preference=flavor_text;task=input'><b>Examine Flavor Text</b></a><br>"
+			if(length(flavor_text) <= 65)
 				if(!length(flavor_text))
 					dat += "\[...\]"
 				else
 					dat += "[flavor_text]"
 			else
-				dat += "[TextPreview(flavor_text)]..."
+				dat += "[TextPreview(flavor_text, 65)]..."
 			dat += "<BR>"
 			dat += 	"<h2>Records</h2>"
 			dat += 	"<a href='?_src_=prefs;preference=general_records;task=input'><b>General</b></a><br>"
-			if(length(general_records) <= 40)
+			if(length(general_records) <= 125)
 				if(!length(general_records))
 					dat += "\[...\]"
 				else
 					dat += "[general_records]"
 			else
-				dat += "[TextPreview(general_records)]..."
+				dat += "[TextPreview(general_records,125)]..."
 			dat += "<BR>"
 			dat += 	"<a href='?_src_=prefs;preference=security_records;task=input'><b>Security</b></a><br>"
-			if(length(security_records) <= 40)
+			if(length(security_records) <= 125)
 				if(!length(security_records))
 					dat += "\[...\]"
 				else
 					dat += "[security_records]"
 			else
-				dat += "[TextPreview(security_records)]..."
+				dat += "[TextPreview(security_records,125)]..."
 			dat += "<BR>"
 			dat += 	"<a href='?_src_=prefs;preference=medical_records;task=input'><b>Medical</b></a><br>"
-			if(length(medical_records) <= 40)
+			if(length(medical_records) <= 125)
 				if(!length(medical_records))
 					dat += "\[...\]"
 				else
 					dat += "[medical_records]"
 			else
-				dat += "[TextPreview(medical_records)]..."
+				dat += "[TextPreview(medical_records,125)]..."
 			dat += "<BR>"
 			dat += 	"<a href='?_src_=prefs;preference=exploitable_info;task=input'><b>Exploitable Information</b></a><br>"
 			if(length(exploitable_info) <= 40)
@@ -644,6 +648,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			else
 				dat += "[TextPreview(exploitable_info)]..."
 			dat += "<BR><BR>"
+			dat += "</td></tr></table>"
 			//NON-MODULE CHANGES END
 		if (2) // Game Preferences, NON-MODULE CHANGES
 			dat += "<table><tr><td width='340px' height='300px' valign='top'>"
@@ -1373,6 +1378,16 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						age = max(min( round(text2num(new_age)), AGE_MAX),AGE_MIN)
 
 				//NON-MODULE CHANGES:
+
+				if("rune_chat_text")
+					var/new_chatcolor = input(user, "Choose your runechat color:", "Character Preference",runechat_color) as color|null
+					if(new_chatcolor)
+						var/temp_hsv = RGBtoHSV(new_chatcolor)
+						if(ReadHSV(temp_hsv)[3] >= ReadHSV("#7F7F7F")[3]) // running runechat by the same brightness sanitization that mutant colors choose
+							runechat_color = sanitize_hexcolor(new_chatcolor)
+						else
+							to_chat(user, "<span class='danger'>Invalid color. Your color is not bright enough.</span>")
+
 				if("flavor_text")
 					var/msg = input(usr, "Set your flavor text on examine", "Flavor Text", flavor_text) as message|null
 					if(msg)

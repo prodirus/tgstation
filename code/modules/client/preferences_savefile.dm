@@ -42,6 +42,17 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 //if your savefile is 3 months out of date, then 'tough shit'.
 
 /datum/preferences/proc/update_preferences(current_version, savefile/S)
+
+
+	//NON-MODULE CHANGES:
+	// Why do we HTML sanitize our records in `update_preferences`?
+	features["flavor_text"]	= strip_html_simple(features["flavor_text"], MAX_FLAVOR_LEN, TRUE)
+	features["general_records"] = strip_html_simple(features["general_records"], MAX_FLAVOR_LEN, TRUE)
+	features["security_records"] = strip_html_simple(features["security_records"], MAX_FLAVOR_LEN, TRUE)
+	features["medical_records"] = strip_html_simple(features["medical_records"], MAX_FLAVOR_LEN, TRUE)
+	features["exploitable_info"] = strip_html_simple(features["exploitable_info"], MAX_FLAVOR_LEN, TRUE)
+	//NON-MODULE CHANGES END
+
 	if(current_version < 33)
 		toggles |= SOUND_ENDOFROUND
 
@@ -87,13 +98,6 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 		if (!found_block_movement)
 			LAZYADD(key_bindings["Ctrl"], "block_movement")
 
-		//NON-MODULE CHANGES:
-		features["flavor_text"]	= strip_html_simple(features["flavor_text"], MAX_FLAVOR_LEN, TRUE)
-		features["general_records"] = strip_html_simple(features["general_records"], MAX_FLAVOR_LEN, TRUE)
-		features["security_records"] = strip_html_simple(features["security_records"], MAX_FLAVOR_LEN, TRUE)
-		features["medical_records"] = strip_html_simple(features["medical_records"], MAX_FLAVOR_LEN, TRUE)
-		features["exploitable_info"] = strip_html_simple(features["exploitable_info"], MAX_FLAVOR_LEN, TRUE)
-		//NON-MODULE CHANGES END
 	if (current_version < 39)
 		LAZYADD(key_bindings["F"], "toggle_combat_mode")
 		LAZYADD(key_bindings["4"], "toggle_combat_mode")
@@ -408,6 +412,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	READ_FILE(S["persistent_scars"] , persistent_scars)
 	//NON-MODULE CHANGES:
 	READ_FILE(S["feature_skrell_headtentacles"], features["skrell_headtentacles"])
+	READ_FILE(S["runechat_color"] , runechat_color)
 	READ_FILE(S["flavor_text"] , flavor_text)
 	READ_FILE(S["security_records"] , security_records)
 	READ_FILE(S["medical_records"] , medical_records)
@@ -569,7 +574,8 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	WRITE_FILE(S["feature_moth_markings"]		, features["moth_markings"])
 	WRITE_FILE(S["persistent_scars"]			, persistent_scars)
 	//NON-MODULE CHANGES:
-	WRITE_FILE(S["feature_skrell_headtentacles"]		, features["skrell_headtentacles"])
+	WRITE_FILE(S["feature_skrell_headtentacles"], features["skrell_headtentacles"])
+	WRITE_FILE(S["runechat_color"] , runechat_color)
 	WRITE_FILE(S["flavor_text"] , flavor_text)
 	WRITE_FILE(S["general_records"] , general_records)
 	WRITE_FILE(S["security_records"] , security_records)
