@@ -42,7 +42,6 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 //if your savefile is 3 months out of date, then 'tough shit'.
 
 /datum/preferences/proc/update_preferences(current_version, savefile/S)
-
 	if(current_version < 33)
 		toggles |= SOUND_ENDOFROUND
 
@@ -497,11 +496,11 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	features["skrell_headtentacles"] = sanitize_inlist(features["skrell_headtentacles"], GLOB.skrellheadtentacles_list, "Male")
 
 	runechat_color = sanitize_hexcolor(runechat_color)
-	flavor_text = sanitize_text(flavor_text)
-	security_records = sanitize_text(security_records)
-	medical_records = sanitize_text(medical_records)
-	general_records = sanitize_text(general_records)
-	exploitable_info = sanitize_text(exploitable_info)
+	flavor_text = strip_html_simple(sanitize_text(flavor_text), MAX_MESSAGE_LEN)
+	security_records = strip_html_simple(sanitize_text(security_records), MAX_FLAVOR_LEN)
+	medical_records = strip_html_simple(sanitize_text(medical_records), MAX_FLAVOR_LEN)
+	general_records = strip_html_simple(sanitize_text(general_records), MAX_FLAVOR_LEN)
+	exploitable_info = strip_html_simple(sanitize_text(exploitable_info), MAX_FLAVOR_LEN)
 	//NON-MODULE CHANGES END
 
 	persistent_scars = sanitize_integer(persistent_scars)

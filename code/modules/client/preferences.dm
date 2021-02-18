@@ -1361,7 +1361,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				if("flavor_text")
 					var/flavor_txt = input(usr, "Set your flavor text on examine", "Flavor Text", flavor_text) as message|null
 					if(flavor_txt)
-						flavor_text = strip_html_simple(flavor_txt, MAX_FLAVOR_LEN)
+						flavor_text = strip_html_simple(flavor_txt, MAX_MESSAGE_LEN)
 
 				if("general_records")
 					var/gen_record = input(usr, "Set your general records", "General Records", general_records) as message|null
