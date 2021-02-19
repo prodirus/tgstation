@@ -5,3 +5,4 @@
 	var/security_records = ""
 	var/medical_records = ""
 	var/exploitable_info = ""
+	var/runechat_color = "aaa"
