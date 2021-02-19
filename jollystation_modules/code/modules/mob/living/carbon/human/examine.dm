@@ -70,8 +70,10 @@
 		else if(known_identity.client)
 			// If the client has flavor text set.
 			if(known_identity.client.prefs.flavor_text)
-				expanded_examine += known_identity.get_flavor_text(TRUE)
-				has_additional_info |= ADDITIONAL_INFO_FLAVOR
+				var/found_flavor_text = known_identity.get_flavor_text(TRUE)
+				expanded_examine += found_flavor_text
+				if(length(found_flavor_text) > EXAMINE_FLAVOR_MAX_DISPLAYED)
+					has_additional_info |= ADDITIONAL_INFO_FLAVOR
 
 			// Typecasted user into human, so we can check their ID for access.
 			var/mob/living/carbon/human/hud_wearer = user
@@ -100,10 +102,10 @@
 			if(has_additional_info & ADDITIONAL_INFO_EXPLOITABLE)
 				added_info = "[added_info ? "[added_info], exploitable information" : "exploitable information"]"
 			if(has_additional_info & ADDITIONAL_INFO_RECORDS)
-				added_info = "[added_info ? "[added_info], and past records" : "past records"]"
+				added_info = "[added_info ? "[added_info] and past records" : "past records"]"
 
 			if(added_info)
-				expanded_examine += "<span class='smallnoticeital'>This individual has [added_info] if you <b>examine closer.<b/></span>\n"
+				expanded_examine += "<span class='smallnoticeital'>This individual may have [added_info] available if you <b>examine closer.<b/></span>\n"
 
 	// if the mob doesn't have a client, show how long they've been disconnected for.
 	else if(last_connection_time)
