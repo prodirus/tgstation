@@ -120,7 +120,7 @@
 	if (!target.chat_color || target.chat_color_name != target.name)
 		// NON-MODULE CHANGE
 		var/mob/mob_target = target
-		if(istype(mob_target) && mob_target.client?.prefs?.runechat_color != "aaa")
+		if(istype(mob_target) && mob_target.client && mob_target.client?.prefs?.runechat_color != "aaa")
 			mob_target.chat_color = "#[mob_target.client.prefs.runechat_color]"
 			mob_target.chat_color_darkened = "#[mob_target.client.prefs.runechat_color]"
 			mob_target.chat_color_name = "#[mob_target.name]"
