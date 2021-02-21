@@ -9,7 +9,7 @@
 /datum/quirk/badback
 	name = "Bad Back"
 	desc = "Thanks to your poor posture, backpacks and other bags never sit right on your back. More evently weighted objects are fine, though."
-	value = -2
+	value = -8
 	mood_quirk = TRUE
 	gain_text = "<span class='danger'>Your back REALLY hurts!</span>"
 	lose_text = "<span class='notice'>Your back feels better.</span>"
@@ -26,7 +26,7 @@
 /datum/quirk/blooddeficiency
 	name = "Blood Deficiency"
 	desc = "Your body can't produce enough blood to sustain itself."
-	value = -2
+	value = -8
 	gain_text = "<span class='danger'>You feel your vigor slowly fading away.</span>"
 	lose_text = "<span class='notice'>You feel vigorous again.</span>"
 	medical_record_text = "Patient requires regular treatment for blood loss due to low production of blood."
@@ -36,14 +36,14 @@
 	var/mob/living/carbon/human/H = quirk_holder
 	if(NOBLOOD in H.dna.species.species_traits) //can't lose blood if your species doesn't have any
 		return
-	else
-		if (H.blood_volume > (BLOOD_VOLUME_SAFE - 25)) // just barely survivable without treatment
-			H.blood_volume -= 0.275 * delta_time
+
+	if (H.blood_volume > (BLOOD_VOLUME_SAFE - 25)) // just barely survivable without treatment
+		H.blood_volume -= 0.275 * delta_time
 
 /datum/quirk/blindness
 	name = "Blind"
 	desc = "You are completely blind, nothing can counteract this."
-	value = -4
+	value = -16
 	gain_text = "<span class='danger'>You can't see anything.</span>"
 	lose_text = "<span class='notice'>You miraculously gain back your vision.</span>"
 	medical_record_text = "Patient has permanent blindness."
@@ -66,7 +66,7 @@
 /datum/quirk/brainproblems
 	name = "Brain Tumor"
 	desc = "You have a little friend in your brain that is slowly destroying it. Better bring some mannitol!"
-	value = -4
+	value = -12
 	gain_text = "<span class='danger'>You feel smooth.</span>"
 	lose_text = "<span class='notice'>You feel wrinkled again.</span>"
 	medical_record_text = "Patient has a tumor in their brain that is slowly driving them to brain death."
@@ -100,7 +100,7 @@
 /datum/quirk/deafness
 	name = "Deaf"
 	desc = "You are incurably deaf."
-	value = -4
+	value = -8
 	mob_trait = TRAIT_DEAF
 	gain_text = "<span class='danger'>You can't hear anything.</span>"
 	lose_text = "<span class='notice'>You're able to hear again!</span>"
@@ -111,21 +111,17 @@
 	name = "Depression"
 	desc = "You sometimes just hate life."
 	mob_trait = TRAIT_DEPRESSION
-	value = -1
+	value = -3
 	gain_text = "<span class='danger'>You start feeling depressed.</span>"
 	lose_text = "<span class='notice'>You no longer feel depressed.</span>" //if only it were that easy!
 	medical_record_text = "Patient has a mild mood disorder causing them to experience acute episodes of depression."
 	mood_quirk = TRUE
-	hardcore_value = 1
-
-/datum/quirk/depression/on_process(delta_time)
-	if(DT_PROB(0.05, delta_time))
-		SEND_SIGNAL(quirk_holder, COMSIG_ADD_MOOD_EVENT, "depression_mild", /datum/mood_event/depression_mild)
+	hardcore_value = 2
 
 /datum/quirk/family_heirloom
 	name = "Family Heirloom"
 	desc = "You are the current owner of an heirloom, passed down for generations. You have to keep it safe!"
-	value = -1
+	value = -2
 	mood_quirk = TRUE
 	var/obj/item/heirloom
 	var/where
@@ -138,6 +134,8 @@
 
 	if(ismoth(H) && prob(50))
 		heirloom_type = /obj/item/flashlight/lantern/heirloom_moth
+	else if(isfelinid(H) && prob(50))
+		heirloom_type = /obj/item/toy/cattoy
 	else
 		switch(quirk_holder.mind.assigned_role)
 			//Service jobs
@@ -195,7 +193,7 @@
 			if("Psychologist")
 				heirloom_type = /obj/item/storage/pill_bottle
 			if("Chemist")
-				heirloom_type = /obj/item/book/manual/wiki/chemistry
+				heirloom_type = pick(/obj/item/book/manual/wiki/chemistry, /obj/item/ph_booklet)
 			if("Virologist")
 				heirloom_type = /obj/item/reagent_containers/syringe
 			//Engineering
@@ -255,7 +253,7 @@
 /datum/quirk/frail
 	name = "Frail"
 	desc = "You have skin of paper and bones of glass! You suffer wounds much more easily than most."
-	value = -4
+	value = -6
 	mob_trait = TRAIT_EASILY_WOUNDED
 	gain_text = "<span class='danger'>You feel frail.</span>"
 	lose_text = "<span class='notice'>You feel sturdy again.</span>"
@@ -265,7 +263,7 @@
 /datum/quirk/heavy_sleeper
 	name = "Heavy Sleeper"
 	desc = "You sleep like a rock! Whenever you're put to sleep or knocked unconscious, you take a little bit longer to wake up."
-	value = -1
+	value = -2
 	mob_trait = TRAIT_HEAVY_SLEEPER
 	gain_text = "<span class='danger'>You feel sleepy.</span>"
 	lose_text = "<span class='notice'>You feel awake again.</span>"
@@ -275,7 +273,7 @@
 /datum/quirk/hypersensitive
 	name = "Hypersensitive"
 	desc = "For better or worse, everything seems to affect your mood more than it should."
-	value = -1
+	value = -2
 	gain_text = "<span class='danger'>You seem to make a big deal out of everything.</span>"
 	lose_text = "<span class='notice'>You don't seem to make a big deal out of everything anymore.</span>"
 	medical_record_text = "Patient demonstrates a high level of emotional volatility."
@@ -295,7 +293,7 @@
 /datum/quirk/light_drinker
 	name = "Light Drinker"
 	desc = "You just can't handle your drinks and get drunk very quickly."
-	value = -1
+	value = -2
 	mob_trait = TRAIT_LIGHT_DRINKER
 	gain_text = "<span class='notice'>Just the thought of drinking alcohol makes your head spin.</span>"
 	lose_text = "<span class='danger'>You're no longer severely affected by alcohol.</span>"
@@ -323,7 +321,7 @@
 /datum/quirk/nyctophobia
 	name = "Nyctophobia"
 	desc = "As far as you can remember, you've always been afraid of the dark. While in the dark without a light source, you instinctually act careful, and constantly feel a sense of dread."
-	value = -1
+	value = -3
 	medical_record_text = "Patient demonstrates a fear of the dark. (Seriously?)"
 	hardcore_value = 5
 
@@ -344,7 +342,7 @@
 /datum/quirk/nonviolent
 	name = "Pacifist"
 	desc = "The thought of violence makes you sick. So much so, in fact, that you can't hurt anyone."
-	value = -4
+	value = -8
 	mob_trait = TRAIT_PACIFISM
 	gain_text = "<span class='danger'>You feel repulsed by the thought of violence!</span>"
 	lose_text = "<span class='notice'>You think you can defend yourself again.</span>"
@@ -354,7 +352,7 @@
 /datum/quirk/paraplegic
 	name = "Paraplegic"
 	desc = "Your legs do not function. Nothing will ever fix this. But hey, free wheelchair!"
-	value = -4
+	value = -12
 	human_only = TRUE
 	gain_text = null // Handled by trauma.
 	lose_text = null
@@ -401,7 +399,7 @@
 /datum/quirk/prosopagnosia
 	name = "Prosopagnosia"
 	desc = "You have a mental disorder that prevents you from being able to recognize faces at all."
-	value = -1
+	value = -4
 	mob_trait = TRAIT_PROSOPAGNOSIA
 	medical_record_text = "Patient suffers from prosopagnosia and cannot recognize faces."
 	hardcore_value = 5
@@ -409,7 +407,7 @@
 /datum/quirk/prosthetic_limb
 	name = "Prosthetic Limb"
 	desc = "An accident caused you to lose one of your limbs. Because of this, you now have a random prosthetic!"
-	value = -1
+	value = -4
 	var/slot_string = "limb"
 	medical_record_text = "During physical examination, patient was found to have a prosthetic limb."
 	hardcore_value = 3
@@ -443,7 +441,7 @@
 /datum/quirk/pushover
 	name = "Pushover"
 	desc = "Your first instinct is always to let people push you around. Resisting out of grabs will take conscious effort."
-	value = -2
+	value = -8
 	mob_trait = TRAIT_GRABWEAKNESS
 	gain_text = "<span class='danger'>You feel like a pushover.</span>"
 	lose_text = "<span class='notice'>You feel like standing up for yourself.</span>"
@@ -453,7 +451,7 @@
 /datum/quirk/insanity
 	name = "Reality Dissociation Syndrome"
 	desc = "You suffer from a severe disorder that causes very vivid hallucinations. Mindbreaker toxin can suppress its effects, and you are immune to mindbreaker's hallucinogenic properties. <b>This is not a license to grief.</b>"
-	value = -4
+	value = -8
 	//no mob trait because it's handled uniquely
 	gain_text = "<span class='userdanger'>...</span>"
 	lose_text = "<span class='notice'>You feel in tune with the world again.</span>"
@@ -479,11 +477,12 @@
 /datum/quirk/social_anxiety
 	name = "Social Anxiety"
 	desc = "Talking to people is very difficult for you, and you often stutter or even lock up."
-	value = -1
+	value = -3
 	gain_text = "<span class='danger'>You start worrying about what you're saying.</span>"
 	lose_text = "<span class='notice'>You feel easier about talking again.</span>" //if only it were that easy!
 	medical_record_text = "Patient is usually anxious in social encounters and prefers to avoid them."
 	hardcore_value = 4
+	mob_trait = TRAIT_ANXIOUS
 	var/dumb_thing = TRUE
 
 /datum/quirk/social_anxiety/add()
@@ -575,7 +574,8 @@
 	if (!reagent_type)
 		reagent_type = pick(drug_list)
 	reagent_instance = new reagent_type()
-	LAZYADD(H.reagents.addiction_list, reagent_instance)
+	for(var/addiction in reagent_instance.addiction_types)
+		H.mind.add_addiction_points(addiction, 1000) ///Max that shit out
 	var/current_turf = get_turf(quirk_holder)
 	if (!drug_container_type)
 		drug_container_type = /obj/item/storage/pill_bottle
@@ -607,7 +607,8 @@
 
 /datum/quirk/junkie/remove()
 	if(quirk_holder && reagent_instance)
-		quirk_holder.reagents.remove_addiction(reagent_instance) //chat feedback here. No need of lose_text.
+		for(var/addiction_type in subtypesof(/datum/addiction))
+			quirk_holder.mind.remove_addiction_points(addiction_type, MAX_ADDICTION_POINTS) //chat feedback here. No need of lose_text.
 
 /datum/quirk/junkie/proc/announce_drugs()
 	to_chat(quirk_holder, "<span class='boldnotice'>There is a [initial(drug_container_type.name)] of [initial(reagent_type.name)] [where_drug]. Better hope you don't run out...</span>")
@@ -619,18 +620,22 @@
 	if(world.time > next_process)
 		next_process = world.time + process_interval
 		var/deleted = QDELETED(reagent_instance)
-		if(deleted || !LAZYFIND(H.reagents.addiction_list, reagent_instance))
+		var/missing_addiction = FALSE
+		for(var/addiction_type in reagent_instance.addiction_types)
+			if(!LAZYACCESS(H.mind.active_addictions, addiction_type))
+				missing_addiction = TRUE
+		if(deleted || missing_addiction)
 			if(deleted)
 				reagent_instance = new reagent_type()
-			else
-				reagent_instance.addiction_stage = 0
-			LAZYADD(H.reagents.addiction_list, reagent_instance)
-			to_chat(quirk_holder, "<span class='danger'>You thought you kicked it, but you suddenly feel like you need [reagent_instance.name] again...</span>")
+			to_chat(quirk_holder, "<span class='danger'>You thought you kicked it, but you feel like you're falling back onto bad habits..</span>")
+			for(var/addiction in reagent_instance.addiction_types)
+				H.mind.add_addiction_points(addiction, 1000) ///Max that shit out
+
 
 /datum/quirk/junkie/smoker
 	name = "Smoker"
 	desc = "Sometimes you just really want a smoke. Probably not great for your lungs."
-	value = -1
+	value = -4
 	gain_text = "<span class='danger'>You could really go for a smoke right about now.</span>"
 	medical_record_text = "Patient is a current smoker."
 	reagent_type = /datum/reagent/drug/nicotine
@@ -665,7 +670,7 @@
 /datum/quirk/unstable
 	name = "Unstable"
 	desc = "Due to past troubles, you are unable to recover your sanity if you lose it. Be very careful managing your mood!"
-	value = -4
+	value = -10
 	mob_trait = TRAIT_UNSTABLE
 	gain_text = "<span class='danger'>There's a lot on your mind right now.</span>"
 	lose_text = "<span class='notice'>Your mind finally feels calm.</span>"
