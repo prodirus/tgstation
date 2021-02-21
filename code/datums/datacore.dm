@@ -247,30 +247,36 @@
 		//These records should ~really~ be merged or something
 		//General Record
 		var/datum/data/record/G = new()
-		G.fields["id"]			= id
-		G.fields["name"]		= H.real_name
-		G.fields["rank"]		= assignment
-		G.fields["age"]			= H.age
-		G.fields["species"]	= H.dna.species.name
-		G.fields["fingerprint"]	= md5(H.dna.uni_identity)
-		G.fields["p_stat"]		= "Active"
-		G.fields["m_stat"]		= "Stable"
-		G.fields["gender"]			= H.gender
+		G.fields["id"] = id
+		G.fields["name"] = H.real_name
+		G.fields["rank"] = assignment
+		G.fields["age"] = H.age
+		G.fields["species"] = H.dna.species.name
+		G.fields["fingerprint"] = md5(H.dna.uni_identity)
+		G.fields["p_stat"] = "Active"
+		G.fields["m_stat"] = "Stable"
+		G.fields["gender"] = H.gender
 		if(H.gender == "male")
 			G.fields["gender"]  = "Male"
 		else if(H.gender == "female")
 			G.fields["gender"]  = "Female"
 		else
 			G.fields["gender"]  = "Other"
+<<<<<<< HEAD
 		G.fields["photo_front"]	= photo_front
 		G.fields["photo_side"]	= photo_side
 		//NON-MODULE CHANGES:
 		G.fields["past_records"] = C.prefs.general_records
 		//NON-MODULE CHANGES END
+=======
+		G.fields["photo_front"] = photo_front
+		G.fields["photo_side"] = photo_side
+>>>>>>> 764ea3f06d6a4c3e3d5c66aceb823c355d66768f
 		general += G
 
 		//Medical Record
 		var/datum/data/record/M = new()
+<<<<<<< HEAD
 		M.fields["id"]			= id
 		M.fields["name"]		= H.real_name
 		M.fields["blood_type"]	= H.dna.blood_type
@@ -286,10 +292,25 @@
 		//NON-MODULE CHANGES:
 		M.fields["past_records"] = C.prefs.medical_records
 		//NON-MODULE CHANGES END
+=======
+		M.fields["id"] = id
+		M.fields["name"] = H.real_name
+		M.fields["blood_type"] = H.dna.blood_type
+		M.fields["b_dna"] = H.dna.unique_enzymes
+		M.fields["mi_dis"] = H.get_quirk_string(!medical, CAT_QUIRK_MINOR_DISABILITY)
+		M.fields["mi_dis_d"] = H.get_quirk_string(medical, CAT_QUIRK_MINOR_DISABILITY)
+		M.fields["ma_dis"] = H.get_quirk_string(!medical, CAT_QUIRK_MAJOR_DISABILITY)
+		M.fields["ma_dis_d"] = H.get_quirk_string(medical, CAT_QUIRK_MAJOR_DISABILITY)
+		M.fields["cdi"] = "None"
+		M.fields["cdi_d"] = "No diseases have been diagnosed at the moment."
+		M.fields["notes"] = H.get_quirk_string(!medical, CAT_QUIRK_NOTES)
+		M.fields["notes_d"] = H.get_quirk_string(medical, CAT_QUIRK_NOTES)
+>>>>>>> 764ea3f06d6a4c3e3d5c66aceb823c355d66768f
 		medical += M
 
 		//Security Record
 		var/datum/data/record/S = new()
+<<<<<<< HEAD
 		S.fields["id"]			= id
 		S.fields["name"]		= H.real_name
 		S.fields["criminal"]	= "None"
@@ -299,28 +320,36 @@
 		//NON-MODULE CHANGES:
 		S.fields["past_records"] = C.prefs.security_records
 		//NON-MODULE CHANGES END
+=======
+		S.fields["id"] = id
+		S.fields["name"] = H.real_name
+		S.fields["criminal"] = "None"
+		S.fields["citation"] = list()
+		S.fields["crim"] = list()
+		S.fields["notes"] = "No notes."
+>>>>>>> 764ea3f06d6a4c3e3d5c66aceb823c355d66768f
 		security += S
 
 		//Locked Record
 		var/datum/data/record/L = new()
-		L.fields["id"]			= md5("[H.real_name][H.mind.assigned_role]")	//surely this should just be id, like the others?
-		L.fields["name"]		= H.real_name
-		L.fields["rank"] 		= H.mind.assigned_role
-		L.fields["age"]			= H.age
-		L.fields["gender"]			= H.gender
+		L.fields["id"] = md5("[H.real_name][H.mind.assigned_role]") //surely this should just be id, like the others?
+		L.fields["name"] = H.real_name
+		L.fields["rank"] = H.mind.assigned_role
+		L.fields["age"] = H.age
+		L.fields["gender"] = H.gender
 		if(H.gender == "male")
 			G.fields["gender"]  = "Male"
 		else if(H.gender == "female")
 			G.fields["gender"]  = "Female"
 		else
 			G.fields["gender"]  = "Other"
-		L.fields["blood_type"]	= H.dna.blood_type
-		L.fields["b_dna"]		= H.dna.unique_enzymes
-		L.fields["identity"]	= H.dna.uni_identity
-		L.fields["species"]		= H.dna.species.type
-		L.fields["features"]	= H.dna.features
-		L.fields["image"]		= image
-		L.fields["mindref"]		= H.mind
+		L.fields["blood_type"] = H.dna.blood_type
+		L.fields["b_dna"] = H.dna.unique_enzymes
+		L.fields["identity"] = H.dna.uni_identity
+		L.fields["species"] = H.dna.species.type
+		L.fields["features"] = H.dna.features
+		L.fields["image"] = image
+		L.fields["mindref"] = H.mind
 		locked += L
 	return
 

@@ -236,6 +236,7 @@ tools/LinuxOneShot/TGS_Logs
 
 # Common build tooling
 !/tools/build
+<<<<<<< HEAD
 code/modules/tgui/USE_BUILD_BAT_INSTEAD_OF_DREAM_MAKER.dm
 data/last_round_lobby_music.txt
 data/paintings.json
@@ -291,3 +292,5 @@ data/roundend_reports/rubyflamewing.html
 data/roundend_reports/sandmoney.html
 data/roundend_reports/shadowedenvy.html
 data/roundend_reports/thespitfire24.html
+=======
+>>>>>>> 764ea3f06d6a4c3e3d5c66aceb823c355d66768f
