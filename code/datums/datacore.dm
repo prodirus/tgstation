@@ -262,21 +262,15 @@
 			G.fields["gender"]  = "Female"
 		else
 			G.fields["gender"]  = "Other"
-<<<<<<< HEAD
 		G.fields["photo_front"]	= photo_front
 		G.fields["photo_side"]	= photo_side
 		//NON-MODULE CHANGES:
 		G.fields["past_records"] = C.prefs.general_records
 		//NON-MODULE CHANGES END
-=======
-		G.fields["photo_front"] = photo_front
-		G.fields["photo_side"] = photo_side
->>>>>>> 764ea3f06d6a4c3e3d5c66aceb823c355d66768f
 		general += G
 
 		//Medical Record
 		var/datum/data/record/M = new()
-<<<<<<< HEAD
 		M.fields["id"]			= id
 		M.fields["name"]		= H.real_name
 		M.fields["blood_type"]	= H.dna.blood_type
@@ -292,25 +286,10 @@
 		//NON-MODULE CHANGES:
 		M.fields["past_records"] = C.prefs.medical_records
 		//NON-MODULE CHANGES END
-=======
-		M.fields["id"] = id
-		M.fields["name"] = H.real_name
-		M.fields["blood_type"] = H.dna.blood_type
-		M.fields["b_dna"] = H.dna.unique_enzymes
-		M.fields["mi_dis"] = H.get_quirk_string(!medical, CAT_QUIRK_MINOR_DISABILITY)
-		M.fields["mi_dis_d"] = H.get_quirk_string(medical, CAT_QUIRK_MINOR_DISABILITY)
-		M.fields["ma_dis"] = H.get_quirk_string(!medical, CAT_QUIRK_MAJOR_DISABILITY)
-		M.fields["ma_dis_d"] = H.get_quirk_string(medical, CAT_QUIRK_MAJOR_DISABILITY)
-		M.fields["cdi"] = "None"
-		M.fields["cdi_d"] = "No diseases have been diagnosed at the moment."
-		M.fields["notes"] = H.get_quirk_string(!medical, CAT_QUIRK_NOTES)
-		M.fields["notes_d"] = H.get_quirk_string(medical, CAT_QUIRK_NOTES)
->>>>>>> 764ea3f06d6a4c3e3d5c66aceb823c355d66768f
 		medical += M
 
 		//Security Record
 		var/datum/data/record/S = new()
-<<<<<<< HEAD
 		S.fields["id"]			= id
 		S.fields["name"]		= H.real_name
 		S.fields["criminal"]	= "None"
@@ -320,14 +299,6 @@
 		//NON-MODULE CHANGES:
 		S.fields["past_records"] = C.prefs.security_records
 		//NON-MODULE CHANGES END
-=======
-		S.fields["id"] = id
-		S.fields["name"] = H.real_name
-		S.fields["criminal"] = "None"
-		S.fields["citation"] = list()
-		S.fields["crim"] = list()
-		S.fields["notes"] = "No notes."
->>>>>>> 764ea3f06d6a4c3e3d5c66aceb823c355d66768f
 		security += S
 
 		//Locked Record

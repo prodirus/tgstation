@@ -968,12 +968,8 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		if(BODY_FRONT_LAYER)
 			return "FRONT"
 
-<<<<<<< HEAD
-/datum/species/proc/spec_life(mob/living/carbon/human/H)
-=======
 
 /datum/species/proc/spec_life(mob/living/carbon/human/H, delta_time, times_fired)
->>>>>>> 764ea3f06d6a4c3e3d5c66aceb823c355d66768f
 	if(HAS_TRAIT(H, TRAIT_NOBREATH))
 		H.setOxyLoss(0)
 		H.losebreath = 0

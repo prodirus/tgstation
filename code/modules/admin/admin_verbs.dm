@@ -29,7 +29,6 @@ GLOBAL_PROTECT(admin_verbs_admin)
 // /datum/admins/proc/show_traitor_panel, /*interface which shows a mob's mind*/ -Removed due to rare practical use. Moved to debug verbs ~Errorage
 	/datum/admins/proc/show_player_panel, /*shows an interface for individual players, with various links (links require additional flags*/
 	/datum/verbs/menu/Admin/verb/playerpanel,
-<<<<<<< HEAD
 	/client/proc/game_panel,			/*game panel, allows to change game-mode etc*/
 	/client/proc/check_ai_laws,			/*shows AI and borg laws*/
 	/client/proc/ghost_pool_protection,	/*opens a menu for toggling ghost roles*/
@@ -38,16 +37,6 @@ GLOBAL_PROTECT(admin_verbs_admin)
 	/datum/admins/proc/toggleenter,		/*toggles whether people can join the current game*/
 	/datum/admins/proc/toggleguests,	/*toggles whether guests can join the current game*/
 	/datum/admins/proc/announce,		/*priority announce something to all clients.*/
-=======
-	/client/proc/game_panel, /*game panel, allows to change game-mode etc*/
-	/client/proc/check_ai_laws, /*shows AI and borg laws*/
-	/client/proc/ghost_pool_protection, /*opens a menu for toggling ghost roles*/
-	/datum/admins/proc/toggleooc, /*toggles ooc on/off for everyone*/
-	/datum/admins/proc/toggleoocdead, /*toggles ooc on/off for everyone who is dead*/
-	/datum/admins/proc/toggleenter, /*toggles whether people can join the current game*/
-	/datum/admins/proc/toggleguests, /*toggles whether guests can join the current game*/
-	/datum/admins/proc/announce, /*priority announce something to all clients.*/
->>>>>>> 764ea3f06d6a4c3e3d5c66aceb823c355d66768f
 	/datum/admins/proc/set_admin_notice, /*announcement all clients see when joining the server.*/
 	/client/proc/admin_ghost, /*allows us to ghost/reenter body at will*/
 	/client/proc/toggle_view_range, /*changes how far we can see*/
