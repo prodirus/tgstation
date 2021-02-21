@@ -21,9 +21,9 @@
 	if(bonus_mats)
 		switch(rand(1, 200))
 			if(1 to 9)
-				new /obj/item/stack/sheet/metal(src, 10)
+				new /obj/item/stack/sheet/iron(src, 10)
 			if(10 to 24)
-				new /obj/item/stack/sheet/metal(src, 25)
+				new /obj/item/stack/sheet/iron(src, 25)
 			if(15 to 34)
 				new /obj/item/stack/sheet/glass(src, 10)
 			if(35 to 49)
@@ -77,15 +77,15 @@
 //---
 /obj/structure/closet/crate/resource_cache/normal/metals
 	icon_state = "engi_crate"
-	resources = list(/obj/item/stack/sheet/metal = 50, \
+	resources = list(/obj/item/stack/sheet/iron = 50, \
 					/obj/item/stack/sheet/glass = 50)
 
 /obj/structure/closet/crate/resource_cache/normal/metals/low
-	resources = list(/obj/item/stack/sheet/metal = 30, \
+	resources = list(/obj/item/stack/sheet/iron = 30, \
 					/obj/item/stack/sheet/glass = 25)
 
 /obj/structure/closet/crate/resource_cache/normal/metals/high
-	resources = list(/obj/item/stack/sheet/metal = 120, \
+	resources = list(/obj/item/stack/sheet/iron = 120, \
 					/obj/item/stack/sheet/glass = 100)
 //---
 
@@ -144,14 +144,14 @@
 //---
 /obj/structure/closet/crate/resource_cache/normal/basic_materials
 	resources = list(/obj/item/stack/sheet/cardboard = 20, \
-					/obj/item/stack/sheet/metal = 80, \
+					/obj/item/stack/sheet/iron = 80, \
 					/obj/item/stack/sheet/glass = 25)
 
 /obj/structure/closet/crate/resource_cache/normal/poor_materials
 	resources = list(/obj/item/stack/sheet/cardboard = 80, \
 					/obj/item/stack/sheet/mineral/wood = 50, \
 					/obj/item/stack/sheet/plastic = 20, \
-					/obj/item/stack/sheet/metal = 30)
+					/obj/item/stack/sheet/iron = 30)
 //---
 
 /// Weird crates (Random stuff)
@@ -159,18 +159,18 @@
 /obj/structure/closet/crate/resource_cache/special/weird_materials_cult
 	icon_state = "weaponcrate"
 	resources = list(/obj/item/stack/sheet/runed_metal = 20, \
-					/obj/item/stack/sheet/metal = 30, \
+					/obj/item/stack/sheet/iron = 30, \
 					/obj/item/stack/sheet/glass = 30)
 
 /obj/structure/closet/crate/resource_cache/special/weird_materials_aliens
 	icon_state = "weaponcrate"
 	resources = list(/obj/item/stack/sheet/mineral/abductor = 25, \
-					/obj/item/stack/sheet/metal = 30, \
+					/obj/item/stack/sheet/iron = 30, \
 					/obj/item/stack/sheet/glass = 30)
 
 /obj/structure/closet/crate/resource_cache/special/many_metals
 	bonus_mats = FALSE
-	resources = list(/obj/item/stack/sheet/metal = 30, \
+	resources = list(/obj/item/stack/sheet/iron = 30, \
 					/obj/item/stack/sheet/glass = 25, \
 					/obj/item/stack/sheet/mineral/gold = 10, \
 					/obj/item/stack/sheet/mineral/silver = 12, \

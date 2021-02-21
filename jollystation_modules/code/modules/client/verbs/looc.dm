@@ -156,3 +156,4 @@ GLOBAL_VAR_INIT(looc_allowed, TRUE)
 	to_chat(world, "<B>LOOC has been globally [GLOB.looc_allowed ? "enabled" : "disabled"].</B>")
 
 #undef LOOC_PREFIX_COLOR
+#undef LOOC_SPAN_COLOR
