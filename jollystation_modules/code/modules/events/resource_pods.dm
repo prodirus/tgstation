@@ -129,14 +129,12 @@
 			/area/maintenance,
 			/area/tcommsat,
 			/area/ai_monitored,
-			/area/engine,
-			/area/shuttle)
+			/area/engineering/supermatter,
+			/area/shuttle,
+			/area/solars)
 		)
 
-		///Subtypes of places above that are fine to send crates to.
-		var/list/unsafe_area_subtypes = typecacheof(list(/area/engine/break_room))
-
-		allowed_areas = make_associative(GLOB.the_station_areas) - safe_area_types + unsafe_area_subtypes
+		allowed_areas = make_associative(GLOB.the_station_areas) - safe_area_types
 
 	var/list/possible_areas = typecache_filter_list(GLOB.sortedAreas,allowed_areas)
 	if (length(possible_areas))
