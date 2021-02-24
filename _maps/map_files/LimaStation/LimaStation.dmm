@@ -12510,6 +12510,7 @@
 /area/command)
 "dwx" = (
 /obj/structure/flora/ausbushes/brflowers,
+/mob/living/carbon/human/species/monkey,
 /turf/open/floor/grass,
 /area/medical/virology)
 "dwy" = (
@@ -13398,6 +13399,10 @@
 	},
 /turf/open/floor/iron,
 /area/engineering/main)
+"dOH" = (
+/mob/living/carbon/human/species/monkey,
+/turf/open/floor/grass,
+/area/science/genetics)
 "dOK" = (
 /obj/effect/spawner/structure/window,
 /turf/open/floor/plating,
@@ -23232,6 +23237,10 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plating,
 /area/command/heads_quarters/hop)
+"jCu" = (
+/mob/living/carbon/human/species/monkey,
+/turf/open/floor/grass,
+/area/medical/virology)
 "jDr" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer4{
 	dir = 4
@@ -27062,6 +27071,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
+/mob/living/carbon/human/species/monkey,
 /turf/open/floor/grass,
 /area/science/genetics)
 "lRW" = (
@@ -27207,6 +27217,7 @@
 "lWt" = (
 /obj/structure/flora/junglebush/b,
 /obj/structure/flora/ausbushes/ppflowers,
+/mob/living/carbon/human/species/monkey,
 /turf/open/floor/grass,
 /area/science/genetics)
 "lWv" = (
@@ -34660,6 +34671,7 @@
 "qov" = (
 /obj/structure/flora/ausbushes/ywflowers,
 /obj/machinery/light,
+/mob/living/carbon/human/species/monkey,
 /turf/open/floor/grass,
 /area/science/genetics)
 "qoM" = (
@@ -48414,6 +48426,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
+/mob/living/carbon/human/species/monkey,
 /turf/open/floor/grass,
 /area/medical/virology)
 "xOo" = (
@@ -84487,7 +84500,7 @@ ryu
 xcl
 xNU
 dwx
-sxP
+jCu
 cOP
 peJ
 lRX
@@ -97320,7 +97333,7 @@ lWt
 ndN
 okk
 pwv
-ncW
+dOH
 kGJ
 srC
 pyP
