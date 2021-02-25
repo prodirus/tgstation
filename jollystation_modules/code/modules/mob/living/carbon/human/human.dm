@@ -34,4 +34,3 @@
 			popup.set_content(text("<HTML><HEAD><TITLE>[]</TITLE></HEAD><BODY><TT>[]</TT></BODY></HTML>", "[name]'s exploitable information", replacetext(client.prefs.exploitable_info, "\n", "<BR>")))
 			popup.open()
 			return
-	//NON-MODULE CHANGES END

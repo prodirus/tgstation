@@ -486,32 +486,6 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	jumpsuit_style = sanitize_inlist(jumpsuit_style, GLOB.jumpsuitlist, initial(jumpsuit_style))
 	uplink_spawn_loc = sanitize_inlist(uplink_spawn_loc, GLOB.uplink_spawn_loc_list, initial(uplink_spawn_loc))
 	playtime_reward_cloak = sanitize_integer(playtime_reward_cloak)
-<<<<<<< HEAD
-	features["mcolor"]	= sanitize_hexcolor(features["mcolor"], 3, 0)
-	features["ethcolor"]	= copytext_char(features["ethcolor"], 1, 7)
-	features["tail_lizard"]	= sanitize_inlist(features["tail_lizard"], GLOB.tails_list_lizard)
-	features["tail_human"] 	= sanitize_inlist(features["tail_human"], GLOB.tails_list_human, "None")
-	features["snout"]	= sanitize_inlist(features["snout"], GLOB.snouts_list)
-	features["horns"] 	= sanitize_inlist(features["horns"], GLOB.horns_list)
-	features["ears"]	= sanitize_inlist(features["ears"], GLOB.ears_list, "None")
-	features["frills"] 	= sanitize_inlist(features["frills"], GLOB.frills_list)
-	features["spines"] 	= sanitize_inlist(features["spines"], GLOB.spines_list)
-	features["body_markings"] 	= sanitize_inlist(features["body_markings"], GLOB.body_markings_list)
-	features["feature_lizard_legs"]	= sanitize_inlist(features["legs"], GLOB.legs_list, "Normal Legs")
-	features["moth_wings"] 	= sanitize_inlist(features["moth_wings"], GLOB.moth_wings_list, "Plain")
-	features["moth_antennae"] 	= sanitize_inlist(features["moth_antennae"], GLOB.moth_antennae_list, "Plain")
-	features["moth_markings"] 	= sanitize_inlist(features["moth_markings"], GLOB.moth_markings_list, "None")
-	//NON-MODULE CHANGES: -- Pref Sanitization --
-	features["skrell_headtentacles"] = sanitize_inlist(features["skrell_headtentacles"], GLOB.skrellheadtentacles_list, "Male")
-
-	runechat_color = sanitize_hexcolor(runechat_color)
-	flavor_text = strip_html_simple(sanitize_text(flavor_text), MAX_MESSAGE_LEN)
-	security_records = strip_html_simple(sanitize_text(security_records), MAX_FLAVOR_LEN)
-	medical_records = strip_html_simple(sanitize_text(medical_records), MAX_FLAVOR_LEN)
-	general_records = strip_html_simple(sanitize_text(general_records), MAX_FLAVOR_LEN)
-	exploitable_info = strip_html_simple(sanitize_text(exploitable_info), MAX_FLAVOR_LEN)
-	//NON-MODULE CHANGES END
-=======
 	features["mcolor"] = sanitize_hexcolor(features["mcolor"], 3, 0)
 	features["ethcolor"] = copytext_char(features["ethcolor"], 1, 7)
 	features["tail_lizard"] = sanitize_inlist(features["tail_lizard"], GLOB.tails_list_lizard)
@@ -526,7 +500,16 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	features["moth_wings"] = sanitize_inlist(features["moth_wings"], GLOB.moth_wings_list, "Plain")
 	features["moth_antennae"] = sanitize_inlist(features["moth_antennae"], GLOB.moth_antennae_list, "Plain")
 	features["moth_markings"] = sanitize_inlist(features["moth_markings"], GLOB.moth_markings_list, "None")
->>>>>>> 764ea3f06d6a4c3e3d5c66aceb823c355d66768f
+	//NON-MODULE CHANGES: -- Pref Sanitization --
+	features["skrell_headtentacles"] = sanitize_inlist(features["skrell_headtentacles"], GLOB.skrellheadtentacles_list, "Male")
+
+	runechat_color = sanitize_hexcolor(runechat_color)
+	flavor_text = strip_html_simple(sanitize_text(flavor_text), MAX_MESSAGE_LEN)
+	security_records = strip_html_simple(sanitize_text(security_records), MAX_FLAVOR_LEN)
+	medical_records = strip_html_simple(sanitize_text(medical_records), MAX_FLAVOR_LEN)
+	general_records = strip_html_simple(sanitize_text(general_records), MAX_FLAVOR_LEN)
+	exploitable_info = strip_html_simple(sanitize_text(exploitable_info), MAX_FLAVOR_LEN)
+	//NON-MODULE CHANGES END
 
 	persistent_scars = sanitize_integer(persistent_scars)
 
@@ -573,32 +556,6 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	WRITE_FILE(S["randomise"] , randomise)
 	WRITE_FILE(S["species"] , pref_species.id)
 	WRITE_FILE(S["phobia"], phobia)
-<<<<<<< HEAD
-	WRITE_FILE(S["feature_mcolor"]					, features["mcolor"])
-	WRITE_FILE(S["feature_ethcolor"]					, features["ethcolor"])
-	WRITE_FILE(S["feature_lizard_tail"]			, features["tail_lizard"])
-	WRITE_FILE(S["feature_human_tail"]				, features["tail_human"])
-	WRITE_FILE(S["feature_lizard_snout"]			, features["snout"])
-	WRITE_FILE(S["feature_lizard_horns"]			, features["horns"])
-	WRITE_FILE(S["feature_human_ears"]				, features["ears"])
-	WRITE_FILE(S["feature_lizard_frills"]			, features["frills"])
-	WRITE_FILE(S["feature_lizard_spines"]			, features["spines"])
-	WRITE_FILE(S["feature_lizard_body_markings"]	, features["body_markings"])
-	WRITE_FILE(S["feature_lizard_legs"]			, features["legs"])
-	WRITE_FILE(S["feature_moth_wings"]			, features["moth_wings"])
-	WRITE_FILE(S["feature_moth_antennae"]			, features["moth_antennae"])
-	WRITE_FILE(S["feature_moth_markings"]		, features["moth_markings"])
-	WRITE_FILE(S["persistent_scars"]			, persistent_scars)
-	//NON-MODULE CHANGES:
-	WRITE_FILE(S["feature_skrell_headtentacles"], features["skrell_headtentacles"])
-	WRITE_FILE(S["runechat_color"] , runechat_color)
-	WRITE_FILE(S["flavor_text"] , flavor_text)
-	WRITE_FILE(S["general_records"] , general_records)
-	WRITE_FILE(S["security_records"] , security_records)
-	WRITE_FILE(S["medical_records"] , medical_records)
-	WRITE_FILE(S["exploitable_info"] , exploitable_info)
-	//NON-MODULE CHANGES END
-=======
 	WRITE_FILE(S["feature_mcolor"] , features["mcolor"])
 	WRITE_FILE(S["feature_ethcolor"] , features["ethcolor"])
 	WRITE_FILE(S["feature_lizard_tail"] , features["tail_lizard"])
@@ -614,8 +571,16 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	WRITE_FILE(S["feature_moth_antennae"] , features["moth_antennae"])
 	WRITE_FILE(S["feature_moth_markings"] , features["moth_markings"])
 	WRITE_FILE(S["persistent_scars"] , persistent_scars)
+	//NON-MODULE CHANGES:
+	WRITE_FILE(S["feature_skrell_headtentacles"], features["skrell_headtentacles"])
+	WRITE_FILE(S["runechat_color"] , runechat_color)
+	WRITE_FILE(S["flavor_text"] , flavor_text)
+	WRITE_FILE(S["general_records"] , general_records)
+	WRITE_FILE(S["security_records"] , security_records)
+	WRITE_FILE(S["medical_records"] , medical_records)
+	WRITE_FILE(S["exploitable_info"] , exploitable_info)
+	//NON-MODULE CHANGES END
 
->>>>>>> 764ea3f06d6a4c3e3d5c66aceb823c355d66768f
 	//Custom names
 	for(var/custom_name_id in GLOB.preferences_custom_names)
 		var/savefile_slot_name = custom_name_id + "_name" //TODO remove this
