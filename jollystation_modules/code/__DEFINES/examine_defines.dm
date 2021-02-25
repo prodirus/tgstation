@@ -9,8 +9,6 @@ See the examinemore module for information.
 #define EXAMINE_CHECK_NONE "none"
 /// For displaying descriptors for those with the SYNDICATE faction assigned.
 #define EXAMINE_CHECK_SYNDICATE "syndicate"
-/// Same as above, but displays "The [src] looks like a toy, not the real thing." to non-syndicates.
-#define EXAMINE_CHECK_SYNDICATE_TOY "syndicate_toy"
 /// For displaying descriptors for those with a mindshield implant.
 #define EXAMINE_CHECK_MINDSHIELD "mindshield"
 /// For displaying description information based on a specific ROLE, e.g. traitor. Pass a list of string "Role"

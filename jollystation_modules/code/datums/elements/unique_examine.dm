@@ -27,8 +27,10 @@
 	/// A list of everything we may want to check based on an examine check.
 	/// This can be a list of ROLES, JOBS, FACTIONS, SKILL CHIPS, or TRAITS.
 	var/list/special_desc_list
+	/// If this is a toy. Toys display a message if you don't succeed the check.
+	var/toy = FALSE
 
-/datum/element/unique_examine/Attach(atom/thing, desc, desc_requirement, desc_special, desc_affiliation, hint = TRUE)
+/datum/element/unique_examine/Attach(atom/thing, desc, desc_requirement, desc_special, desc_affiliation, hint = TRUE, is_toy = FALSE)
 	. = ..()
 
 	/// Init our vars
@@ -36,6 +38,7 @@
 	special_desc_requirement = desc_requirement
 	special_desc_list = desc_special
 	special_desc_affiliation = desc_affiliation
+	toy = is_toy
 
 	// What are we doing if we don't even have a description?
 	if(!special_desc)
@@ -99,15 +102,6 @@
 				if((M.special_role == ROLE_TRAITOR) || (ROLE_SYNDICATE in examiner.faction))
 					composed_message += "You note the following because of your <span class='red'><b>[special_desc_affiliation ? special_desc_affiliation : "Syndicate Affiliation"]</b></span>: <br>"
 					composed_message += special_desc
-		//As above, but with a toy desc for those looking at it
-		if(EXAMINE_CHECK_SYNDICATE_TOY)
-			if(examiner.mind)
-				var/datum/mind/M = examiner.mind
-				if((M.special_role == ROLE_TRAITOR) || (ROLE_SYNDICATE in examiner.faction))
-					composed_message += "You note the following because of your <span class='red'><b>[special_desc_affiliation ? special_desc_affiliation : "Syndicate Affiliation"]</b></span>: <br>"
-					composed_message += special_desc
-				else
-					composed_message += "The popular toy resembling [source] from your local arcade, suitable for children and adults alike."
 		//Standard role checks
 		if(EXAMINE_CHECK_ROLE)
 			if(examiner.mind)
@@ -155,6 +149,9 @@
 
 	if(length(composed_message) >= 20) // >= 20 instead of 0 to account for the span
 		composed_message += "</span>"
+		examine_list += composed_message
+	else if(toy) //If we don't have a message and we're a toy, add on the toy message.
+		composed_message += "The popular toy resembling [source] from your local arcade, suitable for children and adults alike. </span>"
 		examine_list += composed_message
 
 // When given some of the more commonly set factions, formats them into a more accurate title

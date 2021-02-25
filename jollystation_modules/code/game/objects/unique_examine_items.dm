@@ -1,12 +1,10 @@
-/// This file is currently full of examples and usages for of the [Unique examine element][/datum/element/unique_examine]
-/// In the future this should probably be split into the proper files and the defines are moved up to the module defines
-/// but for now, they sit here.
+#define ENGINEERING_JOBS list("Chief Engineer", "Station Engineer", "Atmospherics Technician"))
 #define SECURITY_JOBS list("Security Officer", "Warden", "Detective", "Head of Security")
 #define SECURITY_JOBS_HOS SECURITY_JOBS + "Head of Security"
 #define SECURITY_JOBS_HOS_CAP SECURITY_JOBS_HOS + "Captain"
 #define SILICON_JOBS list("Cyborg", "AI")
 
-// SYNDICATE, SYNDICATE TOY, AND JOB EXAMINES //
+// SYNDICATE / SYNDICATE TOY ITEMS //
 
 /obj/item/storage/backpack/duffelbag/syndie
 	name = "duffel bag"
@@ -46,7 +44,7 @@
 /obj/item/clothing/under/syndicate/tacticool/Initialize()
 	. = ..()
 	if(tacticool_description)
-		AddElement(/datum/element/unique_examine, tacticool_description, EXAMINE_CHECK_SYNDICATE_TOY)
+		AddElement(/datum/element/unique_examine, tacticool_description, EXAMINE_CHECK_SYNDICATE, is_toy = TRUE)
 
 /obj/item/clothing/under/syndicate/tacticool/skirt
 	tacticool_description = "Knockoff, Nanotrasen brand tactical skirtleneck - it's not even the right color."
@@ -73,7 +71,7 @@
 /obj/item/clothing/under/syndicate/soviet
 	unique_description = ""
 
-// SKILL CHIP & SPECIES EXAMINES //
+// DRINKS //
 
 /obj/item/reagent_containers/food/drinks/bottle/lizardwine/Initialize()
 	. = ..()
@@ -85,20 +83,49 @@
 	. = ..()
 	AddElement(/datum/element/unique_examine, "A bottle of fine [name]. Classic, refreshing, usually comes with a sharp taste. The vintage is labeled as [generate_vintage()]... You'll be the one to determine that.", EXAMINE_CHECK_SKILLCHIP, list(/obj/item/skillchip/wine_taster), hint = FALSE)
 
-// FACTION EXAMINES //
+// MAGICAL ITEMS //
 
 /obj/item/scrying
 	desc = "A mysterious glowing incandescent orb of crackling energy. Moving your fingers towards it creates arcs of blue electricity."
 
-/obj/item/scrying/Initialize(mapload)
+/obj/item/scrying/Initialize()
 	. = ..()
 	AddElement(/datum/element/unique_examine, "A scrying orb - a view into another plane of existance. Using it will allow you to release your ghost while alive, allowing you to spy upon the station and talk to the deceased. In addition, holding it it will permanently grant you X-ray vision.", EXAMINE_CHECK_FACTION, list(ROLE_WIZARD))
 
-// MINDSHIELD EXAMINES //
+/obj/item/forbidden_book
+	name = "suspicious purple book"
+	desc = "A purple book clasped with a heavy iron lock and bound in a firm leather."
+
+/obj/item/forbidden_book/Initialize()
+	. = ..()
+	AddElement(/datum/element/unique_examine, "The Codex Cicatrix - the book of knowledge holding all the secrets of the veil between the worlds, the Mansus. \
+											Discovered by Wizard Federation aeons ago but locked away deep in the shelving of the highest security libraries of the Spindward Galaxy, \
+											the book was recently stolen during a raid by the Cybersun Industries, copied, and widespread to aspiring seekers of power.", EXAMINE_CHECK_FACTION, list("heretics"))
+/obj/item/toy/eldritch_book
+	name = "suspicious purple book"
+
+/obj/item/toy/eldritch_book/Initialize()
+	AddElement(/datum/element/unique_examine, "A fake Codex Cicatrix - the book of knowledge holding all the secrets of the veil between the worlds, the Mansus. \
+											While the book was recently discovered, copied, and spread due to a recent Cybersun Industries raid on a high-security library, \
+											it seems as if Nanotrasen has already began marketing and selling fake toy copies for children... interesting.", EXAMINE_CHECK_FACTION, list("heretics"), is_toy = TRUE)
+
+// GUNS //
 
 /obj/item/gun/ballistic/revolver/mateba/Initialize()
 	. = ..()
 	AddElement(/datum/element/unique_examine, "A refitted revolver that takes .357 caliber, the Mateba Model 6 Unica - or as it's commonly known shorthand, either the Mateba or the Unica - has been the weapon of choice for Nanotrasen commanding officers in the field for decades.", EXAMINE_CHECK_MINDSHIELD)
+
+/obj/item/gun/energy/laser/captain/Initialize()
+	. = ..()
+	AddElement(/datum/element/unique_examine, "The pride and joy of every captain in the Spinward. It's tradition amongst captains to mod and maintain a lasergun of your own, only bringing it out to use in dire straits. \
+											Every captain has their own personal modifications - this one is modified with a self-recharging cell and hellfire laser rounds.", EXAMINE_CHECK_JOB, list("Captain"))
+
+/obj/item/gun/energy/e_gun/hos/Initialize()
+	. = ..()
+	AddElement(/datum/element/unique_examine, "A modernized and remastered version of the captain's antique laser gun, the X-01 multiphase energy gun was developed in the past few decades to issue to only the highest brass officers \
+											in Nanotrasen security forces. While in the past the gun was outfitted with taser electrodes instead of an ion bolts, it is still used by lead officers for quick response and utility in the event of varying threats.", EXAMINE_CHECK_JOB, SECURITY_JOBS_HOS)
+
+// HIGH RISK ITEMS //
 
 /obj/item/disk/nuclear/Initialize()
 	. = ..()
@@ -109,33 +136,44 @@
 											Being the direct line of communication to Nanotrasen, they are the only member of the crew authorized to hold the authentication disk and (should the situation call for it) enter the codes to the self-destruct. \
 											Of course, because of the importance of the disk in unlocking nuclear devices, the Nuclear Authentication Disk is a very sought after object - luckily, it's in good hands...", EXAMINE_CHECK_SKILLCHIP, list(/obj/item/skillchip/disk_verifier), hint = FALSE)
 
-// MORE JOB EXAMPLES
+/obj/item/clothing/shoes/magboots/advance/Initialize()
+	. = ..()
+	AddElement(/datum/element/unique_examine, "The Chief Engineer's treasured advanced magboots - a sleek white design of the standard magboots designed with speed and wearability in mind during extravehicular activity. \
+												Offers a lighter magnetic pull compared to standard model of magboots, reducing slowdown without sacrificing safety or usability.", EXAMINE_CHECK_JOB, ENGINEERING_JOBS)
+
+/obj/item/clothing/suit/space/hardsuit/engine/elite/Initialize()
+	. = ..()
+	AddElement(/datum/element/unique_examine, "The Chief Engineer's spotless advanced hardsuit - a sleek white design of the standard engineering and atmospheric hardsuits with improved resistance to fire and radiation.", EXAMINE_CHECK_JOB, ENGINEERING_JOBS)
+
+/obj/item/card/id/captains_spare/Initialize()
+	. = ..()
+	AddElement(/datum/element/unique_examine, "The captain's spare ID card - the backup all-access ID card assigned to the care of the captain themselves. Standard-issue golden ID cards supplied to all Nanotrasen operated space stations, to allow \
+											for normal operation of every aspect of the station in the absence of the captain... assuming it doesn't end up in the hands of certain gas-masked individuals, of course.", EXAMINE_CHECK_JOB, list("Captain", "Head of Personnel"))
 
 /obj/item/hand_tele/Initialize()
 	. = ..()
 	AddElement(/datum/element/unique_examine, "The Hand Teleporter, a breakthrough of bluespace technology, is a miniature hand-held version of the larger room-sized teleporters found aboard various stations across the Spinward. \
 										While not as powerful independently as a full teleporter gate setup just yet, these are often entrusted to the Captain for their emergencies, though Research Directors and even space explorers are often given one for personal usage.", EXAMINE_CHECK_JOB, list("Captain", "Research Director", "Scientist"))
 
-/obj/item/gun/energy/laser/captain/Initialize()
-	. = ..()
-	AddElement(/datum/element/unique_examine, "The pride and joy of every captain in the Spinward. It's tradition amongst captains to mod and maintain a lasergun of your own, only bringing it out to use in dire straits. \
-											Every captain has their own personal modifications - this one is modified with a self-recharging cell and hellfire laser rounds.", EXAMINE_CHECK_JOB, list("Captain"))
-
-// ON MOB EXAMPLES
+// MOBS //
 
 /mob/living/simple_animal/pet/dog/corgi/ian/Initialize()
 	. = ..()
 	AddElement(/datum/element/unique_examine, "It's Ian! Your trusty companion through and through. It's the Head of Personnel's secondary job to keep Ian safe and sound from anything that can harm them. Ian's birthday is on September 9th - be sure to celebrate!", EXAMINE_CHECK_JOB, list("Head of Personnel"))
 
-// ON MACHINES / STRUCTURES EXAMPLES
+// MACHINES //
+
 /obj/machinery/power/supermatter_crystal/Initialize()
 	. = ..()
-	AddElement(/datum/element/unique_examine, "Hope you're wearing meson goggles - Crystallized supermatter, one of the most deadly and reactive things in the universe. Supermatter reacts when shot fed with energy, turning the light energy of emitters into heated waste gases and bursts of gamma radiation.", EXAMINE_CHECK_JOB, list("Chief Engineer", "Station Engineer", "Atmospherics Technician"))
+	AddElement(/datum/element/unique_examine, "Hope you're wearing meson goggles - Crystallized supermatter, one of the most deadly and reactive things in the universe. Supermatter reacts when shot fed with energy, turning the light energy of emitters into heated waste gases and bursts of gamma radiation.", EXAMINE_CHECK_JOB, ENGINEERING_JOBS)
+
+// STRUCTURES //
 
 /obj/structure/altar_of_gods/Initialize()
 	. = ..()
 	AddElement(/datum/element/unique_examine, "This religious altar is the place where chaplains can commune with their deities and undergo mystical rituals to their gods. The closest place on the station to the gods above is in front of the altar, and it's where the most successful prayers and rituals take place.", EXAMINE_CHECK_TRAIT, list(TRAIT_SPIRITUAL))
 
+#undef ENGINEERING_JOBS
 #undef SECURITY_JOBS
 #undef SECURITY_JOBS_HOS
 #undef SECURITY_JOBS_HOS_CAP
