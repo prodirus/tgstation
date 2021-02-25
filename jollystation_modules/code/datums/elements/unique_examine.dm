@@ -79,7 +79,7 @@
 	if(isstructure(source))
 		thing = "structure"
 
-	examine_list += "<span class='smallnoticeital'>This [thing] may have additional information if you examine closer.</span>"
+	examine_list += "<span class='smallnoticeital'>This [thing] might have additional information if you examine closer.</span>"
 
 /datum/element/unique_examine/proc/examine(datum/source, mob/examiner, list/examine_list)
 	SIGNAL_HANDLER

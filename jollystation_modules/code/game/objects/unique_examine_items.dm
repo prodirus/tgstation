@@ -1,8 +1,8 @@
-#define ENGINEERING_JOBS list("Chief Engineer", "Station Engineer", "Atmospherics Technician"))
-#define SECURITY_JOBS list("Security Officer", "Warden", "Detective", "Head of Security")
-#define SECURITY_JOBS_HOS SECURITY_JOBS + "Head of Security"
-#define SECURITY_JOBS_HOS_CAP SECURITY_JOBS_HOS + "Captain"
-#define SILICON_JOBS list("Cyborg", "AI")
+/// Job defines
+#define SECURITY_JOBS_PLUS_CAP GLOB.security_positions + "Captain"
+/// Faction defines
+#define HERETIC_FACTIONS list("heretics")
+#define WIZARD_FACTIONS list(ROLE_WIZARD)
 
 // SYNDICATE / SYNDICATE TOY ITEMS //
 
@@ -13,7 +13,7 @@
 /obj/item/storage/backpack/duffelbag/syndie/Initialize()
 	. = ..()
 	AddElement(/datum/element/unique_examine, "This bag is used to store tactical equipment and is manufactured by Donk Co. It's faster and lighter than other duffelbags without sacrificing any space.", EXAMINE_CHECK_SYNDICATE, hint = FALSE)
-	AddElement(/datum/element/unique_examine, "A large, dark colored dufflebag commonly used to transport ammunition, tools, and explosives. Its design makes it much lighter than other duffelbags without sacrificing any space.", EXAMINE_CHECK_JOB, SECURITY_JOBS_HOS_CAP)
+	AddElement(/datum/element/unique_examine, "A large, dark colored dufflebag commonly used to transport ammunition, tools, and explosives. Its design makes it much lighter than other duffelbags without sacrificing any space.", EXAMINE_CHECK_JOB, SECURITY_JOBS_PLUS_CAP)
 
 /obj/item/clothing/under/syndicate
 	name = "suspicious turtleneck"
@@ -23,7 +23,7 @@
 	. = ..()
 	if(unique_description)
 		AddElement(/datum/element/unique_examine, unique_description, EXAMINE_CHECK_SYNDICATE, hint = FALSE)
-		AddElement(/datum/element/unique_examine, "A padded, armored outfit commonly used by syndicate operatives in the field.", EXAMINE_CHECK_JOB, SECURITY_JOBS_HOS_CAP)
+		AddElement(/datum/element/unique_examine, "A padded, armored outfit commonly used by syndicate operatives in the field.", EXAMINE_CHECK_JOB, SECURITY_JOBS_PLUS_CAP)
 
 /obj/item/clothing/under/syndicate/skirt
 	name = "suspicious skirtleneck"
@@ -90,7 +90,7 @@
 
 /obj/item/scrying/Initialize()
 	. = ..()
-	AddElement(/datum/element/unique_examine, "A scrying orb - a view into another plane of existance. Using it will allow you to release your ghost while alive, allowing you to spy upon the station and talk to the deceased. In addition, holding it it will permanently grant you X-ray vision.", EXAMINE_CHECK_FACTION, list(ROLE_WIZARD))
+	AddElement(/datum/element/unique_examine, "A scrying orb - a view into another plane of existance. Using it will allow you to release your ghost while alive, allowing you to spy upon the station and talk to the deceased. In addition, holding it it will permanently grant you X-ray vision.", EXAMINE_CHECK_FACTION, WIZARD_FACTIONS)
 
 /obj/item/forbidden_book
 	name = "suspicious purple book"
@@ -100,14 +100,15 @@
 	. = ..()
 	AddElement(/datum/element/unique_examine, "The Codex Cicatrix - the book of knowledge holding all the secrets of the veil between the worlds, the Mansus. \
 											Discovered by Wizard Federation aeons ago but locked away deep in the shelving of the highest security libraries of the Spindward Galaxy, \
-											the book was recently stolen during a raid by the Cybersun Industries, copied, and widespread to aspiring seekers of power.", EXAMINE_CHECK_FACTION, list("heretics"))
+											the book was recently stolen during a raid by the Cybersun Industries, copied, and widespread to aspiring seekers of power.", EXAMINE_CHECK_FACTION, HERETIC_FACTIONS)
 /obj/item/toy/eldritch_book
 	name = "suspicious purple book"
 
 /obj/item/toy/eldritch_book/Initialize()
+	. = ..()
 	AddElement(/datum/element/unique_examine, "A fake Codex Cicatrix - the book of knowledge holding all the secrets of the veil between the worlds, the Mansus. \
 											While the book was recently discovered, copied, and spread due to a recent Cybersun Industries raid on a high-security library, \
-											it seems as if Nanotrasen has already began marketing and selling fake toy copies for children... interesting.", EXAMINE_CHECK_FACTION, list("heretics"), is_toy = TRUE)
+											it seems as if Nanotrasen has already began marketing and selling fake toy copies for children... interesting.", EXAMINE_CHECK_FACTION, HERETIC_FACTIONS, is_toy = TRUE)
 
 // GUNS //
 
@@ -123,7 +124,7 @@
 /obj/item/gun/energy/e_gun/hos/Initialize()
 	. = ..()
 	AddElement(/datum/element/unique_examine, "A modernized and remastered version of the captain's antique laser gun, the X-01 multiphase energy gun was developed in the past few decades to issue to only the highest brass officers \
-											in Nanotrasen security forces. While in the past the gun was outfitted with taser electrodes instead of an ion bolts, it is still used by lead officers for quick response and utility in the event of varying threats.", EXAMINE_CHECK_JOB, SECURITY_JOBS_HOS)
+											in Nanotrasen security forces. While in the past the gun was outfitted with taser electrodes instead of an ion bolts, it is still used by lead officers for quick response and utility in the event of varying threats.", EXAMINE_CHECK_JOB, GLOB.security_positions)
 
 // HIGH RISK ITEMS //
 
@@ -139,11 +140,11 @@
 /obj/item/clothing/shoes/magboots/advance/Initialize()
 	. = ..()
 	AddElement(/datum/element/unique_examine, "The Chief Engineer's treasured advanced magboots - a sleek white design of the standard magboots designed with speed and wearability in mind during extravehicular activity. \
-												Offers a lighter magnetic pull compared to standard model of magboots, reducing slowdown without sacrificing safety or usability.", EXAMINE_CHECK_JOB, ENGINEERING_JOBS)
+												Offers a lighter magnetic pull compared to standard model of magboots, reducing slowdown without sacrificing safety or usability.", EXAMINE_CHECK_JOB, GLOB.engineering_positions)
 
 /obj/item/clothing/suit/space/hardsuit/engine/elite/Initialize()
 	. = ..()
-	AddElement(/datum/element/unique_examine, "The Chief Engineer's spotless advanced hardsuit - a sleek white design of the standard engineering and atmospheric hardsuits with improved resistance to fire and radiation.", EXAMINE_CHECK_JOB, ENGINEERING_JOBS)
+	AddElement(/datum/element/unique_examine, "The Chief Engineer's spotless advanced hardsuit - a sleek white design of the standard engineering and atmospheric hardsuits with improved resistance to fire and radiation.", EXAMINE_CHECK_JOB, GLOB.engineering_positions)
 
 /obj/item/card/id/captains_spare/Initialize()
 	. = ..()
@@ -161,11 +162,41 @@
 	. = ..()
 	AddElement(/datum/element/unique_examine, "It's Ian! Your trusty companion through and through. It's the Head of Personnel's secondary job to keep Ian safe and sound from anything that can harm them. Ian's birthday is on September 9th - be sure to celebrate!", EXAMINE_CHECK_JOB, list("Head of Personnel"))
 
+/mob/living/carbon/alien/Initialize()
+	. = ..()
+	AddElement(/datum/element/unique_examine, "A xenomorph - an alien species designed to hunt and capture live prey. They reproduce by attaching facehuggers to their prey, impregnating them with the alient seed, eventually causing the host to burst in a violent display of gore as a new larva writhes out.", EXAMINE_CHECK_JOB, list("Research Director", "Scientist", "Xenobiologist"))
+	AddElement(/datum/element/unique_examine, "A xenomorph - an alien species designed to hunt live prey. Weak to flames and laser fire. Facial coverage in the form of biosuits, hardsuits, or riot helmets are of utmost importance when facing these creatures to avoid being 'facehugged' by their offspring.", EXAMINE_CHECK_JOB, SECURITY_JOBS_PLUS_CAP, hint = FALSE)
+
+/mob/living/simple_animal/hostile/alien/Initialize()
+	. = ..()
+	AddElement(/datum/element/unique_examine, "A xenomorph - an alien species designed to hunt and capture live prey. They reproduce by attaching facehuggers to their prey, impregnating them with the alient seed, eventually causing the host to burst in a violent display of gore as a new larva writhes out.", EXAMINE_CHECK_JOB, list("Research Director", "Scientist", "Xenobiologist"))
+	AddElement(/datum/element/unique_examine, "A xenomorph - an alien species designed to hunt live prey. Weak to flames and laser fire. Facial coverage in the form of biosuits, hardsuits, or riot helmets are of utmost importance when facing these creatures to avoid being 'facehugged' by their offspring.", EXAMINE_CHECK_JOB, SECURITY_JOBS_PLUS_CAP, hint = FALSE)
+
+/mob/living/carbon/alien/humanoid/royal/queen/Initialize()
+	. = ..()
+	AddElement(/datum/element/unique_examine, "A xenomorph queen - the patriarch of the xenomorph species. Produces large, brown eggs which birth into the facehugger - the small, jumpy alien creature responisble for the alien's method of reproduction. Leads its sisters and offspring through their alien hivemind - when slain, releases a psychic screen via the hivemind, greatly disorienting their kin.", EXAMINE_CHECK_JOB, list("Research Director", "Scientist", "Xenobiologist"), hint = FALSE)
+	AddElement(/datum/element/unique_examine, "A xenomorph queen - the patriarch of the xenomorph species. Leads the nest through their xenomorph hivemind. The source of the xenos - killing the queen is important in killing the hive. When slain, releases a psychic scream along the alien hivemind, confusing and disorienting their kin and offspring.", EXAMINE_CHECK_JOB, SECURITY_JOBS_PLUS_CAP, hint = FALSE)
+
+/mob/living/simple_animal/hostile/alien/queen/Initialize()
+	. = ..()
+	AddElement(/datum/element/unique_examine, "A xenomorph queen - the patriarch of the xenomorph species. Produces large, brown eggs which birth into the facehugger - the small, jumpy alien creature responisble for the alien's method of reproduction. Leads its sisters and offspring through their alien hivemind - when slain, releases a psychic screen via the hivemind, greatly disorienting their kin.", EXAMINE_CHECK_JOB, list("Research Director", "Scientist", "Xenobiologist"), hint = FALSE)
+	AddElement(/datum/element/unique_examine, "A xenomorph queen - the patriarch of the xenomorph species. Leads the nest through their xenomorph hivemind. The source of the xeno menace - killing the queen is crucial in killing the hive. When slain, releases a psychic scream along the alien hivemind, confusing and disorienting their kin and offspring.", EXAMINE_CHECK_JOB, SECURITY_JOBS_PLUS_CAP, hint = FALSE)
+
 // MACHINES //
+
+/obj/machinery/computer/communications/Initialize()
+	. = ..()
+	AddElement(/datum/element/unique_examine, "The communications console is the station's one and only link to central command for anything and everything. If every console on the station is destoyed, the emergency shuttle is automatically called on a 25 minute timer. \
+												Likewise if a large percentage of the station's crew perish the shuttle is automatically called in that case, too. It's good that central command cares.", EXAMINE_CHECK_JOB, list("Captain", "Head of Personnel", "Bridge Officer"))
 
 /obj/machinery/power/supermatter_crystal/Initialize()
 	. = ..()
-	AddElement(/datum/element/unique_examine, "Hope you're wearing meson goggles - Crystallized supermatter, one of the most deadly and reactive things in the universe. Supermatter reacts when shot fed with energy, turning the light energy of emitters into heated waste gases and bursts of gamma radiation.", EXAMINE_CHECK_JOB, ENGINEERING_JOBS)
+	AddElement(/datum/element/unique_examine, "Hope you're wearing meson goggles - Crystallized supermatter, one of the most deadly and reactive things in the universe. Supermatter reacts when shot with energy, turning the light energy of emitters into heated waste gases and bursts of gamma radiation.", EXAMINE_CHECK_JOB, GLOB.engineering_positions)
+
+/obj/machinery/computer/slot_machine/Initialize()
+	. = ..()
+	AddElement(/datum/element/unique_examine, "Often called 'one armed bandit', 'fruit machine', or just 'slots', \the [src] is one of the most common forms of gambling in the galaxy. A 7 century old design. Simple and addictive - Hopefully you're doing your job and not playing it right now.", EXAMINE_CHECK_JOB, GLOB.service_positions)
+
 
 // STRUCTURES //
 
@@ -173,8 +204,45 @@
 	. = ..()
 	AddElement(/datum/element/unique_examine, "This religious altar is the place where chaplains can commune with their deities and undergo mystical rituals to their gods. The closest place on the station to the gods above is in front of the altar, and it's where the most successful prayers and rituals take place.", EXAMINE_CHECK_TRAIT, list(TRAIT_SPIRITUAL))
 
-#undef ENGINEERING_JOBS
-#undef SECURITY_JOBS
-#undef SECURITY_JOBS_HOS
-#undef SECURITY_JOBS_HOS_CAP
-#undef SILICON_JOBS
+/obj/effect/eldritch/big/Initialize()
+	. = ..()
+	AddElement(/datum/element/unique_examine, "The transumation circle - the site to most known rituals involving unlocking the key to the veil between worlds. Many concentric black ink circles are drawn \
+											amidst a larger, thick green circle, weakening the chains of reality and allowing a seekers of ancient powers to access the mysteries of the Mansus.", EXAMINE_CHECK_FACTION, HERETIC_FACTIONS)
+
+#define HERETIC_REALITY_MESSAGES list("THE HIGHER I RISE, THE MORE I SEE.", \
+									"THE VEIL IS SHATTERED.", \
+									"THE GATES OF THE MANSUS IS HERE, IS OPEN.", \
+									"I AM BEING WATCHED... FROM WHERE? FROM WHAT?", \
+									"A SHIMMER... POTENTIAL... POWER.", \
+									"THEIR HAND IS AT MY SIDE.", \
+									"STRENGTH... UNPARALLELED. UNNATURAL.", \
+									"I AM LATE FOR MY DESTINY.", \
+									"TO WALK BETWEEN PLANES.", \
+									"THEY WALK THE WORLD. UNNOTICED.", \
+									"CURSED LAND, CURSED MAN, CURSED MIND.", \
+									"GREATER HEIGHTS.", \
+									"SCREAMS. SILENCE.", \
+									"RAIN OF BLOOD. REIGN OF BLOOD.", \
+									"LIFE IS FLEETING, BUT WHAT YET STAYS?", \
+									"COVERED AND FORGOTTEN.", \
+									"A WHISPER.")
+
+/obj/effect/reality_smash/Initialize()
+	. = ..()
+	AddElement(/datum/element/unique_examine, "A pierce in reality - a weakness in the veil that allows power to be gleamed from the Mansus.\n<span class='hypnophrase'>[pick(HERETIC_REALITY_MESSAGES)]</span>", EXAMINE_CHECK_FACTION, HERETIC_FACTIONS)
+
+/obj/effect/broken_illusion/Initialize()
+	. = ..()
+	AddElement(/datum/element/unique_examine, "A tapped pierce in reality - this one has been sapped of power. There is nothing here for Them any longer.\n<span class='hypnophrase'>[pick(HERETIC_REALITY_MESSAGES)]</span>", EXAMINE_CHECK_FACTION, HERETIC_FACTIONS)
+	AddElement(/datum/element/unique_examine, "<span class='big hypnophrase'>A harrowing reminder of the fragility of our reality, the fleeting nature of life, and of impending slow doom.</span>", EXAMINE_CHECK_NONE, hint = FALSE)
+	AddElement(/datum/element/unique_examine, "A tapped, used rift in reality. Its pressence means a fellow mortal - likely a crewmate - desired to attempt to throw off the shackles of reality and went off seeking power and strength from a copy of the forbidden Codex Cicatrix.", EXAMINE_CHECK_MINDSHIELD, hint = FALSE)
+
+/obj/item/toy/reality_pierce/Initialize()
+	. = ..()
+	AddElement(/datum/element/unique_examine, "A pierced reality - a weakness in the veil that allows power to be gleamed from the Mansus. This one is fake, however. How'd they even make this?", EXAMINE_CHECK_FACTION, HERETIC_FACTIONS)
+
+#undef SECURITY_JOBS_PLUS_CAP
+#undef HERETIC_FACTIONS
+#undef WIZARD_FACTIONS
+
+#undef HERETIC_REALITY_MESSAGES
