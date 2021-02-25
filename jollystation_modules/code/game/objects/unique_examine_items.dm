@@ -1,5 +1,14 @@
 /// Job defines
 #define SECURITY_JOBS_PLUS_CAP GLOB.security_positions + "Captain"
+/// Antag defines
+#define TRAITOR_LIST list(/datum/antagonist/traitor)
+#define CHANGELING_LIST list(/datum/antagonist/changeling)
+#define HERETIC_LIST list(/datum/antagonist/heretic)
+#define WIZARD_LIST list(/datum/antagonist/wizard)
+#define NUKEOP_LIST list(/datum/antagonist/nukeop)
+#define SYNDICATES_LIST NUKEOP_LIST + TRAITOR_LIST
+/// Species defines
+#define LIZARD_LIST list(/datum/species/lizard)
 /// Faction defines
 #define HERETIC_FACTIONS list("heretics")
 #define WIZARD_FACTIONS list(ROLE_WIZARD)
@@ -12,7 +21,7 @@
 
 /obj/item/storage/backpack/duffelbag/syndie/Initialize()
 	. = ..()
-	AddElement(/datum/element/unique_examine, "This bag is used to store tactical equipment and is manufactured by Donk Co. It's faster and lighter than other duffelbags without sacrificing any space.", EXAMINE_CHECK_SYNDICATE, hint = FALSE)
+	AddElement(/datum/element/unique_examine, "This bag is used to store tactical equipment and is manufactured by Donk Co. It's faster and lighter than other duffelbags without sacrificing any space.", EXAMINE_CHECK_ANTAG, SYNDICATES_LIST, "Syndicate Affiliation", hint = FALSE)
 	AddElement(/datum/element/unique_examine, "A large, dark colored dufflebag commonly used to transport ammunition, tools, and explosives. Its design makes it much lighter than other duffelbags without sacrificing any space.", EXAMINE_CHECK_JOB, SECURITY_JOBS_PLUS_CAP)
 
 /obj/item/clothing/under/syndicate
@@ -22,7 +31,7 @@
 /obj/item/clothing/under/syndicate/Initialize()
 	. = ..()
 	if(unique_description)
-		AddElement(/datum/element/unique_examine, unique_description, EXAMINE_CHECK_SYNDICATE, hint = FALSE)
+		AddElement(/datum/element/unique_examine, unique_description, EXAMINE_CHECK_ANTAG, SYNDICATES_LIST, "Syndicate Affiliation",  hint = FALSE)
 		AddElement(/datum/element/unique_examine, "A padded, armored outfit commonly used by syndicate operatives in the field.", EXAMINE_CHECK_JOB, SECURITY_JOBS_PLUS_CAP)
 
 /obj/item/clothing/under/syndicate/skirt
@@ -44,7 +53,7 @@
 /obj/item/clothing/under/syndicate/tacticool/Initialize()
 	. = ..()
 	if(tacticool_description)
-		AddElement(/datum/element/unique_examine, tacticool_description, EXAMINE_CHECK_SYNDICATE, is_toy = TRUE)
+		AddElement(/datum/element/unique_examine, tacticool_description, EXAMINE_CHECK_ANTAG, SYNDICATES_LIST, "Syndicate Affiliation", is_toy = TRUE)
 
 /obj/item/clothing/under/syndicate/tacticool/skirt
 	tacticool_description = "Knockoff, Nanotrasen brand tactical skirtleneck - it's not even the right color."
@@ -77,7 +86,7 @@
 	. = ..()
 	var/vintage = rand(GLOB.year_integer + 450, GLOB.year_integer + 540) // Wine has an actual vintage var but lizardwine is special
 	AddElement(/datum/element/unique_examine, "A bottle of ethically questionable lizard wine. Rare now-a-days following the harsh regulations placed on the great wine industry. You'd place the vintage at... [(vintage >= 3000) ? "[vintage] Nanotrasen White-Green. Not my personal preference..." : "a respectable [vintage] Nanotrasen White-Green. Wonderful."]", EXAMINE_CHECK_SKILLCHIP, list(/obj/item/skillchip/wine_taster), hint = FALSE)
-	AddElement(/datum/element/unique_examine, "A lizardperson's tail is important in keeping balance and warding off enemies in combat situations. You can't help but feel disappointed and saddened looking at this, knowing a fellow kin was robbed of such a thing.", EXAMINE_CHECK_SPECIES, list(/datum/species/lizard))
+	AddElement(/datum/element/unique_examine, "A lizardperson's tail is important in keeping balance and warding off enemies in combat situations. You can't help but feel disappointed and saddened looking at this, knowing a fellow kin was robbed of such a thing.", EXAMINE_CHECK_SPECIES, LIZARD_LIST)
 
 /obj/item/reagent_containers/food/drinks/bottle/wine/Initialize(mapload)
 	. = ..()
@@ -197,7 +206,6 @@
 	. = ..()
 	AddElement(/datum/element/unique_examine, "Often called 'one armed bandit', 'fruit machine', or just 'slots', \the [src] is one of the most common forms of gambling in the galaxy. A 7 century old design. Simple and addictive - Hopefully you're doing your job and not playing it right now.", EXAMINE_CHECK_JOB, GLOB.service_positions)
 
-
 // STRUCTURES //
 
 /obj/structure/altar_of_gods/Initialize()
@@ -209,23 +217,24 @@
 	AddElement(/datum/element/unique_examine, "The transumation circle - the site to most known rituals involving unlocking the key to the veil between worlds. Many concentric black ink circles are drawn \
 											amidst a larger, thick green circle, weakening the chains of reality and allowing a seekers of ancient powers to access the mysteries of the Mansus.", EXAMINE_CHECK_FACTION, HERETIC_FACTIONS)
 
-#define HERETIC_REALITY_MESSAGES list("THE HIGHER I RISE, THE MORE I SEE.", \
-									"THE VEIL IS SHATTERED.", \
-									"THE GATES OF THE MANSUS IS HERE, IS OPEN.", \
-									"I AM BEING WATCHED... FROM WHERE? FROM WHAT?", \
-									"A SHIMMER... POTENTIAL... POWER.", \
-									"THEIR HAND IS AT MY SIDE.", \
-									"STRENGTH... UNPARALLELED. UNNATURAL.", \
-									"I AM LATE FOR MY DESTINY.", \
-									"TO WALK BETWEEN PLANES.", \
-									"THEY WALK THE WORLD. UNNOTICED.", \
-									"CURSED LAND, CURSED MAN, CURSED MIND.", \
-									"GREATER HEIGHTS.", \
-									"SCREAMS. SILENCE.", \
-									"RAIN OF BLOOD. REIGN OF BLOOD.", \
-									"LIFE IS FLEETING, BUT WHAT YET STAYS?", \
-									"COVERED AND FORGOTTEN.", \
-									"A WHISPER.")
+#define HERETIC_REALITY_MESSAGES \
+	list("THE HIGHER I RISE, THE MORE I SEE.", \
+	"THE VEIL IS SHATTERED.", \
+	"THE GATES OF THE MANSUS IS HERE, IS OPEN.", \
+	"I AM BEING WATCHED... FROM WHERE? FROM WHAT?", \
+	"A SHIMMER... POTENTIAL... POWER.", \
+	"THEIR HAND IS AT MY SIDE.", \
+	"STRENGTH... UNPARALLELED. UNNATURAL.", \
+	"I AM LATE FOR MY DESTINY.", \
+	"TO WALK BETWEEN PLANES.", \
+	"THEY WALK THE WORLD. UNNOTICED.", \
+	"CURSED LAND, CURSED MAN, CURSED MIND.", \
+	"GREATER HEIGHTS.", \
+	"SCREAMS. SILENCE.", \
+	"RAIN OF BLOOD. REIGN OF BLOOD.", \
+	"LIFE IS FLEETING, BUT WHAT YET STAYS?", \
+	"COVERED AND FORGOTTEN.", \
+	"A WHISPER.")
 
 /obj/effect/reality_smash/Initialize()
 	. = ..()
@@ -234,14 +243,21 @@
 /obj/effect/broken_illusion/Initialize()
 	. = ..()
 	AddElement(/datum/element/unique_examine, "A tapped pierce in reality - this one has been sapped of power. There is nothing here for Them any longer.\n<span class='hypnophrase'>[pick(HERETIC_REALITY_MESSAGES)]</span>", EXAMINE_CHECK_FACTION, HERETIC_FACTIONS)
-	AddElement(/datum/element/unique_examine, "<span class='big hypnophrase'>A harrowing reminder of the fragility of our reality, the fleeting nature of life, and of impending slow doom.</span>", EXAMINE_CHECK_NONE, hint = FALSE)
-	AddElement(/datum/element/unique_examine, "A tapped, used rift in reality. Its pressence means a fellow mortal - likely a crewmate - desired to attempt to throw off the shackles of reality and went off seeking power and strength from a copy of the forbidden Codex Cicatrix.", EXAMINE_CHECK_MINDSHIELD, hint = FALSE)
+	AddElement(/datum/element/unique_examine, "<span class='hypnophrase'>A harrowing reminder of the <span class='big hypnophrase'>fragility of our reality</span>, the fleeting nature of life, and of impending slow doom.</span>", EXAMINE_CHECK_NONE, hint = FALSE)
+	AddElement(/datum/element/unique_examine, "A tapped, used rift in reality. Its pressence means a fellow man - likely a crewmate - has attempted to throw off the shackles of reality and began seeking power and strength from a copy of the forbidden Codex Cicatrix.", EXAMINE_CHECK_MINDSHIELD, hint = FALSE)
 
 /obj/item/toy/reality_pierce/Initialize()
 	. = ..()
 	AddElement(/datum/element/unique_examine, "A pierced reality - a weakness in the veil that allows power to be gleamed from the Mansus. This one is fake, however. How'd they even make this?", EXAMINE_CHECK_FACTION, HERETIC_FACTIONS)
 
 #undef SECURITY_JOBS_PLUS_CAP
+#undef TRAITOR_LIST
+#undef CHANGELING_LIST
+#undef HERETIC_LIST
+#undef WIZARD_LIST
+#undef NUKEOP_LIST
+#undef SYNDICATES_LIST
+#undef LIZARD_LIST
 #undef HERETIC_FACTIONS
 #undef WIZARD_FACTIONS
 

@@ -30,13 +30,13 @@
 	/// If this is a toy. Toys display a message if you don't succeed the check.
 	var/toy = FALSE
 
-/datum/element/unique_examine/Attach(atom/thing, desc, desc_requirement, desc_special, desc_affiliation, hint = TRUE, is_toy = FALSE)
+/datum/element/unique_examine/Attach(atom/thing, desc, desc_requirement, desc_requirement_list, desc_affiliation, hint = TRUE, is_toy = FALSE)
 	. = ..()
 
 	/// Init our vars
 	special_desc = desc
 	special_desc_requirement = desc_requirement
-	special_desc_list = desc_special
+	special_desc_list = desc_requirement_list
 	special_desc_affiliation = desc_affiliation
 	toy = is_toy
 
@@ -96,12 +96,13 @@
 				composed_message += "You note the following because of your <span class='blue'><b>mindshield</b></span>: <br>"
 				composed_message += special_desc
 		//Standard syndicate checks
-		if(EXAMINE_CHECK_SYNDICATE)
+		if(EXAMINE_CHECK_ANTAG)
 			if(examiner.mind)
 				var/datum/mind/M = examiner.mind
-				if((M.special_role == ROLE_TRAITOR) || (ROLE_SYNDICATE in examiner.faction))
-					composed_message += "You note the following because of your <span class='red'><b>[special_desc_affiliation ? special_desc_affiliation : "Syndicate Affiliation"]</b></span>: <br>"
-					composed_message += special_desc
+				for(var/antag_datum in special_desc_list)
+					if(M.has_antag_datum(antag_datum))
+						composed_message += "You note the following because of your <span class='red'><b>[special_desc_affiliation ? special_desc_affiliation : "Antagonist Affiliation"]</b></span>: <br>"
+						composed_message += special_desc
 		//Standard role checks
 		if(EXAMINE_CHECK_ROLE)
 			if(examiner.mind)
@@ -158,29 +159,29 @@
 /datum/element/unique_examine/proc/get_formatted_faction(faction)
 	switch(faction)
 		if(ROLE_WIZARD)
-			return "the Wizard Federation"
+			return "<span class='hypnophrase'>the Wizard Federation</span>"
 		if(ROLE_SYNDICATE)
-			return "the Syndicate"
+			return "<span class='red'>the Syndicate</span>"
 		if(ROLE_ALIEN)
-			return "the alien hivemind"
+			return "<span class='alien'>the alien hivemind</span>"
 		if(ROLE_NINJA)
-			return "the spider clan"
+			return "<span class='hypnophrase'>the spider clan</span>"
 		// I love that some factions use role defines while others use magic strings
 		if("Nanotrasen")
-			return "Nanotrasen" // not necessary but keeping it here
+			return "<span class='blue'>Nanotrasen</span>" // not necessary but keeping it here
 		if("Station")
-			return "[station_name()]"
+			return "<span class='blue'>[station_name()]</span>"
 		if("heretics")
-			return "the Mansus"
+			return "<span class='hypnophrase'>the Mansus</span>"
 		if("cult")
-			return "Nar'sie"
+			return "<span class='cult'>Nar'sie</span>"
 		if("pirate")
-			return "the Jolly Roger"
+			return "<span class='red'>the Jolly Roger</span>"
 		if("plants")
-			return "nature"
+			return "<span class='green'>nature</span>"
 		if("ashwalker")
-			return "the tendril"
+			return "<span class='red'>the tendril</span>"
 		if("carp")
-			return "space carp"
+			return "<span class='green'>space carp</span>"
 		else
 			return faction
