@@ -24,4 +24,5 @@
 
 /datum/outfit/job/scientist/xenobiologist
 	name = "Xenobiologist"
+	suit = /obj/item/clothing/suit/toggle/labcoat/xenobio
 	jobtype = /datum/job/xenobiologist

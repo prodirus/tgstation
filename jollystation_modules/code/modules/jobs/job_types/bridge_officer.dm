@@ -50,6 +50,9 @@
 	uniform = /obj/item/clothing/under/rank/civilian/bo/black
 	shoes = /obj/item/clothing/shoes/laceup
 	suit = /obj/item/clothing/suit/armor/vest
+
+	implants = list(/obj/item/implant/mindshield)
+
 	backpack_contents = list(
 		/obj/item/melee/classic_baton/telescopic=1, /obj/item/gun/energy/disabler=1)
 

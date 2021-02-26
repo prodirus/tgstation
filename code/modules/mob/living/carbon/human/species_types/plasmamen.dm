@@ -134,6 +134,15 @@
 		if("Scientist")
 			O = new /datum/outfit/plasmaman/science
 
+		//START OF NON-MODULAR CHANGES
+
+		if("Xenobiologist")
+			O = new /datum/outfit/plasmaman/science
+
+		if("Toxicologist")
+			O = new /datum/outfit/plasmaman/science
+
+		//END OF NON-MODULAR CHANGES	
 		if("Station Engineer")
 			O = new /datum/outfit/plasmaman/engineering
 

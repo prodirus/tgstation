@@ -25,4 +25,5 @@
 
 /datum/outfit/job/scientist/toxicologist
 	name = "Toxicologist"
+	suit = /obj/item/clothing/suit/toggle/labcoat/toxic
 	jobtype = /datum/job/toxicologist
