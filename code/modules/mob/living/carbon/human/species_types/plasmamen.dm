@@ -131,15 +131,7 @@
 		if("Virologist")
 			O = new /datum/outfit/plasmaman/viro
 
-		if("Scientist")
-			O = new /datum/outfit/plasmaman/science
-
-		//START OF NON-MODULAR CHANGES
-
-		if("Xenobiologist")
-			O = new /datum/outfit/plasmaman/science
-
-		if("Toxicologist")
+		if("Scientist", "Xenobiologist", "Toxicologist") // NON-MODULE CHANGE
 			O = new /datum/outfit/plasmaman/science
 
 		//END OF NON-MODULAR CHANGES	
