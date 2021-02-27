@@ -134,7 +134,6 @@
 		if("Scientist", "Xenobiologist", "Toxicologist") // NON-MODULE CHANGE
 			O = new /datum/outfit/plasmaman/science
 
-		//END OF NON-MODULAR CHANGES	
 		if("Station Engineer")
 			O = new /datum/outfit/plasmaman/engineering
 
