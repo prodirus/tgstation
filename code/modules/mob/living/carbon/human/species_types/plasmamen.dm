@@ -152,7 +152,7 @@
 		if("Head of Personnel")
 			O = new /datum/outfit/plasmaman/head_of_personnel
 
-		if("Head of Security")
+		if("Head of Security", "Bridge Officer") //NON-MODULE CHANGE --should maybe make a modular plasma suit so it isn't just HoS
 			O = new /datum/outfit/plasmaman/head_of_security
 
 		if("Chief Engineer")
@@ -163,9 +163,6 @@
 
 		if("Research Director")
 			O = new /datum/outfit/plasmaman/research_director
-
-		if("Bridge Officer")
-			O = new /datum/outfit/plasmaman/head_of_security //NON-MODULE CHANGE --should maybe make a modular plasma suit so it isn't just HoS 
 
 	H.equipOutfit(O, visualsOnly)
 	H.internal = H.get_item_for_held_index(2)
