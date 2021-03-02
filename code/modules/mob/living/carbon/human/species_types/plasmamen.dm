@@ -133,8 +133,7 @@
 
 		if("Scientist", "Xenobiologist", "Toxicologist") // NON-MODULE CHANGE
 			O = new /datum/outfit/plasmaman/science
-
-		//END OF NON-MODULAR CHANGES	
+	
 		if("Station Engineer")
 			O = new /datum/outfit/plasmaman/engineering
 
@@ -164,6 +163,9 @@
 
 		if("Research Director")
 			O = new /datum/outfit/plasmaman/research_director
+
+		if("Bridge Officer")
+			O = new /datum/outfit/plasmaman/head_of_security //NON-MODULE CHANGE --should maybe make a modular plasma suit so it isn't just HoS 
 
 	H.equipOutfit(O, visualsOnly)
 	H.internal = H.get_item_for_held_index(2)
