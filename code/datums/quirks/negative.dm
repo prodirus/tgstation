@@ -176,13 +176,21 @@
 				heirloom_type = /obj/item/pen/blue
 			//RnD
 			if("Research Director")
-				heirloom_type = /obj/item/toy/plush/slimeplushie
+				heirloom_type = /obj/item/clipboard //Non-modular change
 			if("Scientist")
-				heirloom_type = /obj/item/toy/plush/slimeplushie
+				heirloom_type = /obj/item/clipboard //Non-modular change
 			if("Roboticist")
 				heirloom_type = pick(subtypesof(/obj/item/toy/prize) + /obj/item/toy/plush/pkplush) //look at this nerd
 			if("Geneticist")
 				heirloom_type = /obj/item/clothing/under/shorts/purple
+			//Non-modular changes start
+			if("Xenobiologist")
+				heirloom_type = /obj/item/toy/plush/slimeplushie
+			if("Toxicologist")
+				heirloom_type = /obj/item/toy/nuke
+			if("Bridge Officer")
+				heirloom_type = /obj/item/book/manual/wiki/security_space_law
+			//Non-modular changes end
 			//Medical
 			if("Chief Medical Officer")
 				heirloom_type = /obj/item/storage/firstaid/ancient/heirloom

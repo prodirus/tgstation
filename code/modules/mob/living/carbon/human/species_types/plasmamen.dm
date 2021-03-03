@@ -131,9 +131,9 @@
 		if("Virologist")
 			O = new /datum/outfit/plasmaman/viro
 
-		if("Scientist")
+		if("Scientist", "Xenobiologist", "Toxicologist") // NON-MODULE CHANGE
 			O = new /datum/outfit/plasmaman/science
-
+	
 		if("Station Engineer")
 			O = new /datum/outfit/plasmaman/engineering
 
@@ -152,7 +152,7 @@
 		if("Head of Personnel")
 			O = new /datum/outfit/plasmaman/head_of_personnel
 
-		if("Head of Security")
+		if("Head of Security", "Bridge Officer") //NON-MODULE CHANGE --should maybe make a modular plasma suit so it isn't just HoS
 			O = new /datum/outfit/plasmaman/head_of_security
 
 		if("Chief Engineer")
