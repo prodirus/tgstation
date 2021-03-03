@@ -217,8 +217,8 @@
 	AddElement(/datum/element/unique_examine, "The transumation circle - the site to most known rituals involving unlocking the key to the veil between worlds. Many concentric black ink circles are drawn \
 											amidst a larger, thick green circle, weakening the chains of reality and allowing a seekers of ancient powers to access the mysteries of the Mansus.", EXAMINE_CHECK_FACTION, HERETIC_FACTIONS)
 
-#define HERETIC_REALITY_MESSAGES \
-	list("THE HIGHER I RISE, THE MORE I SEE.", \
+#define HERETIC_REALITY_MESSAGES list( \
+	"THE HIGHER I RISE, THE MORE I SEE.", \
 	"THE VEIL IS SHATTERED.", \
 	"THE GATES OF THE MANSUS IS HERE, IS OPEN.", \
 	"I AM BEING WATCHED... FROM WHERE? FROM WHAT?", \
@@ -249,6 +249,15 @@
 /obj/item/toy/reality_pierce/Initialize()
 	. = ..()
 	AddElement(/datum/element/unique_examine, "A pierced reality - a weakness in the veil that allows power to be gleamed from the Mansus. This one is fake, however. How'd they even make this?", EXAMINE_CHECK_FACTION, HERETIC_FACTIONS)
+
+/obj/effect/rune/Initialize()
+	. = ..()
+	AddElement(/datum/element/unique_examine, "A rune of blood inscribed by the followers of the Geometer Nar'sie to channel powerful blood magics through the invoker.", EXAMINE_CHECK_FACTION, list("cult"))
+
+/obj/effect/decal/cleanable/crayon/Initialize(mapload, main, type, e_name, graf_rot, alt_icon = null)
+	. = ..()
+	if(e_name == "rune")
+		AddElement(/datum/element/unique_examine, "A rune of blood inscribed by the followers of the Geometer Nar'sie to channel powerful blood magics through the invoker. Except this one is crayon and not blood - a mockery.", EXAMINE_CHECK_FACTION, list("cult"))
 
 #undef SECURITY_JOBS_PLUS_CAP
 #undef TRAITOR_LIST
