@@ -3419,6 +3419,7 @@
 #include "jollystation_modules\code\modules\clothing\head\jobs.dm"
 #include "jollystation_modules\code\modules\clothing\suits\labcoat.dm"
 #include "jollystation_modules\code\modules\clothing\under\jobs\command.dm"
+#include "jollystation_modules\code\modules\clothing\under\jobs\rnd.dm"
 #include "jollystation_modules\code\modules\clothing\under\jobs\civilian\civilian.dm"
 #include "jollystation_modules\code\modules\events\resource_drift.dm"
 #include "jollystation_modules\code\modules\events\resource_pods.dm"
