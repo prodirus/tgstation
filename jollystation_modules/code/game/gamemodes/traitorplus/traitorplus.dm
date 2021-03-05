@@ -31,8 +31,8 @@
 
 	announce_span = "danger"
 	announce_text = "There are antagonistic agents on the station!\n	\
-	<span class='danger'>Traitors</span>: Set an objective and complete it!\n	\
-	<span class='notice'>Crew</span>: Ensure the station and crew survive!"
+		<span class='danger'>Traitors</span>: Set an objective and complete it!\n	\
+		<span class='notice'>Crew</span>: Ensure the station and crew survive!"
 
 	var/give_antag_lower_timer = 8 MINUTES
 	var/give_antag_upper_timer = 12 MINUTES
@@ -134,7 +134,7 @@
 /datum/antagonist/traitor/traitor_plus/greet()
 	to_chat(owner.current, "<span class='alertsyndie'>You are an antagonist!</span>")
 	to_chat(owner.current, "<span class='danger'>You are a story driven antagonist! You can set your goals to whatever you think would make an interesting story or round.</span>")
-	to_chat(owner.current, "<span class='danger'>Once you set at least 2 goals, you'll be given an uplink - the more you set, and the higher the intensity, the more telecrystals you'll be afforded.</span>")
+	to_chat(owner.current, "<span class='danger'>Once you set at few goals, you'll be given an uplink - the more you set, and the higher the intensity, the more telecrystals you'll be afforded.</span>")
 	owner.current.playsound_local(get_turf(owner.current), 'jollystation_modules/sound/radiodrum.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
 
 /datum/antagonist/traitor/traitor_plus/roundend_report()
@@ -188,6 +188,7 @@
 /mob/verb/open_advanced_traitor_panel()
 	set name = "Antagonist - Set Goals"
 	set category = "IC"
+	set hidden = TRUE
 
 	var/datum/antagonist/traitor/traitor_plus/our_antag_datum = mind?.has_antag_datum(/datum/antagonist/traitor/traitor_plus)
 	if(!our_antag_datum)
@@ -223,8 +224,10 @@
 /// Show them the panel
 /datum/antagonist/traitor/traitor_plus/proc/show_advanced_traitor_panel(mob/user)
 	var/dat = ""
-	dat += "<div align='center'><a href='?src=[REF(src)];set_name=1'>Set Antagonist Name:</a> [name]				"
+	dat += "<div align='center'><a href='?src=[REF(src)];set_name=1'>Set Antagonist Name:</a> [name][FOURSPACES][FOURSPACES]"
 	dat += "<a href='?src=[REF(src)];set_employer=1'>Set Antagonist Employer:</a> [employer]</div>"
+	dat += "<div width=40%><a href='?src=[REF(src)];set_backstory=1'>Set Backstory:</a> [backstory]</div><div width=60%> </div>"
+
 	dat += "<hr>"
 
 	var/intensity_color = "#f00"
@@ -249,13 +252,17 @@
 
 			dat += "<table width=100%>"
 			dat += "<b> Goal #[count]: </b>"
-			dat += "<tr><td><center><a href='?src=[REF(src)];edit_new_goal=set_goal;target_goal=[REF(all_goals)]'>Set goal</a></center></td>"
+			dat += "<tr>"
+			dat += "<td><center><a href='?src=[REF(src)];edit_new_goal=set_goal;target_goal=[REF(all_goals)]'>Set goal</a></center></td>"
 			dat += "<td><center><a href='?src=[REF(src)];edit_new_goal=set_level;target_goal=[REF(all_goals)]'>Set intensity</a></center></td>"
 			dat += "<td><center><a href='?src=[REF(src)];edit_new_goal=set_notes;target_goal=[REF(all_goals)]'>Set notes</a></center></td>"
-			dat += "<td><center><a href='?src=[REF(src)];edit_new_goal=add_sim_objectives;target_goal=[REF(all_goals)]'>Set similar objectives</a> \
-						<a href='?src=[REF(src)];edit_new_goal=clear_sim_objectives;target_goal=[REF(all_goals)]'>(Clear similar objectives)</a></center></td></tr>"
-			dat += "<tr><td width='35%' valign='top'>[TextPreview(all_goals.goal, 210)]</td>"
-			dat += "<td width='10%' valign='top'><center><span style='border: 1px solid #161616; background-color: [intensity_color];'> [all_goals.intensity] </span></center></td>"
+			dat += "<td><table align='center'>"
+			dat += "<td><a href='?src=[REF(src)];edit_new_goal=add_sim_objectives;target_goal=[REF(all_goals)]'>Set similar objectives</a></td>"
+			dat += "<td><a href='?src=[REF(src)];edit_new_goal=clear_sim_objectives;target_goal=[REF(all_goals)]'>(Clear similar objectives)</a></td>"
+			dat += "</table></td>"
+			dat += "</tr>"
+			dat += "<tr><td width='30%' valign='top'>[TextPreview(all_goals.goal, 210)]</td>"
+			dat += "<td width='15%' valign='top'><center><span style='border: 1px solid #161616; background-color: [intensity_color];'> [all_goals.intensity] </span></center></td>"
 			dat += "<td width='25%' valign='top'>[TextPreview(all_goals.notes, 140)]</td>"
 			dat += "<td width='30%' valign='top'>"
 			for(var/datum/objective/objectives as anything in all_goals.similar_objectives)
@@ -263,7 +270,7 @@
 					break
 				dat += "[TextPreview(objectives.explanation_text, 100)]	<a href='?src=[REF(src)];edit_new_goal=cut_sim_objectives;target_goal=[REF(all_goals)];target_objective=[REF(objectives)]'>(Remove objective)</a><br>"
 			dat += "</td></tr>"
-			dat += "<a href='?src=[REF(src)];remove_goal=1;target_goal=[REF(all_goals)]'>Remove goal</a>"
+			dat += "<a href='?src=[REF(src)];remove_goal=[REF(all_goals)]'>Remove goal</a>"
 			dat += "</table><br>"
 			count++
 
@@ -348,7 +355,7 @@
 				QDEL_LIST(edited_goal.similar_objectives)
 
 	if(href_list["remove_goal"])
-		remove_advanced_goal(locate(href_list["target_goal"]))
+		remove_advanced_goal(locate(href_list["remove_goal"]))
 
 	if(href_list["finalize_goals"])
 		if(should_equip)
@@ -375,6 +382,36 @@
 
 	show_advanced_traitor_panel(usr)
 	return TRUE
+
+/datum/antagonist/traitor/traitor_plus/proc/aview_advanced_traitor_panel(mob/user)
+	to_chat(user, "You're viewing [owner.current.real_name]'s goal panel as an admin.")
+	show_advanced_traitor_panel(usr)
+
+/datum/antagonist/traitor/traitor_plus/get_admin_commands()
+	. = ..()
+	.["View Goals"] = CALLBACK(src, .proc/aview_advanced_traitor_panel, usr)
+
+//TODO
+/datum/antagonist/traitor/traitor_plus/antag_listing_entry()
+	. = ..()
+	for(var/datum/advanced_antag_goal/goals as anything in goals)
+		. += "<br>[TextPreview(goals.goal, 60)]"
+		to_chat(world, .)
+
+/datum/antagonist/traitor/traitor_plus/antag_listing_commands()
+	. = ..()
+	. += "<a href='?_src_=holder;[HrefToken()];admin_check_goals=[REF(src)]'>Show Goals</a>"
+
+/datum/admins/Topic(href, href_list)
+	. = ..()
+	if(href_list["admin_check_goals"])
+		var/datum/antagonist/traitor/traitor_plus/our_traitor = locate(href_list["admin_check_goals"])
+		if(!check_rights(R_ADMIN))
+			to_chat(usr, "<span class='danger'>Insufficient rights</span>")
+			return
+
+		our_traitor.aview_advanced_traitor_panel(usr)
+		return
 
 /// Give the traitor their uplink
 /datum/antagonist/traitor/traitor_plus/proc/modify_traitor_points()
@@ -486,3 +523,17 @@
 		formatted_text += "<br><span class='info'>Extra info they had about this goal: [notes]</span>"
 
 	return formatted_text
+
+#undef TRAITOR_PLUS_INITIAL_TC
+#undef TRAITOR_PLUS_MAX_TC
+
+#undef TRAITOR_PLUS_INITIAL_MALF_POINTS
+#undef TRAITOR_PLUS_MAX_MALF_POINTS
+
+#undef TRAITOR_PLUS_MAX_GOALS
+#undef TRAITOR_PLUS_MAX_SIMILAR_OBJECTIVES
+
+#undef TRAITOR_PLUS_MAX_GOAL_LENGTH
+#undef TRAITOR_PLUS_MAX_NOTE_LENGTH
+
+#undef TRAITOR_PLUS_INTENSITIES
