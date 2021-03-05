@@ -13,10 +13,6 @@
 
 	outfit = /datum/outfit/job/scientist/toxicologist
 
-	access = list(ACCESS_RND, ACCESS_TOXINS, ACCESS_TOXINS_STORAGE, ACCESS_RESEARCH,
-					ACCESS_MINERAL_STOREROOM)
-	minimal_access = list(ACCESS_RND, ACCESS_TOXINS, ACCESS_TOXINS_STORAGE, ACCESS_RESEARCH, ACCESS_XENOBIOLOGY, ACCESS_MECH_SCIENCE,
-							ACCESS_MINERAL_STOREROOM, ACCESS_AUX_BASE)
 	paycheck = PAYCHECK_MEDIUM
 	paycheck_department = ACCOUNT_SCI
 
@@ -28,3 +24,4 @@
 	suit = /obj/item/clothing/suit/toggle/labcoat/toxic
 	uniform = /obj/item/clothing/under/rank/rn/toxicologist
 	jobtype = /datum/job/toxicologist
+	id_trim = /datum/id_trim/job/toxicologist

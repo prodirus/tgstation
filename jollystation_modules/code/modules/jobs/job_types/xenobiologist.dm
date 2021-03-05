@@ -12,10 +12,6 @@
 
 	outfit = /datum/outfit/job/scientist/xenobiologist
 
-	access = list(ACCESS_ROBOTICS, ACCESS_RND, ACCESS_TOXINS, ACCESS_TOXINS_STORAGE, ACCESS_RESEARCH, ACCESS_XENOBIOLOGY,
-					ACCESS_MECH_SCIENCE, ACCESS_MINERAL_STOREROOM, ACCESS_TECH_STORAGE, ACCESS_GENETICS, ACCESS_AUX_BASE)
-	minimal_access = list(ACCESS_RND, ACCESS_RESEARCH, ACCESS_XENOBIOLOGY,
-							)
 	paycheck = PAYCHECK_MEDIUM
 	paycheck_department = ACCOUNT_SCI
 
@@ -27,3 +23,4 @@
 	suit = /obj/item/clothing/suit/toggle/labcoat/xenobio
 	uniform = /obj/item/clothing/under/rank/rn/xenobiologist
 	jobtype = /datum/job/xenobiologist
+	id_trim = /datum/id_trim/job/xenobiologist
