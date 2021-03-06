@@ -132,10 +132,23 @@
 	return ..()
 
 /datum/antagonist/traitor/traitor_plus/greet()
-	to_chat(owner.current, "<span class='alertsyndie'>You are an antagonist!</span>")
-	to_chat(owner.current, "<span class='danger'>You are a story driven antagonist! You can set your goals to whatever you think would make an interesting story or round.</span>")
-	to_chat(owner.current, "<span class='danger'>Once you set at few goals, you'll be given an uplink - the more you set, and the higher the intensity, the more telecrystals you'll be afforded.</span>")
+	to_chat(owner.current, "<span class='alertsyndie'>You are a [name]!</span>")
 	owner.current.playsound_local(get_turf(owner.current), 'jollystation_modules/sound/radiodrum.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
+	addtimer(CALLBACK(owner.current, .proc/greet_two), 3 SECONDS)
+
+/datum/antagonist/traitor/traitor_plus/proc/greet_two()
+	to_chat(owner.current, "<span class='danger'>You are a story driven antagonist! You can set your goals to whatever you think would make an interesting story or round.</span>")
+	addtimer(CALLBACK(owner.current, .proc/greet_three), 3 SECONDS)
+
+/datum/antagonist/traitor/traitor_plus/proc/greet_three()
+	to_chat(owner.current, "<span class='danger'>In your goal panel, you can set a few things:</span>")
+	to_chat(owner.current, "<span class='danger'>You can set your traitor name, your employer, and your backstory. A backstory and an Employer is optional.</span>")
+	to_chat(owner.current, "<span class='danger'>You can add new goals to your list and tweak them.\n\
+		[FOURSPACES]GOALS is the actual objective you're adding. It can be anything from annoying security in minor ways and stealing staplers to releasing a singularity.\n\
+		[FOURSPACES]INTENSITY is what level of relative danger the goal is. Higher intensity levels are more dangerous or threatening to the crew.\n\
+		[FOURSPACES]NOTES is any extra notes you want people to know about the goal. Admins are alerted if you add a note and they're displayed at round-end. This is optional - include things that would be useful to know, like your method of going about the goal.\n\
+		[FOURSPACES]SIMILAR OBJECTIVES is a list of equivilant objectives to your goal. You can set multiple and they'll be checked at round-end for success. This is optional - you can set them if you want a defined win or loss condition on your goal.</span>")
+	to_chat(owner.current, "<span class='danger'>When all your iniital goals are set, FINALIZE your goals to recieve your traitor uplink. You can still change your goals after you finalize them!</span>")
 
 /datum/antagonist/traitor/traitor_plus/roundend_report()
 	var/list/result = list()
@@ -363,7 +376,7 @@
 		should_equip = TRUE
 		finalize_traitor()
 		modify_traitor_points()
-		//objectives.Cut()
+		log_goals_on_finalize()
 
 	if(href_list["set_name"])
 		var/new_name = input(usr, "Set your antagonist name:", "Set name", "") as message|null
@@ -386,6 +399,25 @@
 /datum/antagonist/traitor/traitor_plus/proc/aview_advanced_traitor_panel(mob/user)
 	to_chat(user, "You're viewing [owner.current.real_name]'s goal panel as an admin.")
 	show_advanced_traitor_panel(usr)
+
+/datum/antagonist/traitor/traitor_plus/proc/log_goals_on_finalize()
+	message_admins("[ADMIN_LOOKUPFLW(usr)] finalized their objectives. Their uplink was given to them with [starting_tc] [(traitor_kind == TRAITOR_AI) ? "processing points":"tc"]. ")
+	log_game("[key_name(usr)] finalized their objectives. Their uplink was given to them with [starting_tc] [(traitor_kind == TRAITOR_AI) ? "processing points":"tc"]. ")
+	for(var/datum/advanced_antag_goal/goals as anything in goals)
+		if(goals.intensity >= 4)
+			message_admins("<b>High intensity goal:</b> [ADMIN_LOOKUPFLW(usr)] finalized an intensity [goals.intensity] goal: [goals.goal].")
+		else if(goals.intensity == 0)
+			message_admins("<b>Potential error:</b> [ADMIN_LOOKUPFLW(usr)] finalized an intensity 0 goal: [goals.goal].")
+
+		if(!goals.goal)
+			message_admins("<b>Potential error:</b> [ADMIN_LOOKUPFLW(usr)] finalized a goal with no goal text.")
+		else if(length(goals.goal) <= 2 && goals.intensity > 0)
+			message_admins("<b>Potential exploit:</b> [ADMIN_LOOKUPFLW(usr)] finalized an intensity [goals.intensity] goal with no goal text. Potential exploiting goals for extra TC.")
+
+		if(goals.notes)
+			message_admins("<b>Finalized goal note:</b> [ADMIN_LOOKUPFLW(usr)] finalized a goal with additional notes: [goals.notes]")
+
+		log_game("[key_name(usr)] finalized an intensity [goals.intensity] goal: [goals.goal] (notes: [goals.notes]).")
 
 /datum/antagonist/traitor/traitor_plus/get_admin_commands()
 	. = ..()
