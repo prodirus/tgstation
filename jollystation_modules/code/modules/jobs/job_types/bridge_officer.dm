@@ -24,7 +24,7 @@
 
 	display_order = JOB_DISPLAY_ORDER_BRIDGE_OFFICER
 
-	family_heirlooms = list(/obj/item/book/manual/wiki/security_space_law, /obj/item/storage/fancy)
+	family_heirlooms = list(/obj/item/book/manual/wiki/security_space_law)
 
 /datum/outfit/job/bo
 	name = "Bridge Officer"

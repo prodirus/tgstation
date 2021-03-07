@@ -18,7 +18,7 @@
 	bounty_types = CIV_JOB_SCI
 	departments = DEPARTMENT_SCIENCE
 
-	family_heirlooms = list(/obj/item/pen) //NON MODULAR CHANGE
+	family_heirlooms = list(/obj/item/book/manual/wiki/cytology, /obj/item/reagent_containers/glass/beaker) //NON MODULAR CHANGE
 
 /datum/outfit/job/scientist
 	name = "Scientist"
