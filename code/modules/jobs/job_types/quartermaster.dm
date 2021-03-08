@@ -29,13 +29,14 @@
 	name = "Quartermaster"
 	jobtype = /datum/job/quartermaster
 
+	id = /obj/item/card/id/advanced/silver //NON-MODULAR CHANGE
 	belt = /obj/item/pda/quartermaster
 	ears = /obj/item/radio/headset/heads/headset_qm //NON-MODULE CHANGE
 	uniform = /obj/item/clothing/under/rank/cargo/qm
 	shoes = /obj/item/clothing/shoes/sneakers/brown
 	glasses = /obj/item/clothing/glasses/sunglasses
 	l_hand = /obj/item/clipboard
-	backpack_contents = list(/obj/item/modular_computer/tablet/preset/cargo=1)
+	backpack_contents = list(/obj/item/modular_computer/tablet/preset/cargo=1, /obj/item/melee/classic_baton/telescopic=1) //NON-MODULAR CHANGE
 
 	chameleon_extras = /obj/item/stamp/qm
 

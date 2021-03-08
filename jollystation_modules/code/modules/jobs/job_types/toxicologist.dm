@@ -19,6 +19,8 @@
 	display_order = JOB_DISPLAY_ORDER_SCIENTIST
 	bounty_types = CIV_JOB_SCI
 
+	family_heirlooms = list(/obj/item/toy/nuke)
+
 /datum/outfit/job/scientist/toxicologist
 	name = "Toxicologist"
 	suit = /obj/item/clothing/suit/toggle/labcoat/toxic
