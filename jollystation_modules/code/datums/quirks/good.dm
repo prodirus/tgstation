@@ -1,5 +1,11 @@
 // Good quirks.
 
+#define LANGUAGE_QUIRK_RANDOM_BLACKLIST list( \
+	/datum/language/uncommon, \
+	/datum/language/common, \
+	/datum/language/narsie, \
+	/datum/language/xenocommon )
+
 // Rebalance existing quirks
 /datum/quirk/jolly //haha
 	value = 3
@@ -17,10 +23,10 @@
 /datum/quirk/trilingual/on_spawn()
 	var/datum/language_holder/quirk_holder_languages = quirk_holder.get_language_holder()
 	if(!added_language)
-		added_language = pick(GLOB.all_languages)
+		added_language = pick(GLOB.all_languages - LANGUAGE_QUIRK_RANDOM_BLACKLIST)
 		var/attempts = 1
 		while(quirk_holder_languages.has_language(added_language))
-			added_language = pick(GLOB.all_languages)
+			added_language = pick(GLOB.all_languages - LANGUAGE_QUIRK_RANDOM_BLACKLIST)
 			attempts++
 			if(attempts > GLOB.all_languages.len)
 				stack_trace("Trilingual quirk ([name] - [type]) did not find a language to add.")
@@ -31,13 +37,13 @@
 
 /datum/quirk/trilingual/post_add()
 	if(!added_language)
-		to_chat(quirk_holder, "<span class='danger'>Your quirk [name] is not compatible with your species or job for one reason or another.</span>")
+		to_chat(quirk_holder, "<span class='danger'>Your quirk ([name]) is not compatible with your species or job for one reason or another.</span>")
 		return
 
 	var/datum/language/added_language_instance = new added_language
 	var/mob/living/carbon/human/human_quirk_holder = quirk_holder
 	if(human_quirk_holder.dna?.species?.species_language_holder)
-		var/datum/language_holder/species_languages = new human_quirk_holder.dna.species.species_language_holder
+		var/datum/language_holder/species_languages = new human_quirk_holder.dna.species.species_language_holder(quirk_holder)
 		if(species_languages.has_language(added_language, TRUE))
 			to_chat(quirk_holder, "<span class='info'>Thanks to your past or species, you can now speak [added_language_instance.name]. You already could speak it, but now you can double speak it. I guess.</span>")
 		else if(species_languages.has_language(added_language, FALSE))
@@ -66,3 +72,5 @@
 		added_language = null
 		return
 	. = ..()
+
+#undef LANGUAGE_QUIRK_RANDOM_BLACKLIST
