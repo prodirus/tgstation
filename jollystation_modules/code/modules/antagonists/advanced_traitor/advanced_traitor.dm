@@ -226,6 +226,7 @@
 				new_objective_type = objectives_to_choose[new_objective_type]
 				if(new_objective_type)
 					var/datum/objective/added_objective = new new_objective_type
+					added_objective.owner = owner
 					edited_similar_objectives.Add(added_objective)
 					added_objective.admin_edit(usr)
 				else
