@@ -15,8 +15,9 @@
 		"ba", "be", "ma", "bi", "sk", "hi", "hs", "ke", "ssi", "le", "mo", "is", "ek", "a",
 		"e", "i", "o", "u", "u", "ru", "sa", "sr", "rs", "us"
 	)
-	icon_state = "lizard"
-	default_priority = 90
+	icon = 'jollystation_modules/icons/misc/language.dmi'
+	icon_state = "lizardred"
+	default_priority = 120
 
 // Edit to the base lizard language holder - lizards can understand high draconic.
 /datum/language_holder/lizard
