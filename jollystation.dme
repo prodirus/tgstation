@@ -3484,6 +3484,8 @@
 #include "jollystation_modules\code\modules\jobs\job_types\bridge_officer.dm"
 #include "jollystation_modules\code\modules\jobs\job_types\toxicologist.dm"
 #include "jollystation_modules\code\modules\jobs\job_types\xenobiologist.dm"
+#include "jollystation_modules\code\modules\language\highdraconic.dm"
+#include "jollystation_modules\code\modules\language\skrellian.dm"
 #include "jollystation_modules\code\modules\mob\logout.dm"
 #include "jollystation_modules\code\modules\mob\mob_defines.dm"
 #include "jollystation_modules\code\modules\mob\typing_indicator.dm"
@@ -3510,5 +3512,4 @@
 #include "jollystation_modules\code\modules\mob\living\simple_animal\bot\bot.dm"
 #include "jollystation_modules\code\modules\shuttle\shipstation.dm"
 #include "jollystation_modules\code\modules\skrell\flavor_misc_js.dm"
-#include "jollystation_modules\code\modules\skrell\language.dm"
 // END_INCLUDE

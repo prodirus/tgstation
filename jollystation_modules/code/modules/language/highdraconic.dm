@@ -1,0 +1,63 @@
+/datum/language/impdraconic
+	name = "High Draconic"
+	desc = "A distinct dialect of Draconic common to lizards born and raised in the Core Systems of the Lizard Empire."
+	//speech_verb = "hisses"
+	//ask_verb = "hisses"
+	//exclaim_verb = "roars"
+	//sing_verb = "sings"
+	key = "l"
+	flags = TONGUELESS_SPEECH
+	space_chance = 25
+	syllables = list(
+		"ta", "te", "ti", "to", "tu", "ez", "la", "ro", "fe", "ss", "es", "me", "da",
+		"ra", "re", "ri", "ll", "as", "fa", "mer", "za", "ze", "ssa", "ko", "ka", "de",
+		"ba", "be", "ma", "bi", "sk", "hi", "hs", "ke", "ssi", "le", "mo", "is", "ek", "a",
+		"e", "i", "o", "u", "u", "ru", "sa", "sr", "rs", "us"
+	)
+	icon_state = "lizard"
+	default_priority = 90
+
+/datum/language_holder/lizard
+	understood_languages = list(/datum/language/common = list(LANGUAGE_ATOM),
+								/datum/language/draconic = list(LANGUAGE_ATOM),
+								/datum/language/impdraconic = list(LANGUAGE_ATOM))
+
+/datum/language_holder/lizard/impdraconic
+	understood_languages = list(/datum/language/common = list(LANGUAGE_ATOM),
+								/datum/language/draconic = list(LANGUAGE_ATOM),
+								/datum/language/impdraconic = list(LANGUAGE_ATOM))
+	spoken_languages = list(/datum/language/draconic = list(LANGUAGE_ATOM),
+							/datum/language/impdraconic = list(LANGUAGE_ATOM))
+
+/datum/language_holder/lizard/silver
+	understood_languages = list(/datum/language/uncommon = list(LANGUAGE_ATOM),
+								/datum/language/draconic = list(LANGUAGE_ATOM),
+								/datum/language/impdraconic = list(LANGUAGE_ATOM))
+	spoken_languages = list(/datum/language/uncommon = list(LANGUAGE_ATOM),
+							/datum/language/draconic = list(LANGUAGE_ATOM),
+							/datum/language/impdraconic = list(LANGUAGE_ATOM))
+	selected_language = /datum/language/uncommon
+
+/obj/item/organ/tongue/lizard
+	var/static/list/languages_possible_draconic = typecacheof(list(
+		/datum/language/common,
+		/datum/language/uncommon,
+		/datum/language/draconic,
+		/datum/language/codespeak,
+		/datum/language/monkey,
+		/datum/language/narsie,
+		/datum/language/beachbum,
+		/datum/language/aphasia,
+		/datum/language/piratespeak,
+		/datum/language/moffic,
+		/datum/language/sylvan,
+		/datum/language/shadowtongue,
+		/datum/language/terrum,
+		/datum/language/nekomimetic,
+		/datum/language/skrell,
+		/datum/language/impdraconic
+	))
+
+/obj/item/organ/tongue/lizard/Initialize(mapload)
+	. = ..()
+	languages_possible = languages_possible_draconic
