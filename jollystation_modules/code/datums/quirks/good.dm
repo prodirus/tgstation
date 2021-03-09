@@ -43,9 +43,9 @@
 		to_chat(quirk_holder, "<span class='danger'>Your quirk ([name]) is not compatible with your species or job for one reason or another.</span>")
 		return
 
-	var/datum/language/added_language_instance = new added_language
 	var/mob/living/carbon/human/human_quirk_holder = quirk_holder
 	if(human_quirk_holder.dna?.species?.species_language_holder)
+		var/datum/language/added_language_instance = new added_language
 		var/datum/language_holder/species_languages = new human_quirk_holder.dna.species.species_language_holder(quirk_holder)
 		if(species_languages.has_language(added_language, TRUE))
 			to_chat(quirk_holder, "<span class='info'>Thanks to your past or species, you can now speak [added_language_instance.name]. You already could speak it, but now you can double speak it. I guess.</span>")
@@ -54,7 +54,7 @@
 		else
 			to_chat(quirk_holder, "<span class='info'>Thanks to your past or species, you know [added_language_instance.name]. It's not guaranteed you can speak it properly, but at least you can understand it.</span>")
 		qdel(species_languages)
-	qdel(added_language_instance)
+		qdel(added_language_instance)
 
 /datum/quirk/trilingual/remove()
 	var/datum/language_holder/quirk_holder_languages = quirk_holder.get_language_holder()
