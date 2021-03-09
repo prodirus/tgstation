@@ -28,7 +28,8 @@
 		/datum/language/sylvan,
 		/datum/language/shadowtongue,
 		/datum/language/terrum,
-		/datum/language/nekomimetic
+		/datum/language/nekomimetic,
+		/datum/language/skrell // NON-MODULE CHANGE
 	))
 
 /obj/item/organ/tongue/Initialize(mapload)
