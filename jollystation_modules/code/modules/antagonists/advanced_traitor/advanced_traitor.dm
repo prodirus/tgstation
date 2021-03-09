@@ -136,13 +136,13 @@
 	var/go_ahead = TRUE
 	if(QDELETED(src)) // If our mind is gone, nowhere to put the antag
 		go_ahead = FALSE
-	if(!current) // No body = not a good antag
+	else if(!current) // No body = not a good antag
 		go_ahead = FALSE
-	if(!current.client) // No client = not a good antag
+	else if(!current.client) // No client = not a good antag
 		go_ahead = FALSE
-	if(current.stat == DEAD) // Dead people = not a good antag
+	else if(current.stat == DEAD) // Dead people = not a good antag
 		go_ahead = FALSE
-	if(has_antag_datum(our_antag_datum)) // If we're already an advanced traitor, don't try again
+	else if(has_antag_datum(our_antag_datum)) // If we're already an advanced traitor, don't try again
 		go_ahead = FALSE
 
 	if(forced || go_ahead)
@@ -171,7 +171,6 @@
 
 /// Topic chain for the advanced traitor panel.
 /datum/antagonist/traitor/traitor_plus/Topic(href, href_list)
-	. = ..()
 	if(href_list["add_new_goal"])
 		if(LAZYLEN(our_goals) > TRAITOR_PLUS_MAX_GOALS)
 			to_chat(usr, "Max amount of goals reached.")
@@ -276,6 +275,9 @@
 	if(href_list["set_backstory"])
 		var/new_backstory = input(usr, "Set your antagonist backstory:", "Set backstory", "[backstory]") as message|null
 		backstory = strip_html_simple(new_backstory, MAX_MESSAGE_LEN)
+
+	if(check_rights(R_ADMIN, FALSE))
+		. = ..()
 
 	show_advanced_traitor_panel(usr)
 	return TRUE
