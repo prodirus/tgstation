@@ -100,6 +100,8 @@
 	resize_amount = 0.7
 	y_offset = -5
 
+///Language quirks
+// Draconic
 /datum/quirk/trilingual/draconic
 	name = "Language - Draconic"
 	desc = "You're trilingual - you know the draconic language along with common and your native tongue."
@@ -109,6 +111,7 @@
 	medical_record_text = "Patient is trilingual and knows Draconic."
 	added_language = /datum/language/draconic
 
+// Moffic
 /datum/quirk/trilingual/moffic
 	name = "Language - Moffic"
 	desc = "You're trilingual - you know the moffic language along with common and your native tongue."
@@ -118,6 +121,7 @@
 	medical_record_text = "Patient is trilingual and knows Moffic."
 	added_language = /datum/language/moffic
 
+// Nekomimetic
 /datum/quirk/trilingual/nekomimetic
 	name = "Language - Nekomimetic"
 	desc = "You're trilingual - you know the Nekomimetic language along with common and your native tongue."
@@ -127,6 +131,7 @@
 	medical_record_text = "Patient is trilingual and knows Nekomimetic."
 	added_language = /datum/language/nekomimetic
 
+// Skrellian
 /datum/quirk/trilingual/skrell
 	name = "Language - Skrellian"
 	desc = "You're trilingual - you know the Skrellian language along with common and your native tongue."

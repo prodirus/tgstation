@@ -1,5 +1,6 @@
 // Good quirks.
 
+/// Blacklist for language quirks. We won't give these languages out.
 #define LANGUAGE_QUIRK_RANDOM_BLACKLIST list( \
 	/datum/language/uncommon, \
 	/datum/language/common, \
@@ -10,7 +11,7 @@
 /datum/quirk/jolly //haha
 	value = 3
 
-/// Trilingual
+/// Trilingual quirk - Gives the owner a language, either random or a set one.
 /datum/quirk/trilingual
 	name = "Language - Trilingual"
 	desc = "You're trilingual - you know another random language besides common and your native tongue."
@@ -18,6 +19,7 @@
 	gain_text = "<span class='notice'>You understand a new language.</span>"
 	lose_text = "<span class='notice'>You no longer understand a new language.</span>"
 	medical_record_text = "Patient is trilingual and knows multiple languages."
+	/// The language we give out. If null, just grabs a random language.
 	var/datum/language/added_language
 
 /datum/quirk/trilingual/on_spawn()
@@ -25,11 +27,12 @@
 	if(!added_language)
 		added_language = pick(GLOB.all_languages - LANGUAGE_QUIRK_RANDOM_BLACKLIST)
 		var/attempts = 1
+		/// Try to find a language this mob doesn't already have.
 		while(quirk_holder_languages.has_language(added_language))
 			added_language = pick(GLOB.all_languages - LANGUAGE_QUIRK_RANDOM_BLACKLIST)
 			attempts++
+			//If we can't find a language after a dozen or two times, give up.
 			if(attempts > GLOB.all_languages.len)
-				stack_trace("Trilingual quirk ([name] - [type]) did not find a language to add.")
 				added_language = null
 				return
 
@@ -57,6 +60,7 @@
 	var/datum/language_holder/quirk_holder_languages = quirk_holder.get_language_holder()
 	quirk_holder_languages.remove_language(added_language, TRUE, TRUE, LANGUAGE_QUIRK)
 
+/// High draconic language. Only works on draconic speakers.
 /datum/quirk/trilingual/high_draconic
 	name = "Language - High Draconic"
 	desc = "You're trilingual - you know old High Draconic. (This quirk only works for species that can speak draconic!)"

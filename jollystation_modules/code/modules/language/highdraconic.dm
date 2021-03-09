@@ -1,3 +1,4 @@
+/// High draconic language. It's like Draconic, but more posh.
 /datum/language/impdraconic
 	name = "High Draconic"
 	desc = "A distinct dialect of Draconic common to lizards born and raised in the Core Systems of the Lizard Empire."
@@ -17,18 +18,13 @@
 	icon_state = "lizard"
 	default_priority = 90
 
+// Edit to the base lizard language holder - lizards can understand high draconic.
 /datum/language_holder/lizard
 	understood_languages = list(/datum/language/common = list(LANGUAGE_ATOM),
 								/datum/language/draconic = list(LANGUAGE_ATOM),
 								/datum/language/impdraconic = list(LANGUAGE_ATOM))
 
-/datum/language_holder/lizard/impdraconic
-	understood_languages = list(/datum/language/common = list(LANGUAGE_ATOM),
-								/datum/language/draconic = list(LANGUAGE_ATOM),
-								/datum/language/impdraconic = list(LANGUAGE_ATOM))
-	spoken_languages = list(/datum/language/draconic = list(LANGUAGE_ATOM),
-							/datum/language/impdraconic = list(LANGUAGE_ATOM))
-
+// Edit to the silverscale language holder - silverscales can speak high draconic.
 /datum/language_holder/lizard/silver
 	understood_languages = list(/datum/language/uncommon = list(LANGUAGE_ATOM),
 								/datum/language/draconic = list(LANGUAGE_ATOM),
@@ -38,6 +34,15 @@
 							/datum/language/impdraconic = list(LANGUAGE_ATOM))
 	selected_language = /datum/language/uncommon
 
+// High draconic language holder
+/datum/language_holder/lizard/impdraconic
+	understood_languages = list(/datum/language/common = list(LANGUAGE_ATOM),
+								/datum/language/draconic = list(LANGUAGE_ATOM),
+								/datum/language/impdraconic = list(LANGUAGE_ATOM))
+	spoken_languages = list(/datum/language/draconic = list(LANGUAGE_ATOM),
+							/datum/language/impdraconic = list(LANGUAGE_ATOM))
+
+// Edit to lizard tongues - lizard tongues can speak high draconic.
 /obj/item/organ/tongue/lizard
 	var/static/list/languages_possible_draconic = typecacheof(list(
 		/datum/language/common,
