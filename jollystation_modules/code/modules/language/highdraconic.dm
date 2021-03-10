@@ -17,7 +17,7 @@
 	)
 	icon = 'jollystation_modules/icons/misc/language.dmi'
 	icon_state = "lizardred"
-	default_priority = 120
+	default_priority = 85
 
 // Edit to the base lizard language holder - lizards can understand high draconic.
 /datum/language_holder/lizard
