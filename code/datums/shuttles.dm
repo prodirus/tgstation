@@ -707,5 +707,5 @@
 	name = "mining shuttle (Lima)"
 
 /datum/map_template/shuttle/labour/lima
-    suffix = "lima"
-    name = "labour shuttle (Lima)"
+	suffix = "lima"
+	name = "labour shuttle (Lima)"
