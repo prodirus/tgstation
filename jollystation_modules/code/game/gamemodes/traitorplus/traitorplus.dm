@@ -14,6 +14,7 @@
 		<span class='danger'>Traitors</span>: Set an objective and complete it!\n	\
 		<span class='notice'>Crew</span>: Ensure the station and crew survive!"
 
+	var/max_traitors = 3
 	var/give_antag_lower_timer = 8 MINUTES
 	var/give_antag_upper_timer = 12 MINUTES
 
@@ -24,12 +25,7 @@
 	if(CONFIG_GET(flag/protect_roles_from_antagonist))
 		restricted_jobs += protected_jobs
 
-	var/num_traitors = 1
-	var/tsc = CONFIG_GET(number/traitor_scaling_coeff)
-	if(tsc)
-		num_traitors = max(1, min(round(num_players() / (tsc * 2)) + 2, round(num_players() / tsc)))
-	else
-		num_traitors = max(1, min(num_players(), rand(2, 4)))
+	var/num_traitors = clamp(1, round(num_players() * 0.15), max_traitors)
 
 	for(var/j = 0, j < num_traitors, j++)
 		if (!antag_candidates.len)
