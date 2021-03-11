@@ -5,7 +5,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	//doohickeys for savefiles
 	var/path
 	var/default_slot = 1 //Holder so it doesn't default to slot 1, rather the last one used
-	var/max_save_slots = 3
+	var/max_save_slots = 6 //NON-MODULAR CHANGE
 
 	//non-preference stuff
 	var/muted = 0
@@ -1632,9 +1632,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 				if("briefoutfit")
 					var/list/valid_paths = list()
-					for(var/datum/outfit/iter_outfit in subtypesof(/datum/outfit))
-						if(initial(iter_outfit.can_be_admin_equipped))
-							valid_paths[initial(iter_outfit.name)] = path
+					for(var/datum/outfit/outfit_path as anything in subtypesof(/datum/outfit))
+						valid_paths[initial(outfit_path.name)] = outfit_path
 					var/new_outfit = input(user, "Choose your briefing officer outfit:", "Game Preference") as null|anything in valid_paths
 					new_outfit = valid_paths[new_outfit]
 					if(new_outfit)

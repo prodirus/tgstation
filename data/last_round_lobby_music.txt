@@ -33,3 +33,10 @@ config/title_music/sounds/Cara Mia Addio.ogg
 config/title_music/sounds/Cara Mia Addio.ogg
 config/title_music/sounds/Professor E. Gadd - SiIvaGunner King for Another Day.ogg
 config/title_music/sounds/DISGRACE TO THE UNIFORM.ogg
+config/title_music/sounds/ASGORE.ogg
+config/title_music/sounds/MEGALOVANIA.ogg
+config/title_music/sounds/ASGORE.ogg
+config/title_music/sounds/Bonetrousle.ogg
+config/title_music/sounds/Professor E. Gadd - SiIvaGunner King for Another Day.ogg
+config/title_music/sounds/Grass Skirt Crowdkill - SiIvaGunner King for Another Day.ogg
+config/title_music/sounds/Once Upon A Time .ogg
