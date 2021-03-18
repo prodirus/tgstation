@@ -160,6 +160,10 @@
  * user - the user, opening the panel (usually, [owner.current], but sometimes admins)
  */
 /datum/antagonist/traitor/traitor_plus/proc/show_advanced_traitor_panel(mob/user)
+	var/datum/adv_traitor_panel/tgui = new(user, src)
+	tgui.ui_interact(user)
+
+	/*
 	var/panel_html = build_advanced_panel_html()
 
 	winshow(user, "advanced_traitor_goals", TRUE)
@@ -168,14 +172,10 @@
 	adv_traitor_panel.set_content(panel_html)
 	adv_traitor_panel.open(FALSE)
 	onclose(user, "advanced_traitor_goals")
+	*/
 
 /// Topic chain for the advanced traitor panel.
 /datum/antagonist/traitor/traitor_plus/Topic(href, href_list)
-	if(href_list["add_new_goal"])
-		if(LAZYLEN(our_goals) > TRAITOR_PLUS_MAX_GOALS)
-			to_chat(usr, "Max amount of goals reached.")
-			return
-		add_advanced_goal()
 
 	if(href_list["edit_new_goal"])
 		var/datum/advanced_antag_goal/edited_goal = locate(href_list["target_goal"])
@@ -252,29 +252,6 @@
 
 	if(href_list["remove_goal"])
 		remove_advanced_goal(locate(href_list["remove_goal"]))
-
-	if(href_list["finalize_goals"])
-		if(should_equip)
-			return
-		should_equip = TRUE
-		finalize_traitor()
-		modify_traitor_points()
-		log_goals_on_finalize()
-
-	if(href_list["set_name"])
-		var/new_name = input(usr, "Set your antagonist name:", "Set name", "[name]") as message|null
-		if(new_name)
-			name = strip_html_simple(new_name, MAX_NAME_LEN)
-		else
-			return
-
-	if(href_list["set_employer"])
-		var/new_employer = input(usr, "Set your antagonist employer:", "Set employer", "[employer]") as message|null
-		employer = strip_html_simple(new_employer, MAX_NAME_LEN)
-
-	if(href_list["set_backstory"])
-		var/new_backstory = input(usr, "Set your antagonist backstory:", "Set backstory", "[backstory]") as message|null
-		backstory = strip_html_simple(new_backstory, MAX_MESSAGE_LEN)
 
 	if(check_rights(R_ADMIN, FALSE))
 		. = ..()

@@ -1,5 +1,6 @@
 /// The advanced traitor goal panel used to set and finalized goals.
 /// Separated out the HTML data from the main traitor_plus file for cleanliness.
+/*
 /datum/antagonist/traitor/traitor_plus/proc/build_advanced_panel_html()
 	var/dat = ""
 	dat += "<div align='center'><a href='?src=[REF(src)];set_name=1'>Set Antagonist Name:</a> [name][FOURSPACES][FOURSPACES]"
@@ -58,3 +59,77 @@
 		dat += "<br><i>Based on your current goals, finalizing now will grant you [get_traitor_points_from_goals()] [(traitor_kind == TRAITOR_AI) ? "processing units" : "telecrystals"].</i>"
 
 	return dat
+	*/
+
+/datum/adv_traitor_panel
+	var/mob/viewer
+	var/datum/antagonist/traitor/traitor_plus/owner_datum
+
+/datum/adv_traitor_panel/New(mob/user, datum/antagonist/traitor/traitor_plus/owner_datum)
+	if(istype(user))
+		viewer = user
+	else
+		var/client/user_client = user
+		viewer = user_client.mob
+
+	src.owner_datum = owner_datum
+
+/datum/adv_traitor_panel/ui_close()
+	qdel(src)
+
+/datum/adv_traitor_panel/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "_AdvancedTraitorPanel")
+		ui.open()
+
+/datum/adv_traitor_panel/ui_state(mob/user)
+	if(viewer != owner_datum.owner.current)
+		to_chat(user, "You are viewing [owner_datum.owner.current]'s advanced traitor panel as an admin.")
+		message_admins("[ADMIN_LOOKUPFLW(user)] is viewing [ADMIN_LOOKUPFLW(owner_datum.owner.current)]'s advanced traitor panel as an admin.")
+		return GLOB.admin_state
+	else
+		return GLOB.always_state
+
+/datum/adv_traitor_panel/ui_data(mob/user)
+	var/list/data = list()
+	data["name"] = owner_datum.name
+	data["employer"] = owner_datum.employer
+	data["backstory"] = owner_datum.backstory
+	return data
+
+/datum/adv_traitor_panel/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+	. = ..()
+	if(.)
+		return
+	if(!owner_datum)
+		CRASH("Advanced traitor panel being operated with no advanced traitor datum.")
+
+	switch(action)
+		/// Background stuff
+		if("set_name")
+			owner_datum.name = strip_html_simple(params["name"], MAX_NAME_LEN)
+			. = TRUE
+		if("set_employer")
+			owner_datum.employer = strip_html_simple(params["employer"], MAX_NAME_LEN)
+			. = TRUE
+		if("set_backstory")
+			owner_datum.backstory = strip_html_simple(params["backstory"], MAX_MESSAGE_LEN)
+			. = TRUE
+
+		/// Goal Stuff
+		if("add_advanced_goal")
+			if(LAZYLEN(owner_datum.our_goals) > TRAITOR_PLUS_MAX_GOALS)
+				to_chat(usr, "Max amount of goals reached.")
+			else
+				owner_datum.add_advanced_goal()
+				to_chat(usr, "Goal added.")
+			. = TRUE
+
+		if("finalize_goals")
+			if(!owner_datum.should_equip)
+				owner_datum.should_equip = TRUE
+				owner_datum.finalize_traitor()
+				owner_datum.modify_traitor_points()
+				owner_datum.log_goals_on_finalize()
+			. = TRUE
