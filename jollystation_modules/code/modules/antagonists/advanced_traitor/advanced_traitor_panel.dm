@@ -96,6 +96,25 @@
 	data["name"] = owner_datum.name
 	data["employer"] = owner_datum.employer
 	data["backstory"] = owner_datum.backstory
+	data["goals_finalized"] = owner_datum.should_equip
+
+	var/goal_num = 0
+	for(var/datum/advanced_antag_goal/found_goal in owner_datum.our_goals)
+		var/list/goal_data = list(
+			id = ++goal_num,
+			ref = REF(found_goal)
+			goal = found_goal.goal,
+			intensity = found_goal.intensity,
+			notes = found_goal.notes,
+			objective_data = null,
+			)
+		if(LAZYLEN(found_goal.similar_objectives))
+			var/list/found_objective_data = list()
+			for(var/datum/objective/found_objective in found_goal.similar_objectives)
+				found_objective_data += found_objective.explanation_text
+			goal_data["objective_data"] = found_objective_data
+		data["goals"] += list(goal_data)
+
 	return data
 
 /datum/adv_traitor_panel/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
@@ -133,3 +152,7 @@
 				owner_datum.modify_traitor_points()
 				owner_datum.log_goals_on_finalize()
 			. = TRUE
+
+		if("set_goal_text")
+			var/datum/advanced_antag_goal/edited_goal = locate(params["ref"]) in owner_datum.our_goals
+			edited_goal.set_goal_text(params["newgoal"])
