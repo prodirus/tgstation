@@ -1,69 +1,8 @@
 /// The advanced traitor goal panel used to set and finalized goals.
-/// Separated out the HTML data from the main traitor_plus file for cleanliness.
-/*
-/datum/antagonist/traitor/traitor_plus/proc/build_advanced_panel_html()
-	var/dat = ""
-	dat += "<div align='center'><a href='?src=[REF(src)];set_name=1'>Set Antagonist Name:</a> [name][FOURSPACES][FOURSPACES]"
-	dat += "<a href='?src=[REF(src)];set_employer=1'>Set Antagonist Employer:</a> [employer]</div>"
-	dat += "<div width=40%><a href='?src=[REF(src)];set_backstory=1'>Set Backstory:</a> [backstory]</div><div width=60%> </div>"
-
-	dat += "<hr>"
-
-	var/intensity_color = "#f00"
-	if(LAZYLEN(our_goals))
-		var/count = 1
-		for(var/datum/advanced_antag_goal/all_goals in our_goals)
-			if(count > TRAITOR_PLUS_MAX_GOALS)
-				break
-
-			switch(all_goals.intensity)
-				if(1)
-					intensity_color = "#7bff00"
-				if(2)
-					intensity_color = "#fbff00"
-				if(3)
-					intensity_color = "#ffa600"
-				if(4)
-					intensity_color = "#ff8800"
-				if(5)
-					intensity_color = "#f00"
-
-			dat += "<table width=100%>"
-			dat += "<b> Goal #[count]: </b>"
-			dat += "<tr>"
-			dat += "<td width='30%'><center><a href='?src=[REF(src)];edit_new_goal=set_goal;target_goal=[REF(all_goals)]'>Set goal</a></center></td>"
-			dat += "<td width='15%'><center><a href='?src=[REF(src)];edit_new_goal=set_level;target_goal=[REF(all_goals)]'>Set intensity</a></center></td>"
-			dat += "<td width='25%'><center><a href='?src=[REF(src)];edit_new_goal=set_notes;target_goal=[REF(all_goals)]'>Set notes</a></center></td>"
-			dat += "<td width='30%'><table align='center'>"
-			dat += "<td><a href='?src=[REF(src)];edit_new_goal=add_sim_objectives;target_goal=[REF(all_goals)]'>Set similar objectives</a></td>"
-			dat += "<td><a href='?src=[REF(src)];edit_new_goal=clear_sim_objectives;target_goal=[REF(all_goals)]'>Clear similar objectives</a></td>"
-			dat += "<td><a href='?src=[REF(src)];edit_new_goal=toggle_check_all_objectives;target_goal=[REF(all_goals)]'>[all_goals.check_all_objectives? "Check All Successes":"Check First Success"]</a></td>"
-			dat += "</table></td>"
-			dat += "</tr>"
-			dat += "<tr><td width='30%' valign='top'>[TextPreview(all_goals.goal, 210)]</td>"
-			dat += "<td width='15%' valign='top'><center><span style='border: 1px solid #161616; background-color: [intensity_color];'> [all_goals.intensity] </span></center></td>"
-			dat += "<td width='25%' valign='top'>[TextPreview(all_goals.notes, 140)]</td>"
-			dat += "<td width='30%' valign='top'>"
-			for(var/datum/objective/objectives as anything in all_goals.similar_objectives)
-				if(LAZYLEN(all_goals.similar_objectives) > TRAITOR_PLUS_MAX_SIMILAR_OBJECTIVES)
-					break
-				dat += "[TextPreview(objectives.explanation_text, 100)]	<a href='?src=[REF(src)];edit_new_goal=cut_sim_objectives;target_goal=[REF(all_goals)];target_objective=[REF(objectives)]'>(Remove objective)</a><br>"
-			dat += "</td></tr>"
-			dat += "<a href='?src=[REF(src)];remove_goal=[REF(all_goals)]'>Remove goal</a>"
-			dat += "</table><br>"
-			count++
-
-	dat += "<br><a href='?src=[REF(src)];add_new_goal=1'>Add a new goal</a>"
-	if(!should_equip)
-		dat += "<br><a href='?src=[REF(src)];finalize_goals=1'>Finalize goals (They can still be edited in the future!)</a>"
-		dat += "<br><i>Based on your current goals, finalizing now will grant you [get_traitor_points_from_goals()] [(traitor_kind == TRAITOR_AI) ? "processing units" : "telecrystals"].</i>"
-
-	return dat
-	*/
-
 /datum/adv_traitor_panel
 	var/mob/viewer
 	var/datum/antagonist/traitor/traitor_plus/owner_datum
+	var/datum/tgui/open_ui
 
 /datum/adv_traitor_panel/New(mob/user, datum/antagonist/traitor/traitor_plus/owner_datum)
 	if(istype(user))
@@ -75,6 +14,8 @@
 	src.owner_datum = owner_datum
 
 /datum/adv_traitor_panel/ui_close()
+	open_ui = null
+	owner_datum.cleanup_advanced_traitor_panel(viewer)
 	qdel(src)
 
 /datum/adv_traitor_panel/ui_interact(mob/user, datum/tgui/ui)
@@ -82,6 +23,7 @@
 	if(!ui)
 		ui = new(user, src, "_AdvancedTraitorPanel")
 		ui.open()
+		open_ui = ui
 
 /datum/adv_traitor_panel/ui_state(mob/user)
 	if(viewer != owner_datum.owner.current)
@@ -93,27 +35,38 @@
 
 /datum/adv_traitor_panel/ui_data(mob/user)
 	var/list/data = list()
+
+	data["traitor_type"] = owner_datum.traitor_kind
 	data["name"] = owner_datum.name
 	data["employer"] = owner_datum.employer
 	data["backstory"] = owner_datum.backstory
 	data["goals_finalized"] = owner_datum.should_equip
+	data["finalized_tc"] = owner_datum.get_traitor_points_from_goals()
 
-	var/goal_num = 0
+	var/goal_num = 1
 	for(var/datum/advanced_antag_goal/found_goal in owner_datum.our_goals)
 		var/list/goal_data = list(
-			id = ++goal_num,
-			ref = REF(found_goal)
+			id = goal_num,
+			ref = REF(found_goal),
 			goal = found_goal.goal,
 			intensity = found_goal.intensity,
 			notes = found_goal.notes,
-			objective_data = null,
+			check_all_objectives = found_goal.check_all_objectives,
+			always_succeed = found_goal.always_succeed,
+			objective_data = list(),
 			)
 		if(LAZYLEN(found_goal.similar_objectives))
-			var/list/found_objective_data = list()
+			var/obj_num = 1
 			for(var/datum/objective/found_objective in found_goal.similar_objectives)
-				found_objective_data += found_objective.explanation_text
-			goal_data["objective_data"] = found_objective_data
+				var/list/found_objective_data = list(
+					id = obj_num,
+					ref = REF(found_objective),
+					text = found_objective.explanation_text,
+				)
+				goal_data["objective_data"] += list(found_objective_data)
+				obj_num++
 		data["goals"] += list(goal_data)
+		goal_num++
 
 	return data
 
@@ -123,6 +76,13 @@
 		return
 	if(!owner_datum)
 		CRASH("Advanced traitor panel being operated with no advanced traitor datum.")
+
+	var/datum/advanced_antag_goal/edited_goal
+
+	if(params["goal_ref"])
+		edited_goal = locate(params["goal_ref"]) in owner_datum.our_goals
+		if(!edited_goal)
+			CRASH("Advanced_traitor_panel passed a reference parameter to a goal that it could not locate!")
 
 	switch(action)
 		/// Background stuff
@@ -138,21 +98,84 @@
 
 		/// Goal Stuff
 		if("add_advanced_goal")
-			if(LAZYLEN(owner_datum.our_goals) > TRAITOR_PLUS_MAX_GOALS)
-				to_chat(usr, "Max amount of goals reached.")
-			else
-				owner_datum.add_advanced_goal()
-				to_chat(usr, "Goal added.")
 			. = TRUE
+			if(LAZYLEN(owner_datum.our_goals) > TRAITOR_PLUS_MAX_GOALS)
+				to_chat(usr, "Maximum amount of goals reached.")
+				return
+
+			owner_datum.add_advanced_goal()
 
 		if("finalize_goals")
-			if(!owner_datum.should_equip)
-				owner_datum.should_equip = TRUE
-				owner_datum.finalize_traitor()
-				owner_datum.modify_traitor_points()
-				owner_datum.log_goals_on_finalize()
+			. = TRUE
+			if(owner_datum.should_equip)
+				return
+
+			owner_datum.should_equip = TRUE
+			owner_datum.finalize_traitor()
+			owner_datum.modify_traitor_points()
+			owner_datum.log_goals_on_finalize()
+
+		if("remove_advanced_goal")
+			owner_datum.remove_advanced_goal(edited_goal)
 			. = TRUE
 
 		if("set_goal_text")
-			var/datum/advanced_antag_goal/edited_goal = locate(params["ref"]) in owner_datum.our_goals
-			edited_goal.set_goal_text(params["newgoal"])
+			edited_goal.set_goal_text(strip_html_simple(params["newgoal"], TRAITOR_PLUS_MAX_GOAL_LENGTH))
+			. = TRUE
+
+		if("set_goal_intensity")
+			edited_goal.set_intensity(clamp(params["newlevel"], 1, 5))
+			. = TRUE
+
+		if("set_note_text")
+			edited_goal.notes = strip_html_simple(params["newtext"], TRAITOR_PLUS_MAX_NOTE_LENGTH)
+			. = TRUE
+
+		if("add_similar_objective")
+			. = TRUE
+			if(LAZYLEN(edited_goal.similar_objectives) > TRAITOR_PLUS_MAX_SIMILAR_OBJECTIVES)
+				to_chat(usr, "Maximum amount of similar objectives reached for this goal.")
+				return
+
+			if(!GLOB.admin_objective_list)
+				generate_admin_objective_list()
+			var/list/objectives_to_choose = GLOB.admin_objective_list.Copy() - owner_datum.blacklisted_similar_objectives
+			if(owner_datum.traitor_kind == TRAITOR_AI)
+				objectives_to_choose -= owner_datum.blacklisted_ai_objectives
+				objectives_to_choose += owner_datum.ai_objectives
+
+			var/list/edited_similar_objectives = LAZYCOPY(edited_goal.similar_objectives)
+			var/datum/objective/new_objective_type = input("Add an objective:", "Objective type", null) as null|anything in objectives_to_choose
+			new_objective_type = objectives_to_choose[new_objective_type]
+			if(new_objective_type)
+				var/datum/objective/added_objective = new new_objective_type
+				added_objective.owner = owner_datum.owner
+				edited_similar_objectives.Add(added_objective)
+				added_objective.admin_edit(usr)
+			else
+				return
+
+			edited_goal.similar_objectives = edited_similar_objectives
+
+		if("remove_similar_objective")
+			. = TRUE
+			var/list/edited_similar_objectives = edited_goal.similar_objectives.Copy()
+			var/datum/objective/removed_objective = locate(params["objective_ref"]) in edited_similar_objectives
+			if(!removed_objective)
+				CRASH("Advanced_traitor_panel passed a reference to an objective belonging to a goal that could not be located!")
+
+			if(edited_similar_objectives.Remove(removed_objective))
+				qdel(removed_objective)
+				edited_goal.similar_objectives = edited_similar_objectives
+
+		if("clear_sim_objectives")
+			. = TRUE
+			QDEL_LIST(edited_goal.similar_objectives)
+
+		if("toggle_check_all_objectives")
+			edited_goal.check_all_objectives = !edited_goal.check_all_objectives
+			. = TRUE
+
+		if("toggle_always_succeed")
+			edited_goal.always_succeed = !edited_goal.always_succeed
+			. = TRUE

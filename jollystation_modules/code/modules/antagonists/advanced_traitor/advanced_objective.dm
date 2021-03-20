@@ -20,8 +20,10 @@
 	var/list/datum/objective/similar_objectives
 	/// Whether we check all objectives or just the first successful one in our [similar_objectives]
 	var/check_all_objectives = TRUE
+	/// Whether this objective is successful, regardless of our [similar_objectives]
+	var/always_succeed = FALSE
 
-/datum/advanced_antag_goal/New(datum/antagonist/antag_datum, identifier)
+/datum/advanced_antag_goal/New(datum/antagonist/antag_datum)
 	our_antag = antag_datum
 
 /datum/advanced_antag_goal/Destroy()
@@ -45,7 +47,7 @@
 /datum/advanced_antag_goal/proc/get_roundend_text(number)
 	var/datum/antagonist/our_antag_datum = our_antag
 	var/formatted_text = "<br><B>Objective #[number]</B>: [goal]"
-	if(LAZYLEN(similar_objectives))
+	if(LAZYLEN(similar_objectives) || always_succeed)
 		if(check_relative_success())
 			formatted_text += "<br><span class='greentext'> The [our_antag_datum.name] succeeded this goal!</span>"
 		else
@@ -62,7 +64,7 @@
 	for(var/datum/objective/objective in similar_objectives)
 		if(check_all_objectives)
 			if(!objective.check_completion())
-				return FALSE
+				return FALSE || always_succeed
 		else
 			if(objective.check_completion())
 				return TRUE
