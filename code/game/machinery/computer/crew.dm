@@ -34,11 +34,16 @@ GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
 		// Note that jobs divisible by 10 are considered heads of staff, and bolded
 		// 00: Captain
 		"Captain" = 00,
+		"Bridge Officer" = 10, //NON MODULAR CHANGE
 		// 10-19: Security
 		"Head of Security" = 10,
 		"Warden" = 11,
 		"Security Officer" = 12,
-		"Detective" = 13,
+		"Security Officer (Medical)" = 13,
+		"Security Officer (Engineering)" = 14,
+		"Security Officer (Science)" = 15,
+		"Security Officer (Cargo)" = 16,
+		"Detective" = 17,
 		// 20-29: Medbay
 		"Chief Medical Officer" = 20,
 		"Chemist" = 21,
@@ -50,16 +55,18 @@ GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
 		"Scientist" = 31,
 		"Roboticist" = 32,
 		"Geneticist" = 33,
+		"Xenobiologist" = 34, //NON MODULAR CHANGES
+		"Toxicologist" = 35, //NON MODULAR CHANGES
 		// 40-49: Engineering
 		"Chief Engineer" = 40,
 		"Station Engineer" = 41,
 		"Atmospheric Technician" = 42,
 		// 50-59: Cargo
-		"Head of Personnel" = 50,
-		"Quartermaster" = 51,
+		"Quartermaster" = 50, //NON MODULAR CHANGE
 		"Shaft Miner" = 52,
 		"Cargo Technician" = 53,
 		// 60+: Civilian/other
+		"Head of Personnel" = 60, //NON MODULAR CHANGE
 		"Bartender" = 61,
 		"Cook" = 62,
 		"Botanist" = 63,

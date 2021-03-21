@@ -319,7 +319,8 @@ Key procs
 								/datum/language/calcic = list(LANGUAGE_ATOM),
 								/datum/language/voltaic = list(LANGUAGE_ATOM),
 								/datum/language/nekomimetic = list(LANGUAGE_ATOM),
-								/datum/language/skrell = list(LANGUAGE_ATOM)) //JollyStation Addition, added this line to account for Skrell language
+								/datum/language/skrell = list(LANGUAGE_ATOM), // NON-MODULE CHANGE
+								/datum/language/impdraconic = list(LANGUAGE_ATOM)) // NON-MODULE CHANGE
 	spoken_languages = list(/datum/language/common = list(LANGUAGE_ATOM),
 							/datum/language/uncommon = list(LANGUAGE_ATOM),
 							/datum/language/machine = list(LANGUAGE_ATOM),
@@ -328,7 +329,8 @@ Key procs
 							/datum/language/calcic = list(LANGUAGE_ATOM),
 							/datum/language/voltaic = list(LANGUAGE_ATOM),
 							/datum/language/nekomimetic = list(LANGUAGE_ATOM),
-							/datum/language/skrell = list(LANGUAGE_ATOM)) //JollyStation Addition, added this line to account for Skrell language
+							/datum/language/skrell = list(LANGUAGE_ATOM), // NON-MODULE CHANGE
+							/datum/language/impdraconic = list(LANGUAGE_ATOM)) // NON-MODULE CHANGE
 
 /datum/language_holder/moth
 	understood_languages = list(/datum/language/common = list(LANGUAGE_ATOM),

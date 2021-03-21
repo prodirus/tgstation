@@ -27,6 +27,10 @@
 	if(!.)
 		return
 
+	// Eh, probably don't play a sound if it's forced (like spells)
+	if(forced)
+		return
+
 	/// Our list of sounds we're going to play
 	var/list/chosen_speech_sounds
 	/// Whether this is a question, an exclamation, or neither
