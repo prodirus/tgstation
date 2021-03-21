@@ -255,7 +255,7 @@ export const _AdvancedTraitorPanel_Goals = (props, context) => {
                   width="150px"
                   height="20px"
                   icon="plus"
-                  content="Remove All Similar Objective"
+                  content="Remove All Similar Objectives"
                   color="bad"
                   textAlign="center"
                   onClick={() => act('clear_sim_objectives', {'goal_ref': selectedGoal.objective_data.ref})}/>)}
