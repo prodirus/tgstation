@@ -11,6 +11,8 @@
 		/datum/customer_data/mexican = 30,
 		/datum/customer_data/japanese = 30,
 		/datum/customer_data/japanese/salaryman = 20,
+		/datum/customer_data/british/bobby = 20,
+		/datum/customer_data/british/gent = 20,
 		/datum/customer_data/moth = 1,
 		/datum/customer_data/malfunction = 1,
 	)
@@ -80,6 +82,8 @@
 		/datum/customer_data/mexican = 30,
 		/datum/customer_data/japanese = 30,
 		/datum/customer_data/japanese/salaryman = 20,
+		/datum/customer_data/british/bobby = 20,
+		/datum/customer_data/british/gent = 20,
 		/datum/customer_data/malfunction = 1,
 	)
 

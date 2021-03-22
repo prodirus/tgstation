@@ -70,9 +70,6 @@
 	/// Type path of item to go in shoes slot
 	var/shoes = null
 
-	/// Type path of ID card trim associated with this outfit.
-	var/id_trim = null
-
 	/// Type path of item for left pocket slot
 	var/l_pocket = null
 

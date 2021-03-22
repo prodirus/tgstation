@@ -40,16 +40,21 @@
 		return
 
 	region_access.Cut()
+	valid_access.Cut()
+	job_templates.Cut()
+
+	// If the program isn't locked to a specific department or is_centcom and we have ACCESS_CHANGE_IDS in our auth card, we're not minor.
+	if((!target_dept || is_centcom) && (ACCESS_CHANGE_IDS in id_card.access))
+		minor = FALSE
+		authenticated_user = "[id_card.name]"
 		job_templates = is_centcom ? SSid_access.centcom_job_templates.Copy() : SSid_access.station_job_templates.Copy()
 		valid_access = is_centcom ? SSid_access.get_region_access_list(list(REGION_CENTCOM)) : SSid_access.get_region_access_list(list(REGION_ALL_STATION))
 		update_static_data(user)
 		return TRUE
 
 	// Otherwise, we're minor and now we have to build a list of restricted departments we can change access for.
-<<<<<<< HEAD
 	job_templates.Cut()
 	var/list/head_types = list()
->>>>>>> 2f686038b0a284a27f2db0dd095acef5b7b0889a
 	var/list/managers = SSid_access.sub_department_managers_tgui
 	for(var/access_as_text in managers)
 		var/list/info = managers[access_as_text]
@@ -276,10 +281,21 @@
 	var/list/regions = list()
 	var/list/tgui_region_data = SSid_access.all_region_access_tgui
 	if(is_centcom)
+		regions += tgui_region_data[REGION_CENTCOM]
 	else
+		for(var/region in SSid_access.station_regions)
+			if((minor || target_dept) && !(region in region_access))
+				continue
 			regions += tgui_region_data[region]
 
 	data["regions"] = regions
+
+
+	data["accessFlags"] = SSid_access.flags_by_access
+	data["wildcardFlags"] = SSid_access.wildcard_flags_by_wildcard
+	data["accessFlagNames"] = SSid_access.access_flag_string_by_flag
+	data["showBasic"] = TRUE
+	data["templates"] = job_templates
 
 
 	data["accessFlags"] = SSid_access.flags_by_access
