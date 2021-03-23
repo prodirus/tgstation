@@ -21,7 +21,7 @@ export const _AdvancedTraitorPanel = (props, context) => {
           <_AdvancedTraitorPanel_Background />
         </Section>
         <Divider />
-        <Section title={traitor_type === "AI" ? "Malfunctioning AI Objectives" : "Traitor Objectives"}>
+        <Section title={traitor_type === "AI" ? "Malfunctioning AI Objectives" : "Traitor Objectives"} height="60%">
           <Flex mb={1}>
             <Button
               width="85px"
@@ -39,8 +39,8 @@ export const _AdvancedTraitorPanel = (props, context) => {
                 color="bad"
                 textAlign="center"
                 tooltip={traitor_type === "AI" ?
-                  (`Finalizing will send you your uplink to your preferred location with ${{ finalized_tc }} telecrystals. You can still edit your goals after finalizing!`) :
-                  (`Finalizing will begin installlation of your malfunction module with ${{ finalized_tc }} processing power. You can still edit your goals after finalizing!`)}
+                  (`Finalizing will begin installlation of your malfunction module with ${ finalized_tc } processing power. You can still edit your goals after finalizing!`) :
+                  (`Finalizing will send you your uplink to your preferred location with ${ finalized_tc } telecrystals. You can still edit your goals after finalizing!`)}
                 onClick={() => act('finalize_goals')}/> )}
           </Flex>
           { !!goals.length && (
@@ -89,7 +89,7 @@ export const _AdvancedTraitorPanel_Background = (props, context) => {
         <Box width="40px" mb={1}>Backstory:</Box>
         <TextArea
           fluid
-          width="100%"
+          width="50%"
           height="100px"
           style={{'border-color': '#87ce87'}}
           value={backstory}
@@ -132,14 +132,14 @@ export const _AdvancedTraitorPanel_Goals = (props, context) => {
       <Flex.Item>
         <Flex direction="column">
           <Flex>
-            <Flex direction="column" mr={2} align="center">
+            <Flex direction="column" ml={2} mr={2} align="center" width="50%">
               <Flex.Item mb={2} >
                 Goal Text
               </Flex.Item>
-              <Flex.Item>
+              <Flex.Item width="100%">
                 <TextArea
                   fluid
-                  width="200px"
+                  width="100%"
                   height="100px"
                   style={{'border-color': '#87ce87'}}
                   value={selectedGoal.goal}
@@ -201,9 +201,9 @@ export const _AdvancedTraitorPanel_Goals = (props, context) => {
                   })} />
               </Flex.Item>
             </Flex>
-            <Flex direction="column" mr={2} align="center">
-              <Flex.Item mb={2}>
-                <Flex direction="column" width="300px">
+            <Flex direction="column" mr={2} align="center" width="100%">
+              <Flex.Item mb={1}>
+                <Flex direction="column" >
                   <Flex.Item mb={2} align="center">
                     Similar Objectives
                   </Flex.Item>
@@ -226,18 +226,6 @@ export const _AdvancedTraitorPanel_Goals = (props, context) => {
                 </Flex>
               </Flex.Item>
               <Flex.Item>
-                <Flex direction="column">
-                  {selectedGoal.objective_data.map(objective => (
-                    <Flex.Item >
-                      <Button
-                        content="Remove Objective"
-                        color="bad"
-                        onClick={() => act('remove_similar_objective', {'goal_ref': selectedGoal.ref, 'objective_ref': objective.ref})}/>
-                      : {objective.text}
-                    </Flex.Item>))}
-                  </Flex>
-              </Flex.Item>
-              <Flex.Item>
                 <Button
                   width="160px"
                   height="20px"
@@ -245,19 +233,36 @@ export const _AdvancedTraitorPanel_Goals = (props, context) => {
                   content="Add Similar Objective"
                   textAlign="center"
                   onClick={() => act('add_similar_objective', {'goal_ref': selectedGoal.ref})}/>
-                { !!selectedGoal.objective_data.length && (
-                  <Button.Confirm
-                    width="210px"
-                    height="20px"
-                    icon="minus"
-                    content="Remove All Similar Objectives"
-                    color="bad"
-                    textAlign="center"
-                    onClick={() => act('clear_sim_objectives', {'goal_ref': selectedGoal.ref})}/>)}
+                <Button.Confirm
+                  width="210px"
+                  height="20px"
+                  icon="minus"
+                  content="Remove All Similar Objectives"
+                  disabled={!selectedGoal.objective_data.length}
+                  color="bad"
+                  textAlign="center"
+                  onClick={() => act('clear_sim_objectives', {'goal_ref': selectedGoal.ref})}/>
+              </Flex.Item>
+              <Flex.Item width="90%">
+                <Flex direction="column" width="100%">
+                  {selectedGoal.objective_data.map(objective => (
+                    <Flex.Item>
+                      <Flex>
+                        <Button
+                          content="Remove Objective"
+                          color="bad"
+                          onClick={() => act('remove_similar_objective', {'goal_ref': selectedGoal.ref, 'objective_ref': objective.ref})}/>
+                        <Box position='relative'>
+                            : {objective.trimmed_text}
+                            <Tooltip content={objective.text}/>
+                          </Box>
+                       </Flex>
+                    </Flex.Item>))}
+                </Flex>
               </Flex.Item>
             </Flex>
           </Flex>
-          <Flex ml={3}>
+          <Flex ml={2}>
             <Button.Confirm
               width="160px"
               height="20px"
@@ -270,9 +275,9 @@ export const _AdvancedTraitorPanel_Goals = (props, context) => {
         </Flex>
       </Flex.Item>
       ) : (
-      <Box>
-        No goals added.
-      </Box>
+      <Flex.Item>
+        No goals selected.
+      </Flex.Item>
       )}
   </Flex>
   );

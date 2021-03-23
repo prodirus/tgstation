@@ -62,6 +62,7 @@
 					id = obj_num,
 					ref = REF(found_objective),
 					text = found_objective.explanation_text,
+					trimmed_text = TextPreview(found_objective.explanation_text, 50),
 				)
 				goal_data["objective_data"] += list(found_objective_data)
 				obj_num++
@@ -78,7 +79,6 @@
 		CRASH("Advanced traitor panel being operated with no advanced traitor datum.")
 
 	var/datum/advanced_antag_goal/edited_goal
-
 	if(params["goal_ref"])
 		edited_goal = locate(params["goal_ref"]) in owner_datum.our_goals
 		if(!edited_goal)
@@ -98,23 +98,12 @@
 
 		/// Goal Stuff
 		if("add_advanced_goal")
-			. = TRUE
 			if(LAZYLEN(owner_datum.our_goals) > TRAITOR_PLUS_MAX_GOALS)
 				to_chat(usr, "Maximum amount of goals reached.")
 				return
 
 			owner_datum.add_advanced_goal()
-
-		if("finalize_goals")
 			. = TRUE
-			if(owner_datum.should_equip)
-				return
-
-			owner_datum.should_equip = TRUE
-			owner_datum.finalize_traitor()
-			owner_datum.modify_traitor_points()
-			owner_datum.log_goals_on_finalize()
-
 		if("remove_advanced_goal")
 			owner_datum.remove_advanced_goal(edited_goal)
 			. = TRUE
@@ -122,17 +111,14 @@
 		if("set_goal_text")
 			edited_goal.set_goal_text(strip_html_simple(params["newgoal"], TRAITOR_PLUS_MAX_GOAL_LENGTH))
 			. = TRUE
-
 		if("set_goal_intensity")
 			edited_goal.set_intensity(clamp(params["newlevel"], 1, 5))
 			. = TRUE
-
 		if("set_note_text")
 			edited_goal.notes = strip_html_simple(params["newtext"], TRAITOR_PLUS_MAX_NOTE_LENGTH)
 			. = TRUE
 
 		if("add_similar_objective")
-			. = TRUE
 			if(LAZYLEN(edited_goal.similar_objectives) > TRAITOR_PLUS_MAX_SIMILAR_OBJECTIVES)
 				to_chat(usr, "Maximum amount of similar objectives reached for this goal.")
 				return
@@ -156,9 +142,9 @@
 				return
 
 			edited_goal.similar_objectives = edited_similar_objectives
+			. = TRUE
 
 		if("remove_similar_objective")
-			. = TRUE
 			var/list/edited_similar_objectives = edited_goal.similar_objectives.Copy()
 			var/datum/objective/removed_objective = locate(params["objective_ref"]) in edited_similar_objectives
 			if(!removed_objective)
@@ -167,15 +153,25 @@
 			if(edited_similar_objectives.Remove(removed_objective))
 				qdel(removed_objective)
 				edited_goal.similar_objectives = edited_similar_objectives
+			. = TRUE
 
 		if("clear_sim_objectives")
 			QDEL_LIST(edited_goal.similar_objectives)
 			. = TRUE
-
 		if("toggle_check_all_objectives")
 			edited_goal.check_all_objectives = !edited_goal.check_all_objectives
 			. = TRUE
-
 		if("toggle_always_succeed")
 			edited_goal.always_succeed = !edited_goal.always_succeed
+			. = TRUE
+
+		/// Finalize
+		if("finalize_goals")
+			if(owner_datum.should_equip)
+				return
+
+			owner_datum.should_equip = TRUE
+			owner_datum.finalize_traitor()
+			owner_datum.modify_traitor_points()
+			owner_datum.log_goals_on_finalize()
 			. = TRUE

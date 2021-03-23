@@ -116,7 +116,11 @@
 
 /// Set their name to default "Traitor" and give the traitor the verb to open their goal panel.
 /datum/antagonist/traitor/traitor_plus/proc/setup_advanced_traitor()
-	name = "Traitor"
+	switch(traitor_kind)
+		if(TRAITOR_AI)
+			name = "Malfunctioning AI"
+		if(TRAITOR_HUMAN)
+			name = "Traitor"
 	show_advanced_traitor_panel(owner.current)
 	add_verb(owner.current, /mob/proc/open_advanced_traitor_panel)
 
