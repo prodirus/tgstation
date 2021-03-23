@@ -13,8 +13,8 @@ export const _AdvancedTraitorPanel = (props, context) => {
   return (
     <Window
       title="Advanced Traitor Panel"
-      width={800}
-      height={500}
+      width={1150}
+      height={550}
       theme='syndicate'>
       <Window.Content>
         <Section title={traitor_type === "AI" ? "Malfunctioning AI Background" : "Traitor Background"}>
@@ -43,7 +43,7 @@ export const _AdvancedTraitorPanel = (props, context) => {
                   (`Finalizing will begin installlation of your malfunction module with ${{ finalized_tc }} processing power. You can still edit your goals after finalizing!`)}
                 onClick={() => act('finalize_goals')}/> )}
           </Flex>
-          {goals.length && (
+          { !!goals.length && (
               <_AdvancedTraitorPanel_Goals />
             )}
         </Section>
@@ -114,10 +114,10 @@ export const _AdvancedTraitorPanel_Goals = (props, context) => {
   });
 
   return (
-  <Flex direction="column">
-    <Flex.Item>
-      { goals.length && (
-        <Tabs>
+  <Flex direction="column" grow={1}>
+    { goals.length > 0 && (
+      <Flex.Item>
+         <Tabs>
           {goals.map(goal => (
             <Tabs.Tab
               selected={goal.id === selectedGoalID}
@@ -126,90 +126,88 @@ export const _AdvancedTraitorPanel_Goals = (props, context) => {
             </Tabs.Tab>
           ))}
         </Tabs>
-        )}
-    </Flex.Item>
-    <Flex.Item>
-      { selectedGoal ? (
-        <Flex>
-          <Flex direction="column" mr={2} align="center">
-            <Flex.Item mb={2} >
-              Goal Text
-            </Flex.Item>
-            <Flex.Item>
-              <TextArea
-                fluid
-                mr={2}
-                width="200px"
-                height="100px"
-                style={{'border-color': '#87ce87'}}
-                value={selectedGoal.goal}
-                placeholder={selectedGoal.goal}
-                onInput={(e, value) => act('set_goal_text', {
-                  'goal_ref': selectedGoal.ref,
-                  newgoal: value,
-                })} />
+      </Flex.Item>
+    )}
+    { !!selectedGoal ? (
+      <Flex.Item>
+        <Flex direction="column">
+          <Flex>
+            <Flex direction="column" mr={2} align="center">
+              <Flex.Item mb={2} >
+                Goal Text
+              </Flex.Item>
+              <Flex.Item>
+                <TextArea
+                  fluid
+                  width="200px"
+                  height="100px"
+                  style={{'border-color': '#87ce87'}}
+                  value={selectedGoal.goal}
+                  placeholder={selectedGoal.goal}
+                  onInput={(e, value) => act('set_goal_text', {
+                    'goal_ref': selectedGoal.ref,
+                    newgoal: value,
+                  })} />
+                </Flex.Item>
+              </Flex>
+            <Flex direction="column" mr={2} align="center">
+              <Flex.Item mb={2}>
+                Intensity
+              </Flex.Item>
+              <Flex.Item mb={2} position="relative">
+                <RoundGauge
+                  size={2}
+                  value={selectedGoal.intensity}
+                  minValue={1}
+                  maxValue={5}
+                  alertAfter={3.9}
+                  format={value => null}
+                  ranges={{
+                    "green": [1, 1.8],
+                    "good": [1.8, 2.6],
+                    "yellow": [2.6, 3.4],
+                    "orange": [3.4, 4.2],
+                    "red": [4.2, 5], }} />
+                <Tooltip
+                  content="Set your goal's intensity level."/>
+              </Flex.Item>
+              <Flex.Item>
+                <NumberInput
+                  value={selectedGoal.intensity}
+                  step={1}
+                  minValue={1}
+                  maxValue={5}
+                  stepPixelDrag={10}
+                  onChange={(e, value) => act('set_goal_intensity', {
+                    'goal_ref': selectedGoal.ref,
+                    newlevel: value,
+                  })}  />
               </Flex.Item>
             </Flex>
-          <Flex direction="column" mr={2} align="center">
-            <Flex.Item mb={2}>
-              Intensity
-            </Flex.Item>
-            <Flex.Item mb={2} position="relative">
-              <RoundGauge
-                size={2}
-                value={selectedGoal.intensity}
-                minValue={1}
-                maxValue={5}
-                alertAfter={3.9}
-                format={value => null}
-                ranges={{
-                  "green": [1, 1.8],
-                  "good": [1.8, 2.6],
-                  "yellow": [2.6, 3.4],
-                  "orange": [3.4, 4.2],
-                  "red": [4.2, 5], }} />
-              <Tooltip
-                content="Set your goal's intensity level."/>
-            </Flex.Item>
-            <Flex.Item>
-              <NumberInput
-                value={selectedGoal.intensity}
-                step={1}
-                minValue={1}
-                maxValue={5}
-                stepPixelDrag={10}
-                onChange={(e, value) => act('set_goal_intensity', {
-                  'goal_ref': selectedGoal.ref,
-                  newlevel: value,
-                })}  />
-            </Flex.Item>
-          </Flex>
-          <Flex direction="column" mr={2} align="center">
-            <Flex.Item mb={2}>
-              Additional Notes
-            </Flex.Item>
-            <Flex.Item>
-              <TextArea
-                mr={2}
-                width="200px"
-                height="100px"
-                style={{'border-color': '#87ce87'}}
-                value={selectedGoal.notes}
-                placeholder={selectedGoal.notes}
-                onInput={(e, value) => act('set_note_text', {
-                  'goal_ref': selectedGoal.ref,
-                  newtext: value,
-                })} />
-            </Flex.Item>
-          </Flex>
-          <Flex direction="column" mr={2} align="center">
-            <Flex.Item mb={2}>
-              <Flex direction="column">
-                <Flex.Item mb={2} align="center">
-                Similar Objectives
-                </Flex.Item>
-                <Flex.Item>
-                  <Flex>
+            <Flex direction="column" mr={2} align="center">
+              <Flex.Item mb={2}>
+                Additional Notes
+              </Flex.Item>
+              <Flex.Item>
+                <TextArea
+                  width="200px"
+                  height="100px"
+                  style={{'border-color': '#87ce87'}}
+                  value={selectedGoal.notes}
+                  placeholder={selectedGoal.notes}
+                  onInput={(e, value) => act('set_note_text', {
+                    'goal_ref': selectedGoal.ref,
+                    newtext: value,
+                  })} />
+              </Flex.Item>
+            </Flex>
+            <Flex direction="column" mr={2} align="center">
+              <Flex.Item mb={2}>
+                <Flex direction="column" width="300px">
+                  <Flex.Item mb={2} align="center">
+                    Similar Objectives
+                  </Flex.Item>
+                  <Flex.Item align="center">
                     <Button.Checkbox
                       content="Check All"
                       width="85px"
@@ -224,50 +222,58 @@ export const _AdvancedTraitorPanel_Goals = (props, context) => {
                       tooltip={selectedGoal.always_succeed ? ("Currently, this objective will always be marked as a success, even if no objectives are set.") : ("Currently, success of this objective will depend on success of the objectives below. If no objectives are set, no success or failure text will be displayed at all.")}
                       checked={selectedGoal.always_succeed}
                       onClick={() => act('toggle_always_succeed', {'goal_ref': selectedGoal.ref})} />
-                  </Flex>
-                </Flex.Item>
-              </Flex>
-            </Flex.Item>
-            <Flex.Item>
-                <LabeledList>
+                  </Flex.Item>
+                </Flex>
+              </Flex.Item>
+              <Flex.Item>
+                <Flex direction="column">
                   {selectedGoal.objective_data.map(objective => (
-                    <LabeledList.Item>
-                      <Box mr={2}>
-                        Objective: {objective.text}
-                      </Box>
+                    <Flex.Item >
                       <Button
                         content="Remove Objective"
                         color="bad"
                         onClick={() => act('remove_similar_objective', {'goal_ref': selectedGoal.ref, 'objective_ref': objective.ref})}/>
-                    </LabeledList.Item>))}
-                </LabeledList>
-            </Flex.Item>
-            <Flex.Item>
-              <Button
-                width="160px"
-                height="20px"
-                icon="plus"
-                content="Add Similar Objective"
-                textAlign="center"
-                onClick={() => act('add_similar_objective', {'goal_ref': selectedGoal.ref})}/>
-              { selectedGoal.objective_data.length && (
-                <Button.Confirm
-                  width="150px"
+                      : {objective.text}
+                    </Flex.Item>))}
+                  </Flex>
+              </Flex.Item>
+              <Flex.Item>
+                <Button
+                  width="160px"
                   height="20px"
                   icon="plus"
-                  content="Remove All Similar Objectives"
-                  color="bad"
+                  content="Add Similar Objective"
                   textAlign="center"
-                  onClick={() => act('clear_sim_objectives', {'goal_ref': selectedGoal.objective_data.ref})}/>)}
-            </Flex.Item>
+                  onClick={() => act('add_similar_objective', {'goal_ref': selectedGoal.ref})}/>
+                { !!selectedGoal.objective_data.length && (
+                  <Button.Confirm
+                    width="210px"
+                    height="20px"
+                    icon="minus"
+                    content="Remove All Similar Objectives"
+                    color="bad"
+                    textAlign="center"
+                    onClick={() => act('clear_sim_objectives', {'goal_ref': selectedGoal.ref})}/>)}
+              </Flex.Item>
+            </Flex>
+          </Flex>
+          <Flex ml={3}>
+            <Button.Confirm
+              width="160px"
+              height="20px"
+              icon="minus"
+              content={`Remove Goal ${ selectedGoal.id }`}
+              color="bad"
+              textAlign="center"
+              onClick={() => act('remove_advanced_goal', {'goal_ref': selectedGoal.ref})}/>
           </Flex>
         </Flex>
-        ) : (
-        <Box>
-          No selected goals. Press "Add Goals" to make some.
-        </Box>
+      </Flex.Item>
+      ) : (
+      <Box>
+        No goals added.
+      </Box>
       )}
-    </Flex.Item>
   </Flex>
   );
 };

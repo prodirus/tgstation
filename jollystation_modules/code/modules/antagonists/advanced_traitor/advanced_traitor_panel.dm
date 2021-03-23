@@ -169,8 +169,8 @@
 				edited_goal.similar_objectives = edited_similar_objectives
 
 		if("clear_sim_objectives")
-			. = TRUE
 			QDEL_LIST(edited_goal.similar_objectives)
+			. = TRUE
 
 		if("toggle_check_all_objectives")
 			edited_goal.check_all_objectives = !edited_goal.check_all_objectives
