@@ -11,6 +11,7 @@
 
 
 	outfit = /datum/outfit/job/scientist/xenobiologist
+	plasmaman_outfit = /datum/outfit/plasmaman/science
 
 	paycheck = PAYCHECK_MEDIUM
 	paycheck_department = ACCOUNT_SCI
