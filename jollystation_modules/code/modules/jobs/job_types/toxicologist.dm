@@ -12,6 +12,7 @@
 //most likely can be subtyped later
 
 	outfit = /datum/outfit/job/scientist/toxicologist
+	plasmaman_outfit = /datum/outfit/plasmaman/science
 
 	paycheck = PAYCHECK_MEDIUM
 	paycheck_department = ACCOUNT_SCI

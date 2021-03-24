@@ -2,4 +2,4 @@
 
 <h1>Welcome to Jolly Station!</h1>
 
-<i>The only server with a barely functoning repo.</i>
+<i>HEY! LISTEN! Don't forget to enable LOOC! It can be enabled by clicking the cog at the top right of the chat menu, and is encouraged to put it in your main chat window.</i>

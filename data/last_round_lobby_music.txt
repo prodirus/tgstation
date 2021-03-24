@@ -40,3 +40,9 @@ config/title_music/sounds/Bonetrousle.ogg
 config/title_music/sounds/Professor E. Gadd - SiIvaGunner King for Another Day.ogg
 config/title_music/sounds/Grass Skirt Crowdkill - SiIvaGunner King for Another Day.ogg
 config/title_music/sounds/Once Upon A Time .ogg
+config/title_music/sounds/MEGALOVANIA.ogg
+config/title_music/sounds/House of the Fallen Halberd - SiIvaGunner King for Another Day.ogg
+config/title_music/sounds/Grass Skirt Crowdkill - SiIvaGunner King for Another Day.ogg
+config/title_music/sounds/Once Upon A Time .ogg
+config/title_music/sounds/DISGRACE TO THE UNIFORM.ogg
+config/title_music/sounds/DD2 Meets Terraria The Music - Forest Biome - Build Phase.ogg

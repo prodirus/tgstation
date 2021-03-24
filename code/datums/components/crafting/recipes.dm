@@ -307,10 +307,10 @@
 	..()
 	blacklist += subtypesof(/obj/item/gun/energy/laser)
 
-/datum/crafting_recipe/teslarevolver
-	name = "Tesla Revolver"
+/datum/crafting_recipe/teslacannon
+	name = "Tesla Cannon"
 	tool_behaviors = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
-	result = /obj/item/gun/energy/tesla_revolver
+	result = /obj/item/gun/energy/tesla_cannon
 	reqs = list(/obj/item/assembly/signaler/anomaly/flux = 1,
 				/obj/item/stack/cable_coil = 5,
 				/obj/item/weaponcrafting/gunkit/tesla = 1)
@@ -1141,15 +1141,6 @@
 	reqs = list(/obj/item/stack/sheet/mineral/metal_hydrogen = 20,
 				/obj/item/stack/sheet/mineral/zaukerite = 15,
 				/obj/item/stack/sheet/iron = 30,
-				)
-	category = CAT_MISC
-
-/datum/crafting_recipe/elder_atmosian_fireaxe
-	name = "Elder Axe"
-	result = /obj/item/fireaxe/elder_atmosian_fireaxe
-	time = 6 SECONDS
-	reqs = list(/obj/item/fireaxe/metal_h2_axe = 1,
-				/obj/item/stack/sheet/mineral/zaukerite = 10,
 				)
 	category = CAT_MISC
 
