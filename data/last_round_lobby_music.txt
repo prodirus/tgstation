@@ -46,3 +46,7 @@ config/title_music/sounds/Grass Skirt Crowdkill - SiIvaGunner King for Another D
 config/title_music/sounds/Once Upon A Time .ogg
 config/title_music/sounds/DISGRACE TO THE UNIFORM.ogg
 config/title_music/sounds/DD2 Meets Terraria The Music - Forest Biome - Build Phase.ogg
+config/title_music/sounds/Battle Against A True Hero Super Smash Bros. Ultimate - FANMADE.ogg
+config/title_music/sounds/Undertale Phase 2 (Megalo Strike Back).ogg
+config/title_music/sounds/Bonetrousle.ogg
+config/title_music/sounds/Fire Emblem Awakening OST - Chaos.ogg
