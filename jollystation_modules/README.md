@@ -55,7 +55,7 @@ NON-MODULE CHANGE END /*
 
 ## ...custom things to vendors:
 
-Uhhhhhhhh... Unless someone forgot to update this section of the README, the easy way to add contents to pre-existing vendors isn't implemented yet. Go yell at the coder monkeys to do it.
+Go to `jollystation_modules/code/modules/vending/_vending.dm` and use the template provided to add or remove items from vendors. Follow the provided template there.
 
 ## ...defines:
 
