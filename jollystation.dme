@@ -3477,7 +3477,6 @@
 #include "jollystation_modules\code\game\objects\items\devices\radio\encryptionkey.dm"
 #include "jollystation_modules\code\game\objects\items\devices\radio\headset.dm"
 #include "jollystation_modules\code\game\objects\items\structures\crate_lockers\crates.dm"
-#include "jollystation_modules\code\modules\mob.dm"
 #include "jollystation_modules\code\modules\antagonists\_common\antag_datum.dm"
 #include "jollystation_modules\code\modules\antagonists\advanced_traitor\advanced_objective.dm"
 #include "jollystation_modules\code\modules\antagonists\advanced_traitor\advanced_traitor.dm"
@@ -3498,6 +3497,7 @@
 #include "jollystation_modules\code\modules\language\highdraconic.dm"
 #include "jollystation_modules\code\modules\language\skrellian.dm"
 #include "jollystation_modules\code\modules\mob\logout.dm"
+#include "jollystation_modules\code\modules\mob\mob.dm"
 #include "jollystation_modules\code\modules\mob\mob_defines.dm"
 #include "jollystation_modules\code\modules\mob\typing_indicator.dm"
 #include "jollystation_modules\code\modules\mob\dead\new_player\sprite_accessories.dm"
@@ -3522,4 +3522,5 @@
 #include "jollystation_modules\code\modules\mob\living\simple_animal\simple_animal.dm"
 #include "jollystation_modules\code\modules\mob\living\simple_animal\bot\bot.dm"
 #include "jollystation_modules\code\modules\skrell\flavor_misc_js.dm"
+#include "jollystation_modules\code\modules\vending\_vending.dm"
 // END_INCLUDE
