@@ -1,5 +1,5 @@
 import { useBackend, useSharedState } from '../backend';
-import { Button, Divider, LabeledList, Section, Flex, Input, Box, TextArea, Tabs, RoundGauge, NumberInput, Tooltip } from '../components';
+import { Button, Divider, LabeledList, Section, Flex, Input, Box, TextArea, Tabs, RoundGauge, NumberInput, Tooltip, Modal, Stack} from '../components';
 import { Window } from '../layouts';
 
 export const _AdvancedTraitorPanel = (props, context) => {
@@ -9,6 +9,8 @@ export const _AdvancedTraitorPanel = (props, context) => {
     finalized_tc,
     goals_finalized,
     goals = [],
+    backstory_tutorial_text,
+    objective_tutorial_text,
   } = data;
   return (
     <Window
@@ -17,11 +19,38 @@ export const _AdvancedTraitorPanel = (props, context) => {
       height={550}
       theme='syndicate'>
       <Window.Content>
-        <Section title={traitor_type === "AI" ? "Malfunctioning AI Background" : "Traitor Background"}>
+        <Section
+          title={traitor_type === "AI" ? "Malfunctioning AI Background" : "Traitor Background"}
+          buttons={(
+            <Button
+              content="Tutorial: Background"
+              color="good"
+              onClick={() => act('begin_background_tutorial')}
+            />
+          )}>
+          { backstory_tutorial_text && (
+            <_TutorialModal
+              text={backstory_tutorial_text}
+              tutorialAct="proceede_beginner_tutorial"/>
+          )}
           <_AdvancedTraitorPanel_Background />
         </Section>
         <Divider />
-        <Section title={traitor_type === "AI" ? "Malfunctioning AI Objectives" : "Traitor Objectives"} height="60%">
+        <Section
+          title={traitor_type === "AI" ? "Malfunctioning AI Objectives" : "Traitor Objectives"}
+          height="60%"
+          buttons={(
+            <Button
+              content="Tutorial: Objectives"
+              color="good"
+              onClick={() => act('begin_objective_tutorial')}
+            />
+          )}>
+          { objective_tutorial_text && (
+            <_TutorialModal
+              text={objective_tutorial_text}
+              tutorialAct="proceede_objective_tutorial"/>
+          )}
           <Flex mb={1}>
             <Button
               width="85px"
@@ -52,6 +81,30 @@ export const _AdvancedTraitorPanel = (props, context) => {
   );
 };
 
+const _TutorialModal = (props, context) => {
+  const { act } = useBackend(context);
+
+  return (
+    <Modal>
+      <Box
+        mb={1}
+        textAlign="center"
+        style={{
+          'white-space': 'pre-wrap',
+        }}>
+        {props.text}
+      </Box>
+      <Box align="center">
+        <Button
+          textAlign="center"
+          content="Procede"
+          width="60px"
+          onClick={() => act(props.tutorialAct)}/>
+      </Box>
+    </Modal>
+  );
+};
+
 export const _AdvancedTraitorPanel_Background = (props, context) => {
   const { act, data } = useBackend(context);
   const {
@@ -64,7 +117,9 @@ export const _AdvancedTraitorPanel_Background = (props, context) => {
       <Flex.Item width={30}>
         <Flex direction="column">
           <Flex.Item mb={1}>
-            <Box mb={1}>Name:</Box>
+            <Box mb={1}>
+              Name:
+            </Box>
             <Input
               width="250px"
               value={name}
@@ -120,9 +175,19 @@ export const _AdvancedTraitorPanel_Goals = (props, context) => {
          <Tabs>
           {goals.map(goal => (
             <Tabs.Tab
-              selected={goal.id === selectedGoalID}
-              onClick={() => setSelectedGoal(goal.id)}>
-              Goal: {goal.id}
+                selected={goal.id === selectedGoalID}
+                onClick={() => setSelectedGoal(goal.id)}>
+              <Box>
+                Goal: {goal.id}
+                <Button
+                  ml={2}
+                  width="20px"
+                  height="18px"
+                  icon="minus"
+                  color="bad"
+                  textAlign="center"
+                  onClick={() => act('remove_advanced_goal', {'goal_ref': goal.ref})}/>
+              </Box>
             </Tabs.Tab>
           ))}
         </Tabs>
@@ -143,7 +208,6 @@ export const _AdvancedTraitorPanel_Goals = (props, context) => {
                   height="100px"
                   style={{'border-color': '#87ce87'}}
                   value={selectedGoal.goal}
-                  placeholder={selectedGoal.goal}
                   onInput={(e, value) => act('set_goal_text', {
                     'goal_ref': selectedGoal.ref,
                     newgoal: value,
@@ -169,7 +233,7 @@ export const _AdvancedTraitorPanel_Goals = (props, context) => {
                     "orange": [3.4, 4.2],
                     "red": [4.2, 5], }} />
                 <Tooltip
-                  content="Set your goal's intensity level."/>
+                  content="Set your goal's intensity level. Check the tutorial for what each level means."/>
               </Flex.Item>
               <Flex.Item>
                 <NumberInput
@@ -194,7 +258,6 @@ export const _AdvancedTraitorPanel_Goals = (props, context) => {
                   height="100px"
                   style={{'border-color': '#87ce87'}}
                   value={selectedGoal.notes}
-                  placeholder={selectedGoal.notes}
                   onInput={(e, value) => act('set_note_text', {
                     'goal_ref': selectedGoal.ref,
                     newtext: value,
@@ -261,16 +324,6 @@ export const _AdvancedTraitorPanel_Goals = (props, context) => {
                 </Flex>
               </Flex.Item>
             </Flex>
-          </Flex>
-          <Flex ml={2}>
-            <Button.Confirm
-              width="160px"
-              height="20px"
-              icon="minus"
-              content={`Remove Goal ${ selectedGoal.id }`}
-              color="bad"
-              textAlign="center"
-              onClick={() => act('remove_advanced_goal', {'goal_ref': selectedGoal.ref})}/>
           </Flex>
         </Flex>
       </Flex.Item>

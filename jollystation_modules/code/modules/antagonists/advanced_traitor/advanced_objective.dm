@@ -32,15 +32,26 @@
 	return ..()
 
 /// Set our goal to our passed goal.
-/datum/advanced_antag_goal/proc/set_goal_text(_goal)
-	goal = _goal
+/datum/advanced_antag_goal/proc/set_goal_text(goal)
+	src.goal = strip_html_simple(goal, TRAITOR_PLUS_MAX_GOAL_LENGTH)
+
+/// Set our goal to our passed goal.
+/datum/advanced_antag_goal/proc/set_note_text(notes)
+	src.notes = strip_html_simple(notes, TRAITOR_PLUS_MAX_NOTE_LENGTH)
 
 /// Set our intensity level to our passed intensity.
-/datum/advanced_antag_goal/proc/set_intensity(_intensity)
-	if(_intensity)
-		intensity = _intensity
-	else
-		intensity = 1
+/datum/advanced_antag_goal/proc/set_intensity(intensity)
+	src.intensity = clamp(intensity, 1, 5)
+
+/// Adds an objective to our similar objective list. Pass an instantiated objective.
+/datum/advanced_antag_goal/proc/add_similar_objective(datum/objective/added_objective)
+	added_objective.owner = our_antag.owner
+	LAZYADD(similar_objectives, added_objective)
+
+/// Remove an objective to our similar objective list. Pass an instantiated objective ref.
+/datum/advanced_antag_goal/proc/remove_similar_objective(datum/objective/removed_objective)
+	if(similar_objectives.Remove(removed_objective))
+		qdel(removed_objective)
 
 /// Generate roundend text for the roundend report for this advanced goal.
 /// Number is the number in the list that this objective is. (1 to 5)

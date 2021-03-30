@@ -39,6 +39,8 @@
 	custom_objective.explanation_text = "Set your custom goals via the IC tab."
 	objectives += custom_objective
 
+	add_advanced_goal()
+
 	return ..()
 
 /datum/antagonist/traitor/traitor_plus/on_removal()
@@ -64,20 +66,13 @@
 
 /// Give them a short guide on how to use the goal panel, and what all the buttons do.
 /datum/antagonist/traitor/traitor_plus/proc/greet_three()
-	to_chat(owner.current, "<span class='danger'>\nIn your goal panel, you can set a few things:</span>")
-	to_chat(owner.current, "<span class='danger'>- You can set your traitor name, your employer, and your backstory. A backstory and an Employer is optional.</span>")
-	to_chat(owner.current, "<span class='danger'>- You can add new goals to your list and tweak them.\n\
-		[FOURSPACES]- <B>GOALS</B> is the actual objective you're adding. It can be anything from annoying security in minor ways to stealing staplers to releasing a singularity.\n\
-		[FOURSPACES]- <B>INTENSITY</B> is what level of relative danger the goal is. Higher intensity levels are more dangerous or threatening to the crew.\n\
-		[FOURSPACES]- <B>NOTES</B> is any extra notes you want people to know about the goal. Admins are alerted if you add a note and they're displayed at round-end. This is optional - include things that would be useful to know, like your method of going about the goal.\n\
-		[FOURSPACES]- <B>SIMILAR OBJECTIVES</B> is a list of equivilant objectives to your goal. You can set multiple and they'll be checked at round-end for success. You can also choose whether you only need one objective in your list to be successful or all of them. This is optional - you can set them if you want a defined win or loss condition on your goal.</span>")
-	to_chat(owner.current, "<span class='danger'>\nWhen all your iniital goals are set, FINALIZE your goals to recieve your traitor uplink. You can still change your goals after you finalize them!</span>")
+	to_chat(owner.current, "<span class='danger'>In your goal panel, you should set a few goals to get started and finalize them to recieve your uplink. If you're not sure how to use the panel or its functions, use the inbuilt tutorial.</span>")
 
 /datum/antagonist/traitor/traitor_plus/roundend_report()
 	var/list/result = list()
 
 	result += printplayer(owner)
-	result += "<b>[owner]</b> was a/an <b>[name]</b>[employer? " employed by <b>[employer]</b>":""]."
+	result += "<b>[owner]</b> was \a <b>[name]</b>[employer? " employed by <b>[employer]</b>":""]."
 	if(backstory)
 		result += "<b>[owner]'s</b> backstory was the following: <br>[backstory]"
 
