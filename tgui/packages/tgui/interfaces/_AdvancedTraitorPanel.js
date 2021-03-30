@@ -1,5 +1,5 @@
 import { useBackend, useSharedState } from '../backend';
-import { Button, Divider, LabeledList, Section, Flex, Input, Box, TextArea, Tabs, RoundGauge, NumberInput, Tooltip, Modal, Stack} from '../components';
+import { Box, Button, Divider, Flex, Input, Modal, NumberInput, RoundGauge, Section, Tabs, TextArea, Tooltip } from '../components';
 import { Window } from '../layouts';
 
 export const _AdvancedTraitorPanel = (props, context) => {
