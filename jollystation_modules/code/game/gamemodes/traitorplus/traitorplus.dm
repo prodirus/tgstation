@@ -67,3 +67,34 @@
 /datum/game_mode/traitor_plus/generate_report()
 	return "Recent reports of agents from a wide variety of branches, employers, and origins have been spreading around the sector. While we're sure it's probably nothing, \
 			expect the unexpected - if they happen to be true, anyone could be dangerous enemy of the corporation, even who you least expect it."
+
+/* A mind proc that makes the current mind into an advanced traitor.
+ *
+ * Used after a timer by the [/datum/game_mode/traitor_plus] to make picked minds into antags.
+ *
+ * our_antag_datum - a typepath of an antag datum
+ * traitor_name - the name of the traitor, to assign to their [special_role] (traitors are ROLE_TRAITOR)
+ * restricted_jobs - list of jobs they shouldn't be able to be
+ */
+/datum/mind/proc/make_advanced_traitor(datum/antagonist/our_antag_datum, traitor_name, restricted_jobs, forced = FALSE)
+	var/go_ahead = TRUE
+	if(QDELETED(src)) // If our mind is gone, nowhere to put the antag
+		go_ahead = FALSE
+	else if(!current) // No body = not a good antag
+		go_ahead = FALSE
+	else if(!current.client) // No client = not a good antag
+		go_ahead = FALSE
+	else if(current.stat == DEAD) // Dead people = not a good antag
+		go_ahead = FALSE
+	else if(has_antag_datum(our_antag_datum)) // If we're already an advanced traitor, don't try again
+		go_ahead = FALSE
+
+	if(forced || go_ahead)
+		var/datum/antagonist/traitor/new_antag = new our_antag_datum()
+		special_role = traitor_name
+		restricted_roles = restricted_jobs
+		add_antag_datum(new_antag)
+	else
+		var/datum/game_mode/traitor_plus/our_mode = SSticker.mode
+		if(istype(our_mode))
+			our_mode.mulligan_choice()

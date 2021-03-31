@@ -12,6 +12,8 @@
 	var/total_sacrifices = 0
 	var/ascended = FALSE
 
+	var/give_objectives = TRUE /// NON-MODULE CHANGE
+
 /datum/antagonist/heretic/admin_add(datum/mind/new_owner,mob/admin)
 	give_equipment = FALSE
 	new_owner.add_antag_datum(src)
@@ -31,7 +33,8 @@
 /datum/antagonist/heretic/on_gain()
 	var/mob/living/current = owner.current
 	if(ishuman(current))
-		forge_primary_objectives()
+		if(give_objectives)
+			forge_primary_objectives()
 		for(var/eldritch_knowledge in GLOB.heretic_start_knowledge)
 			gain_knowledge(eldritch_knowledge)
 	current.log_message("has been converted to the cult of the forgotten ones!", LOG_ATTACK, color="#960000")

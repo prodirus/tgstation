@@ -5,22 +5,24 @@ import { Window } from '../layouts';
 export const _AdvancedTraitorPanel = (props, context) => {
   const { act, data } = useBackend(context);
   const {
-    traitor_type,
-    finalized_tc,
+    antag_type,
+    finalize_text,
     goals_finalized,
     goals = [],
     backstory_tutorial_text,
     objective_tutorial_text,
+    style,
+    heretic_data = [],
   } = data;
   return (
     <Window
-      title="Advanced Traitor Panel"
+      title="Antagonist Goal Panel"
       width={1150}
       height={550}
-      theme="syndicate">
+      theme={style}>
       <Window.Content>
         <Section
-          title={traitor_type === "AI" ? "Malfunctioning AI Background" : "Traitor Background"}
+          title={`${ antag_type } Background`}
           buttons={(
             <Button
               content="Tutorial: Background"
@@ -37,7 +39,7 @@ export const _AdvancedTraitorPanel = (props, context) => {
         </Section>
         <Divider />
         <Section
-          title={traitor_type === "AI" ? "Malfunctioning AI Objectives" : "Traitor Objectives"}
+          title={`${ antag_type } Objectives`}
           height="60%"
           buttons={(
             <Button
@@ -59,7 +61,27 @@ export const _AdvancedTraitorPanel = (props, context) => {
               content="Add Goal"
               textAlign="center"
               onClick={() => act('add_advanced_goal')} />
-            {goals_finalized === 0 && (
+            { antag_type === "Heretic" && (
+              <Button.Checkbox
+                width="140px"
+                height="20px"
+                content="Toggle ascension"
+                textAlign="center"
+                checked={heretic_data.can_ascend}
+                tooltip="Toggle the ability to ascend. \
+                        Disabling ascending rewards 3 bonus charges."
+                onClick={() => act('toggle_ascension')} />)}
+            { antag_type === "Heretic" && (
+              <Button.Checkbox
+                width="140px"
+                height="20px"
+                content="Toggle Sacrificing"
+                textAlign="center"
+                checked={heretic_data.can_sac}
+                tooltip="Toggle the ability to sacrifice. \
+                        Disabling sacrificing rewards 3 bonus charges."
+                onClick={() => act('toggle_sacrificing')} />)}
+            { goals_finalized === 0 && (
               <Button.Confirm
                 width="112px"
                 height="20px"
@@ -67,13 +89,7 @@ export const _AdvancedTraitorPanel = (props, context) => {
                 content="Finalize Goals"
                 color="bad"
                 textAlign="center"
-                tooltip={traitor_type === "AI"
-                  ? (`Finalizing will begin installlation of your malfunction \
-                    module with ${ finalized_tc } processing power. \
-                    You can still edit your goals after finalizing!`)
-                  : (`Finalizing will send you your uplink to your preferred \
-                  location with ${ finalized_tc } telecrystals. \
-                  You can still edit your goals after finalizing!`)}
+                tooltip={finalize_text}
                 onClick={() => act('finalize_goals')} />)}
           </Flex>
           { !!goals.length && (

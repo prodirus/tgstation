@@ -8,6 +8,15 @@
 /// Max amount of processing points for malf AI advanced traitors.
 #define TRAITOR_PLUS_MAX_MALF_POINTS 60
 
+/// Initial / base charges a heretic gets.
+#define HERETIC_PLUS_INITIAL_INFLUENCE 0
+/// Max amount of influence charges for heretic advanced traitors.
+#define HERETIC_PLUS_MAX_INFLUENCE 5
+/// This number is added onto the max influences if ascencion is given up.
+#define HERETIC_PLUS_NO_ASCENSION_MAX 3
+/// This number is added onto the max influences if sacrificing is given up.
+#define HERETIC_PLUS_NO_SAC_MAX 3
+
 /// Max amount of goals an advanced traitor can add.
 #define TRAITOR_PLUS_MAX_GOALS 5
 /// Max amount of similar objectives an advanced traitor can add.
