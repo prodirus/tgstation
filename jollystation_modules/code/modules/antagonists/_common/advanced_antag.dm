@@ -112,34 +112,34 @@
 	if(finalized)
 		return FALSE
 
-	modify_antag_points()
-	log_goals_on_finalize(linked_antagonist.owner.current)
+	log_goals_on_finalize()
 	finalized = TRUE
 	return TRUE
 
 /// Miscellaneous logging for the antagonist's goals after they finalize them.
-/datum/advanced_antag_datum/proc/log_goals_on_finalize(mob/antagonist)
-	message_admins("[ADMIN_LOOKUPFLW(antagonist)] finalized their objectives. They began with [starting_points] antagonist points as a [linked_antagonist.name]. ")
-	log_game("[key_name(antagonist)] finalized their objectives. Their began with [starting_points] antagonist points as a [linked_antagonist.name]. ")
+/datum/advanced_antag_datum/proc/log_goals_on_finalize()
+	var/mob/antag = linked_antagonist.owner.current
+	message_admins("[ADMIN_LOOKUPFLW(antag)] finalized their objectives. They began with [starting_points] antagonist points as a [linked_antagonist.name]. ")
+	log_game("[key_name(antag)] finalized their objectives. Their began with [starting_points] antagonist points as a [linked_antagonist.name]. ")
 	if(!LAZYLEN(our_goals))
-		message_admins("No set goal: [ADMIN_LOOKUPFLW(antagonist)] finalized their goals with 0 goals set.")
+		message_admins("No set goal: [ADMIN_LOOKUPFLW(antag)] finalized their goals with 0 goals set.")
 		return
 
 	for(var/datum/advanced_antag_goal/goals in our_goals)
 		if(goals.goal)
 			if(goals.intensity >= 4)
-				message_admins("High intensity goal: [ADMIN_LOOKUPFLW(antagonist)] finalized an intensity [goals.intensity] goal: [goals.goal]")
+				message_admins("High intensity goal: [ADMIN_LOOKUPFLW(antag)] finalized an intensity [goals.intensity] goal: [goals.goal]")
 			else if(goals.intensity == 0)
-				message_admins("Potential error: [ADMIN_LOOKUPFLW(antagonist)] finalized an intensity 0 goal: [goals.goal]")
+				message_admins("Potential error: [ADMIN_LOOKUPFLW(antag)] finalized an intensity 0 goal: [goals.goal]")
 		else if(goals.intensity > 0)
-			message_admins("Potential exploit: [ADMIN_LOOKUPFLW(antagonist)] finalized an intensity [goals.intensity] goal with no goal text. Potential exploit of goals for extra TC.")
+			message_admins("Potential exploit: [ADMIN_LOOKUPFLW(antag)] finalized an intensity [goals.intensity] goal with no goal text. Potential exploit of goals for extra TC.")
 		else
-			message_admins("Potential error: [ADMIN_LOOKUPFLW(antagonist)] finalized a goal with no goal text.")
+			message_admins("Potential error: [ADMIN_LOOKUPFLW(antag)] finalized a goal with no goal text.")
 
 		if(goals.notes)
-			message_admins("Finalized goal note: [ADMIN_LOOKUPFLW(antagonist)] finalized a goal with additional notes: [goals.notes]")
+			message_admins("Finalized goal note: [ADMIN_LOOKUPFLW(antag)] finalized a goal with additional notes: [goals.notes]")
 
-		log_game("[key_name(antagonist)] finalized an intensity [goals.intensity] goal: [goals.goal] (notes: [goals.notes]).")
+		log_game("[key_name(antag)] finalized an intensity [goals.intensity] goal: [goals.goal] (notes: [goals.notes]).")
 
 /datum/advanced_antag_datum/proc/set_name(name)
 	src.name = strip_html_simple(name, MAX_NAME_LEN)

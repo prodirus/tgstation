@@ -153,6 +153,7 @@
 
 	our_traitor.should_equip = TRUE
 	our_traitor.finalize_traitor()
+	modify_antag_points()
 
 /datum/advanced_antag_datum/traitor/set_employer(employer)
 	. = ..()

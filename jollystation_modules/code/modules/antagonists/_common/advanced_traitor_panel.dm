@@ -64,7 +64,7 @@
 	data["antag_type"] = owner_datum.linked_antagonist.name
 	if(data["antag_type"] == "Heretic")
 		var/datum/advanced_antag_datum/heretic/our_heretic = owner_datum
-		data["heretic_data"] = list(list(can_ascend = our_heretic.ascension_enabled, can_sac = our_heretic.sacrifices_enabled))
+		data["heretic_data"] = list(can_ascend = our_heretic.ascension_enabled, can_sac = our_heretic.sacrifices_enabled)
 
 	data["style"] = owner_datum.style
 	data["name"] = owner_datum.name
@@ -183,6 +183,9 @@
 			var/list/all_possible_objectives = owner_datum.possible_objectives.Copy()
 
 			var/new_objective_type = input("Add an objective:", "Objective type", null) as null|anything in all_possible_objectives
+			if(!new_objective_type)
+				return
+
 			new_objective_type = all_possible_objectives[new_objective_type]
 			var/datum/objective/objective_to_add = new new_objective_type
 			objective_to_add.admin_edit(usr)

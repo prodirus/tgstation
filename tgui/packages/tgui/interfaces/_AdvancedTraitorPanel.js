@@ -65,7 +65,7 @@ export const _AdvancedTraitorPanel = (props, context) => {
               <Button.Checkbox
                 width="140px"
                 height="20px"
-                content="Toggle ascension"
+                content="Toggle Ascending"
                 textAlign="center"
                 checked={heretic_data.can_ascend}
                 tooltip="Toggle the ability to ascend. \

@@ -3,7 +3,7 @@
 	name = "Advanced Heretic"
 	give_equipment = FALSE
 	give_objectives = FALSE
-	var/static/list/heretic_objectives = list("sacrifice" = /datum/objective/sacrifice_ecult)
+	var/static/list/heretic_objectives = list("sacrifice" = /datum/objective/sacrifice_ecult/adv)
 
 /datum/antagonist/heretic/heretic_plus/on_gain()
 	name = "Heretic"
@@ -48,20 +48,22 @@
 			if(ascended)
 				parts += "<span class='greentext big'>THE HERETIC ASCENDED!</span>"
 		else
-			parts += "<b>The heretic gave up the rite of ascension!</b>"
+			parts += "<br><b>The heretic gave up the rite of ascension!</b>"
 
 	if(give_equipment)
 
-		parts += "The heretic was bestowed [our_heretic.starting_points] influences in their initial Codex."
+		parts += "<br>The heretic was bestowed [our_heretic.starting_points] influences in their initial Codex."
 		parts += "<b>Knowledge Researched:</b> "
 
 		var/list/knowledge_message = list()
 		var/list/knowledge = get_all_knowledge()
 		for(var/datum/eldritch_knowledge/found_knowledge as anything in knowledge)
+			if(!istype(found_knowledge))
+				continue
 			knowledge_message += "[found_knowledge.name]"
 		parts += knowledge_message.Join(", ")
 	else
-		parts += "<b>The heretic never recieved their Codex!</b> "
+		parts += "<br><b>The heretic never recieved their Codex!</b> "
 
 	return parts.Join("<br>")
 
@@ -78,19 +80,24 @@
 	. = ..()
 	. += "<a href='?_src_=holder;[HrefToken()];admin_check_goals=[REF(src)]'>Show Goals</a>"
 
+/// The advanced antag datum for heretics.
 /datum/advanced_antag_datum/heretic
 	name = "Advanced Heretic"
 	employer = "The Mansus"
 	starting_points = 0
 	style = "wizard"
+	/// Our linked antagonist typecasted to heretic_plus.
 	var/datum/antagonist/heretic/heretic_plus/our_heretic
-	var/ascension_enabled = FALSE
-	var/sacrifices_enabled = FALSE
+	/// Whether our heretic is allowed to ascend.
+	var/ascension_enabled = TRUE
+	/// Whether our heretic is allowed to sacrifice.
+	var/sacrifices_enabled = TRUE
 
 /datum/advanced_antag_datum/heretic/New(datum/antagonist/linked_antag)
 	. = ..()
 	our_heretic = linked_antag
 
+/// Modify out codex with oour [starting_points].
 /datum/advanced_antag_datum/heretic/modify_antag_points()
 	starting_points = get_antag_points_from_goals()
 	var/mob/living/carbon/carbon_heretic = linked_antagonist.owner.current
@@ -100,6 +107,10 @@
 		codex.charge = starting_points
 		break
 
+/// Adjust the amount of influence charges the heretic gets on spawn.
+/// Max of 5, +3 if they can't ascend, +3 if they can't sacrifice.
+/// Roughly 1 influence per 3 intensity levels.
+/// Flat +3 from disabling ascension, and another +3 from disabling sacrifices.
 /datum/advanced_antag_datum/heretic/get_antag_points_from_goals()
 	var/finalized_influences = HERETIC_PLUS_INITIAL_INFLUENCE
 	var/max_influnces = HERETIC_PLUS_MAX_INFLUENCE
@@ -128,8 +139,41 @@ You can still edit your goals after finalizing, but you will not be able to re-e
 
 	our_heretic.give_equipment = TRUE
 	our_heretic.equip_cultist()
+	modify_antag_points()
 
-/datum/objective/sacrifice_ecult/admin_edit(mob/admin)
+	if(!ascension_enabled)
+		if(our_heretic.gain_knowledge(/datum/eldritch_knowledge/no_ascension))
+			log_codex_ciatrix("[key_name(our_heretic.owner.current)] gave up the ability to ascend.")
+		else
+			CRASH("[key_name(our_heretic.owner.current)] gave up the ability to ascend, but did not gain the proper knowledge!")
+
+	if(!sacrifices_enabled)
+		if(our_heretic.gain_knowledge(/datum/eldritch_knowledge/no_sacrifices))
+			log_codex_ciatrix("[key_name(our_heretic.owner.current)] gave up the ability to sacrifice.")
+		else
+			CRASH("[key_name(our_heretic.owner.current)] gave up the ability to sacrifice, but did not gain the proper knowledge!")
+
+/datum/advanced_antag_datum/heretic/log_goals_on_finalize()
+	. = ..()
+	if(ascension_enabled)
+		message_admins("Ascension enabled: [ADMIN_LOOKUPFLW(linked_antagonist.owner.current)] finalized their goals with acension enabled.")
+	log_game("[key_name(linked_antagonist.owner.current)] finalized their goals with [ascension_enabled? "ascension enabled":"ascension disabled"].")
+
+	if(sacrifices_enabled)
+		message_admins("Sacrifices enabled: [ADMIN_LOOKUPFLW(linked_antagonist.owner.current)] finalized their goals with sacrifices enabled.")
+	log_game("[key_name(linked_antagonist.owner.current)] finalized their goals with [sacrifices_enabled? "sacrifices enabled":"sacrifices disabled"].")
+
+/datum/objective/sacrifice_ecult/adv
+	name = "sacrifice"
+
+/datum/objective/sacrifice_ecult/adv/New(text)
+	. = ..()
+	target_amount = rand(2, 6)
+
+/datum/objective/sacrifice_ecult/adv/update_explanation_text() // This doesn't call parent.
+	explanation_text = "Sacrifice at least [target_amount] people."
+
+/datum/objective/sacrifice_ecult/adv/admin_edit(mob/admin)
 	var/new_amount = input(admin,"How many sacrifices?", "Sacs", target_amount) as num|null
 	if(new_amount)
 		target_amount = clamp(new_amount, 1, 9)

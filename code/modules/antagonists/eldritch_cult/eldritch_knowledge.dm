@@ -260,14 +260,22 @@
 	return FALSE
 
 /datum/eldritch_knowledge/spell/basic/on_finished_recipe(mob/living/user, list/atoms, loc)
+	/// NON-MODULE CHANGE
+	var/datum/antagonist/heretic/user_heretic = user.mind.has_antag_datum(/datum/antagonist/heretic)
+	var/datum/advanced_antag_datum/heretic/our_heretic = user_heretic.linked_advanced_datum
+	if(our_heretic && !our_heretic.sacrifices_enabled)
+		to_chat(user, "<span class='cult'>You surrendered the ability to sacrifice!</span>")
+		return FALSE
+	/// NON-MODULE CHANGE END
+
 	. = TRUE
 	var/mob/living/carbon/carbon_user = user
 	for(var/obj/item/living_heart/LH in atoms)
 
-		if(LH.target && LH.target.stat == DEAD)
+		if(LH.target && LH.target.stat != CONSCIOUS) // NON-MODULE CHANGE
 			to_chat(carbon_user,"<span class='danger'>Your patrons accepts your offer..</span>")
 			var/mob/living/carbon/human/H = LH.target
-			H.gib()
+			sacrifice_process(H) // NON-MODULE CHANGE
 			LH.target = null
 			var/datum/antagonist/heretic/EC = carbon_user.mind.has_antag_datum(/datum/antagonist/heretic)
 
