@@ -25,7 +25,7 @@
 
 /datum/antagonist/heretic/heretic_plus/equip_cultist()
 	. = ..()
-	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/ecult_op.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)//subject to change
+	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/ecult_op.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
 	to_chat(owner, "<span class='boldannounce'>You are the Heretic!</span>")
 
 /datum/antagonist/heretic/heretic_plus/forge_primary_objectives()
@@ -59,7 +59,8 @@
 
 		var/list/knowledge_message = list()
 		var/list/knowledge = get_all_knowledge()
-		for(var/datum/eldritch_knowledge/found_knowledge as anything in knowledge)
+		for(var/found_knowledge_id in knowledge)
+			var/datum/eldritch_knowledge/found_knowledge = knowledge[found_knowledge_id]
 			knowledge_message += "[found_knowledge.name]"
 		parts += knowledge_message.Join(", ")
 	else

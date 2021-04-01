@@ -24,11 +24,10 @@
 
 /// Max char length of goals.
 #define TRAITOR_PLUS_MAX_GOAL_LENGTH 250
-/// Max chat length of notes.
+/// Max char length of notes.
 #define TRAITOR_PLUS_MAX_NOTE_LENGTH 175
 
-/// List of strings - Intensity levels for advanced traitors.
-/// The first char is converted to a num when selected.
+/// Intensity levels for advanced antags.
 #define TRAITOR_PLUS_INTENSITIES list( \
 	"5 = Mass killings, destroying entire departments", \
 	"4 = Mass sabotage (engine delamination)", \
