@@ -2,12 +2,14 @@
 /datum/eldritch_knowledge/no_ascension
 	name = "The Faithless Oath"
 	desc = "Gives up your ability to ascend in favor of going about other objectives."
+	gain_text = "I took an oath to my gods not to ascend beyond, as the powers were better utilized elsewhere."
 	banned_knowledge = list(/datum/eldritch_knowledge/final/ash_final, /datum/eldritch_knowledge/final/rust_final, /datum/eldritch_knowledge/final/void_final, /datum/eldritch_knowledge/final/flesh_final)
 
 /// "No sacrificing allowed" knowledge added by advanced heretics.
 /datum/eldritch_knowledge/no_sacrifices
 	name = "The Bloodless Oath"
 	desc = "Gives up your ability to sacrifice in favor of going about other means."
+	gain_text = "I took an oath to my gods not to sacrifice powerless mortals, as my time was better utilized elsewhere."
 
 /// This string of procs below is what replaces sacrificing to be something more interesting than a gib.
 /// Basically: You get sent to the shadow realm and are forced to dodge shadow-hands to not die.
@@ -68,8 +70,9 @@
 	to_chat(sac_target, "<span class='reallybig hypnophrase'>The grasp of the Mansus reveal themselves to you!</span>")
 	sac_target.flash_act()
 	sac_target.add_confusion(20)
-	sac_target.blur_eyes(10)
+	sac_target.blur_eyes(15)
 	sac_target.Jitter(10)
+	sac_target.Dizzy(10)
 	sac_target.emote("scream")
 
 	addtimer(CALLBACK(src, .proc/after_helgrasp_ends, sac_target), helgrasp_time)
@@ -118,7 +121,9 @@
 
 	sac_target.flash_act()
 	sac_target.add_confusion(60)
-	sac_target.blur_eyes(30)
+	sac_target.Jitter(60)
+	sac_target.blur_eyes(50)
+	sac_target.Dizzy(30)
 	sac_target.AdjustKnockdown(80)
 	sac_target.adjustStaminaLoss(120)
 	if(sac_target.has_quirk(/datum/quirk/allergic))
@@ -163,30 +168,38 @@
 /datum/reagent/unholy_determination/on_mob_metabolize(mob/living/user)
 	ADD_TRAIT(user, TRAIT_COAGULATING, type)
 	ADD_TRAIT(user, TRAIT_NOCRITDAMAGE, type)
+	ADD_TRAIT(user, TRAIT_NOHARDCRIT, type)
+	ADD_TRAIT(user, TRAIT_NOSOFTCRIT, type)
 	return ..()
 
 /datum/reagent/unholy_determination/on_mob_end_metabolize(mob/living/user)
 	REMOVE_TRAIT(user, TRAIT_COAGULATING, type)
 	REMOVE_TRAIT(user, TRAIT_NOCRITDAMAGE, type)
+	REMOVE_TRAIT(user, TRAIT_NOHARDCRIT, type)
+	REMOVE_TRAIT(user, TRAIT_NOSOFTCRIT, type)
 	return ..()
 
 /datum/reagent/unholy_determination/on_mob_life(mob/living/carbon/user, delta_time, times_fired)
 	var/healing_amount = 2
 	if(user.health <= user.crit_threshold)
+		if(DT_PROB(15, delta_time))
+			to_chat(user, "<span class='hypnophrase'>Your body feels like giving up, but you fight on!</span>")
 		healing_amount *= 2
 
 	if(DT_PROB(10, delta_time))
+		user.Jitter(10)
 		user.Dizzy(5)
-		user.Jitter(5)
 		user.add_confusion(5)
 
-	user.losebreath = 0
+	user.adjust_fire_stacks(-3 * REM * delta_time)
+	user.losebreath -= (3 * REM * delta_time)
 	user.adjustToxLoss(-healing_amount * REM * delta_time, FALSE, TRUE)
 	user.adjustOxyLoss(-healing_amount * REM * delta_time, FALSE)
 	user.adjustBruteLoss(-healing_amount * 1.5 * REM * delta_time, FALSE)
 	user.adjustFireLoss(-healing_amount * 2 * REM * delta_time, FALSE)
 	adjust_temperature(user, delta_time)
 	adjust_bleed_wounds(user, delta_time)
+	user.updatehealth()
 	. = ..()
 
 /datum/reagent/unholy_determination/proc/adjust_temperature(mob/living/carbon/user, delta_time)
@@ -208,7 +221,7 @@
 
 	var/datum/wound/bloodiest_wound
 
-	for(var/datum/wound/iter_wound in user.all_wounds)
+	for(var/datum/wound/iter_wound as anything in user.all_wounds)
 		if(iter_wound.blood_flow)
 			if(iter_wound.blood_flow > bloodiest_wound?.blood_flow)
 				bloodiest_wound = iter_wound

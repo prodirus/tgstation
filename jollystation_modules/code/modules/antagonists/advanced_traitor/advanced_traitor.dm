@@ -66,7 +66,7 @@
 
 	if(LAZYLEN(linked_advanced_datum.our_goals))
 		var/count = 1
-		for(var/datum/advanced_antag_goal/goal in linked_advanced_datum.our_goals)
+		for(var/datum/advanced_antag_goal/goal as anything in linked_advanced_datum.our_goals)
 			result += goal.get_roundend_text(count)
 			count++
 		if(uplink_true)
@@ -98,7 +98,7 @@
 /datum/advanced_antag_datum/traitor
 	name = "Advanced Traitor"
 	employer = "The Syndicate"
-	style = "syndicate"
+	style = "jolly-syndicate"
 	starting_points = 8
 	var/datum/antagonist/traitor/traitor_plus/our_traitor
 	var/antag_type
@@ -128,13 +128,13 @@
 	switch(antag_type)
 		if(TRAITOR_HUMAN)
 			var/finalized_starting_tc = TRAITOR_PLUS_INITIAL_TC
-			for(var/datum/advanced_antag_goal/goal in our_goals)
+			for(var/datum/advanced_antag_goal/goal as anything in our_goals)
 				finalized_starting_tc += (goal.intensity * 2)
 
 			return min(finalized_starting_tc, TRAITOR_PLUS_MAX_TC)
 		if(TRAITOR_AI)
 			var/finalized_starting_points = TRAITOR_PLUS_INITIAL_MALF_POINTS
-			for(var/datum/advanced_antag_goal/goal in our_goals)
+			for(var/datum/advanced_antag_goal/goal as anything in our_goals)
 				finalized_starting_points += (goal.intensity * 5)
 
 			return min(finalized_starting_points, TRAITOR_PLUS_MAX_MALF_POINTS)

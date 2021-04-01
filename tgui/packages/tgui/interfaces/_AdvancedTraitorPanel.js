@@ -166,7 +166,6 @@ export const AdvancedTraitorPanelBackground = (props, context) => {
           fluid
           width="50%"
           height="100px"
-          style={{ 'border-color': '#87ce87' }}
           value={backstory}
           onInput={(e, value) => act('set_backstory', {
             backstory: value,
@@ -227,7 +226,6 @@ export const AdvancedTraitorPanelGoals = (props, context) => {
                     fluid
                     width="100%"
                     height="100px"
-                    style={{ 'border-color': '#87ce87' }}
                     value={selectedGoal.goal}
                     onInput={(e, value) => act('set_goal_text', {
                       'goal_ref': selectedGoal.ref,
@@ -277,7 +275,6 @@ export const AdvancedTraitorPanelGoals = (props, context) => {
                   <TextArea
                     width="200px"
                     height="100px"
-                    style={{ 'border-color': '#87ce87' }}
                     value={selectedGoal.notes}
                     onInput={(e, value) => act('set_note_text', {
                       'goal_ref': selectedGoal.ref,
