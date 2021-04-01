@@ -1,6 +1,6 @@
 /obj/item/clothing/under/rank/rn
-    icon = 'jollystation_modules/icons/obj/clothing/under/rnd.dmi'
-    worn_icon = 'jollystation_modules/icons/mob/clothing/under/rnd.dmi'
+	icon = 'jollystation_modules/icons/obj/clothing/under/rnd.dmi'
+	worn_icon = 'jollystation_modules/icons/mob/clothing/under/rnd.dmi'
 
 /obj/item/clothing/under/rank/rn/toxicologist
 	desc = "It's made of a special fiber that provides minor protection against explosives. It has markings that denote the wearer as a toxicologist."
