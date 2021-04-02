@@ -40,7 +40,7 @@
 	qdel(linked_advanced_datum)
 	return ..()
 
-/// Greet the antag with big menacing text, then move to greet_two after 3 seconds.
+/// Greet the antag with big menacing text.
 /datum/antagonist/traitor/traitor_plus/greet()
 	linked_advanced_datum.greet_message(owner.current)
 
@@ -48,7 +48,7 @@
 	var/list/result = list()
 
 	result += printplayer(owner)
-	result += "<b>[owner]</b> was \a <b>[name]</b>[employer? " employed by <b>[employer]</b>":""]."
+	result += "<b>[owner]</b> was \a <b>[linked_advanced_datum.name]</b>[employer? " employed by <b>[employer]</b>":""]."
 	if(linked_advanced_datum.backstory)
 		result += "<b>[owner]'s</b> backstory was the following: <br>[linked_advanced_datum.backstory]"
 
@@ -107,6 +107,10 @@
 	. = ..()
 	our_traitor = linked_antag
 	antag_type = our_traitor.traitor_kind
+
+/datum/advanced_antag_datum/traitor/Destroy()
+	our_traitor = null
+	. = ..()
 
 /datum/advanced_antag_datum/traitor/modify_antag_points()
 	switch(antag_type)

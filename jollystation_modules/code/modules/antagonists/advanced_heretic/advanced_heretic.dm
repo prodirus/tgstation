@@ -36,6 +36,7 @@
 
 	var/datum/advanced_antag_datum/heretic/our_heretic = linked_advanced_datum
 	parts += printplayer(owner)
+	parts += "<b>[owner]</b> was \a <b>[our_heretic.name]</b>[our_heretic.employer? " employed by <b>[our_heretic.employer]</b>":""]."
 	if(our_heretic.sacrifices_enabled)
 		parts += "<b>Sacrifices Made:</b> [total_sacrifices]"
 	else
@@ -97,6 +98,10 @@
 /datum/advanced_antag_datum/heretic/New(datum/antagonist/linked_antag)
 	. = ..()
 	our_heretic = linked_antag
+
+/datum/advanced_antag_datum/heretic/Destroy()
+	our_heretic = null
+	. = ..()
 
 /// Modify out codex with oour [starting_points].
 /datum/advanced_antag_datum/heretic/modify_antag_points()
