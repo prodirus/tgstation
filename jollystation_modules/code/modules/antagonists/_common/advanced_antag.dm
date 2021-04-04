@@ -27,13 +27,13 @@
 
 /datum/advanced_antag_datum/Destroy()
 	remove_verb(linked_antagonist.owner.current, /mob/proc/open_advanced_antag_panel)
-	linked_antagonist = null
-	QDEL_LIST(our_goals)
 
 	for(var/panel_user in open_panels)
 		var/datum/adv_traitor_panel/tgui_panel = open_panels[panel_user]
-		tgui_panel.ui_close(panel_user)
+		tgui_panel?.ui_close(panel_user)
 
+	linked_antagonist = null
+	QDEL_LIST(our_goals)
 	return ..()
 
 /// Give the antagonist the verb to open their goal panel.
