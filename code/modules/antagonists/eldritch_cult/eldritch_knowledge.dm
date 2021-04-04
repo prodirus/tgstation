@@ -275,7 +275,7 @@
 		if(LH.target && LH.target.stat != CONSCIOUS) // NON-MODULE CHANGE
 			to_chat(carbon_user,"<span class='danger'>Your patrons accepts your offer..</span>")
 			var/mob/living/carbon/human/H = LH.target
-			sacrifice_process(H) // NON-MODULE CHANGE
+			sacrifice_process(H, user) // NON-MODULE CHANGE
 			LH.target = null
 			var/datum/antagonist/heretic/EC = carbon_user.mind.has_antag_datum(/datum/antagonist/heretic)
 

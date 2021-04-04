@@ -13,7 +13,7 @@
 
 /// This string of procs below is what replaces sacrificing to be something more interesting than a gib.
 /// Basically: You get sent to the shadow realm and are forced to dodge shadow-hands to not die.
-/datum/eldritch_knowledge/spell/basic/proc/sacrifice_process(mob/living/carbon/human/sac_target)
+/datum/eldritch_knowledge/spell/basic/proc/sacrifice_process(mob/living/carbon/human/sac_target, mob/living/heretic)
 	var/turf/sac_loc = get_turf(sac_target)
 	var/sleeping_time = 12 SECONDS
 
@@ -36,7 +36,7 @@
 		RegisterSignal(sac_target, COMSIG_LIVING_DEATH, .proc/return_target) // Loss condition
 		addtimer(CALLBACK(src, .proc/after_target_sleep, sac_target), sleeping_time / 2) // Teleport to the minigame
 		addtimer(CALLBACK(src, .proc/after_target_awaken, sac_target), sleeping_time) // Begin the minigame
-		addtimer(CALLBACK(src, .proc/return_target, sac_target), 3 MINUTES) // Win condition
+		addtimer(CALLBACK(src, .proc/return_target, sac_target, FALSE, heretic), 3 MINUTES) // Win condition
 
 /// This proc is called after the target falls asleep.
 /// Teleport them to the facility
@@ -92,30 +92,41 @@
 	sac_target.reagents?.add_reagent(/datum/reagent/unholy_determination, 6)
 
 /// This proc is called after a set time OR after they die, to return the target to the station.
-/datum/eldritch_knowledge/spell/basic/proc/return_target(mob/living/carbon/human/sac_target, gibbed)
+/datum/eldritch_knowledge/spell/basic/proc/return_target(mob/living/carbon/human/sac_target, gibbed, mob/living/heretic)
 	SIGNAL_HANDLER
 
 	UnregisterSignal(sac_target, COMSIG_LIVING_DEATH)
 	sac_target.remove_status_effect(STATUS_EFFECT_NECROPOLIS_CURSE)
 
 	if(gibbed || !is_centcom_level(sac_target.z))
-		return
+		message_admins("Heretic sacrifice_process chain was interruped somehow before the sac target ([sac_target]) could be returned properly. This is bad if an admin wasn't the one interrupting it!")
+		CRASH("Heretic sacrifice_process chain ended was interruped somehow before sac target ([sac_target]) to the station.")
 
+	var/turf/sac_loc = get_turf(sac_target)
 	/// Teleport them to a random z level
 	var/turf/open/floor/safe_turf = find_safe_turf(zlevels = SSmapping.levels_by_trait(ZTRAIT_STATION)[1], extended_safety_checks = TRUE)
 	if(!do_teleport(sac_target, safe_turf, forceMove = TRUE, asoundout = 'sound/magic/blind.ogg', no_effects = TRUE, channel = TELEPORT_CHANNEL_MAGIC, forced = TRUE))
-		sac_target.gib() // like what else would we do
+		message_admins("[sac_target] was gibbed by a heretic at [ADMIN_VERBOSEJMP(sac_loc)]: [safe_turf? "Teleport failed":"No target turf was found"].")
+		log_attack("[sac_target] was gibbed by a heretic at [loc_name(sac_loc)].")
+		stack_trace("[sac_target] was gibbed by a heretic at [loc_name(sac_loc)]: [safe_turf? "Teleport failed":"No target turf was found"].")
+		sac_target.gib()
 		return
 
 	SEND_SIGNAL(sac_target, COMSIG_ADD_MOOD_EVENT, "shadow_realm_survived_sadness", /datum/mood_event/shadow_realm_live_sad)
 
+	if(!sac_target || !safe_turf)
+		message_admins("Heretic sacrifice_process chain ended up failing to return their sac target ([sac_target]) to the station. This is probably very bad and means someone was removed from the round!")
+		CRASH("Heretic sacrifice_process chain ended up failing to return their sac target ([sac_target]) to the station.")
+
 	if(sac_target.stat == DEAD)
-		after_return_dead_target(sac_target)
+		after_return_dead_target(sac_target, safe_turf)
+		to_chat(heretic, "<span class='notice'>Your victim, [sac_target], was returned to the station - dead. You hear a whisper...</span><span class='hypnophrase'>[get_area_name(safe_turf, TRUE)].</span>")
 	else
-		after_return_live_target(sac_target)
+		after_return_live_target(sac_target, safe_turf)
+		to_chat(heretic, "<span class='notice'>Your victim, [sac_target], was returned to the station - alive, but with a shattered mind. You hear a whisper...</span><span class='hypnophrase'>[get_area_name(safe_turf, TRUE)].</span>")
 
 /// This proc is called from [return_target] if the target returns alive.
-/datum/eldritch_knowledge/spell/basic/proc/after_return_live_target(mob/living/carbon/human/sac_target)
+/datum/eldritch_knowledge/spell/basic/proc/after_return_live_target(mob/living/carbon/human/sac_target, turf/landing_turf)
 	to_chat(sac_target, "<span class='hypnophrase'>The fight is over - at great cost. You have been returned to your realm in one piece.</span>")
 	to_chat(sac_target, "<span class='hypnophrase'>You can hardly remember anything from before and leading up to the experience - all you can think about are those horrific hands...</span>")
 
@@ -134,13 +145,16 @@
 	SEND_SIGNAL(sac_target, COMSIG_ADD_MOOD_EVENT, "shadow_realm_survived", /datum/mood_event/shadow_realm_live)
 
 /// This proc is called from [return_target] if the target returns dead.
-/datum/eldritch_knowledge/spell/basic/proc/after_return_dead_target(mob/living/carbon/human/sac_target)
-	var/turf/returned_turf = get_turf(sac_target)
-	priority_announce("Attention, crew. We recorded an anomalous dimensional occurance in: [get_area_name(returned_turf, TRUE)]. We're unsure of what it could be, but something just appeared in the area. We suggest checking it out.", "Central Command Higher Dimensional Affairs")
-	var/obj/effect/broken_illusion/illusion = new /obj/effect/broken_illusion(returned_turf)
+/datum/eldritch_knowledge/spell/basic/proc/after_return_dead_target(mob/living/carbon/human/sac_target, turf/landing_turf)
+	addtimer(CALLBACK(src, .proc/announce_dead_target, landing_turf), rand(1 MINUTES, 2 MINUTES))
+	sac_target?.reagents?.del_reagent(/datum/reagent/unholy_determination)
+	var/obj/effect/broken_illusion/illusion = new /obj/effect/broken_illusion(landing_turf)
 	illusion.name = "Weakened rift in reality"
 	illusion.desc = "A rift wide enough for something... or someone to come through."
 	illusion.color = COLOR_DARK_RED
+
+/datum/eldritch_knowledge/spell/basic/proc/announce_dead_target(turf/landing_turf)
+	priority_announce("Attention, crew. We recorded an anomalous dimensional occurance in: [get_area_name(landing_turf, TRUE)]. We're unsure of what it could be, but something just appeared in the area. We suggest checking it out.", "Central Command Higher Dimensional Affairs")
 
 /datum/mood_event/shadow_realm
 	description = "<span class='hypnophrase'>Where am I?!</span>\n"
@@ -168,25 +182,28 @@
 /datum/reagent/unholy_determination/on_mob_metabolize(mob/living/user)
 	ADD_TRAIT(user, TRAIT_COAGULATING, type)
 	ADD_TRAIT(user, TRAIT_NOCRITDAMAGE, type)
-	ADD_TRAIT(user, TRAIT_NOHARDCRIT, type)
 	ADD_TRAIT(user, TRAIT_NOSOFTCRIT, type)
 	return ..()
 
 /datum/reagent/unholy_determination/on_mob_end_metabolize(mob/living/user)
 	REMOVE_TRAIT(user, TRAIT_COAGULATING, type)
 	REMOVE_TRAIT(user, TRAIT_NOCRITDAMAGE, type)
-	REMOVE_TRAIT(user, TRAIT_NOHARDCRIT, type)
 	REMOVE_TRAIT(user, TRAIT_NOSOFTCRIT, type)
 	return ..()
 
 /datum/reagent/unholy_determination/on_mob_life(mob/living/carbon/user, delta_time, times_fired)
 	var/healing_amount = 2
-	if(user.health <= user.crit_threshold)
+	/// In softcrit you're strong enough to stay up
+	if(user.health <= user.crit_threshold && user.health >= user.hardcrit_threshold)
 		if(DT_PROB(15, delta_time))
 			to_chat(user, "<span class='hypnophrase'>Your body feels like giving up, but you fight on!</span>")
 		healing_amount *= 2
+	/// ...But in hardcrit you're in big danger
+	if (user.health < user.hardcrit_threshold)
+		if(DT_PROB(15, delta_time))
+			to_chat(user, "<span class='hypnophrase big'>You can't hold on for much longer...</span>")
 
-	if(DT_PROB(10, delta_time))
+	if(user.health > user.crit_threshold && DT_PROB(10, delta_time))
 		user.Jitter(10)
 		user.Dizzy(5)
 		user.add_confusion(5)
