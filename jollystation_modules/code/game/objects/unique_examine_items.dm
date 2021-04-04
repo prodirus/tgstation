@@ -155,7 +155,7 @@
 	. = ..()
 	AddElement(/datum/element/unique_examine, "The Chief Engineer's spotless advanced hardsuit - a sleek white design of the standard engineering and atmospheric hardsuits with improved resistance to fire and radiation.", EXAMINE_CHECK_JOB, GLOB.engineering_positions)
 
-/obj/item/card/id/captains_spare/Initialize()
+/obj/item/card/id/advanced/gold/captains_spare/Initialize()
 	. = ..()
 	AddElement(/datum/element/unique_examine, "The captain's spare ID card - the backup all-access ID card assigned to the care of the captain themselves. Standard-issue golden ID cards supplied to all Nanotrasen operated space stations, to allow \
 											for normal operation of every aspect of the station in the absence of the captain... assuming it doesn't end up in the hands of certain gas-masked individuals, of course.", EXAMINE_CHECK_JOB, list("Captain", "Head of Personnel"))
