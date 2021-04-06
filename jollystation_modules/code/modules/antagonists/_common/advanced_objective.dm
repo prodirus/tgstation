@@ -3,7 +3,7 @@
 /// Used by advanced traitors [/datum/antagonist/traitor/traitor_plus]
 /datum/advanced_antag_goal
 	/// Our antag datum
-	var/datum/antagonist/our_antag
+	var/datum/advanced_antag_datum/our_antag
 	/// What's our actual set goal?
 	var/goal = ""
 	/* How dangerous this goal is
@@ -23,7 +23,7 @@
 	/// Whether this objective is successful, regardless of our [similar_objectives]
 	var/always_succeed = FALSE
 
-/datum/advanced_antag_goal/New(datum/antagonist/antag_datum)
+/datum/advanced_antag_goal/New(datum/advanced_antag_datum/antag_datum)
 	our_antag = antag_datum
 
 /datum/advanced_antag_goal/Destroy()
@@ -45,7 +45,7 @@
 
 /// Adds an objective to our similar objective list. Pass an instantiated objective.
 /datum/advanced_antag_goal/proc/add_similar_objective(datum/objective/added_objective)
-	added_objective.owner = our_antag.owner
+	added_objective.owner = our_antag.linked_antagonist.owner
 	LAZYADD(similar_objectives, added_objective)
 
 /// Remove an objective to our similar objective list. Pass an instantiated objective ref.
@@ -56,7 +56,7 @@
 /// Generate roundend text for the roundend report for this advanced goal.
 /// Number is the number in the list that this objective is. (1 to 5)
 /datum/advanced_antag_goal/proc/get_roundend_text(number)
-	var/datum/antagonist/our_antag_datum = our_antag
+	var/datum/advanced_antag_datum/our_antag_datum = our_antag
 	var/formatted_text = "<br><B>Objective #[number]</B>: [goal]"
 	if(LAZYLEN(similar_objectives) || always_succeed)
 		if(check_relative_success())

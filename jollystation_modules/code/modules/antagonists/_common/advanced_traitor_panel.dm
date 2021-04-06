@@ -21,7 +21,7 @@
 	/// The mob viewing this panel.
 	var/mob/viewer
 	/// The antag datum linked to this panel.
-	var/datum/antagonist/traitor/traitor_plus/owner_datum
+	var/datum/advanced_antag_datum/owner_datum
 	/// The UI currently opened.
 	var/datum/tgui/open_ui
 	/// The current state of the background tutorial.
@@ -29,7 +29,7 @@
 	/// The current state of the objective tutorial.
 	var/objective_tutorial_state = TUTORIAL_OFF
 
-/datum/adv_traitor_panel/New(mob/user, datum/antagonist/traitor/traitor_plus/owner_datum)
+/datum/adv_traitor_panel/New(mob/user, datum/advanced_antag_datum/owner_datum)
 	if(istype(user))
 		viewer = user
 	else
@@ -51,9 +51,9 @@
 		open_ui = ui
 
 /datum/adv_traitor_panel/ui_state(mob/user)
-	if(viewer != owner_datum.owner.current)
-		to_chat(user, "You are viewing [owner_datum.owner.current]'s advanced traitor panel as an admin.")
-		message_admins("[ADMIN_LOOKUPFLW(user)] is viewing [ADMIN_LOOKUPFLW(owner_datum.owner.current)]'s advanced traitor panel as an admin.")
+	if(viewer != owner_datum.linked_antagonist.owner.current)
+		to_chat(user, "You are viewing [owner_datum.linked_antagonist.owner.current]'s advanced traitor panel as an admin.")
+		message_admins("[ADMIN_LOOKUPFLW(user)] is viewing [ADMIN_LOOKUPFLW(owner_datum.linked_antagonist.owner.current)]'s advanced traitor panel as an admin.")
 		return GLOB.admin_state
 	else
 		return GLOB.always_state
@@ -61,12 +61,17 @@
 /datum/adv_traitor_panel/ui_data(mob/user)
 	var/list/data = list()
 
-	data["traitor_type"] = owner_datum.traitor_kind
+	data["antag_type"] = owner_datum.linked_antagonist.name
+	if(data["antag_type"] == "Heretic")
+		var/datum/advanced_antag_datum/heretic/our_heretic = owner_datum
+		data["heretic_data"] = list(can_ascend = our_heretic.ascension_enabled, can_sac = our_heretic.sacrifices_enabled)
+
+	data["style"] = owner_datum.style
 	data["name"] = owner_datum.name
 	data["employer"] = owner_datum.employer
 	data["backstory"] = owner_datum.backstory
-	data["goals_finalized"] = owner_datum.should_equip
-	data["finalized_tc"] = owner_datum.get_traitor_points_from_goals()
+	data["goals_finalized"] = owner_datum.finalized
+	data["finalize_text"] = owner_datum.get_finalize_text()
 	data["backstory_tutorial_text"] = get_backstory_tutorial_text(background_tutorial_state)
 	data["objective_tutorial_text"] = get_objective_tutorial_text(objective_tutorial_state)
 
@@ -103,7 +108,7 @@
 	if(.)
 		return
 	if(!owner_datum)
-		CRASH("Advanced traitor panel being operated with no advanced traitor datum.")
+		CRASH("Advanced traitor panel being operated with no advanced antag datum.")
 
 	var/datum/advanced_antag_goal/edited_goal
 	if(params["goal_ref"])
@@ -139,13 +144,13 @@
 
 		/// Background stuff
 		if("set_name")
-			owner_datum.name = strip_html_simple(params["name"], MAX_NAME_LEN)
+			owner_datum.set_name(params["name"])
 			. = TRUE
 		if("set_employer")
-			owner_datum.employer = strip_html_simple(params["employer"], MAX_NAME_LEN)
+			owner_datum.set_employer(params["employer"])
 			. = TRUE
 		if("set_backstory")
-			owner_datum.backstory = strip_html_simple(params["backstory"], MAX_MESSAGE_LEN)
+			owner_datum.set_backstory(params["backstory"])
 			. = TRUE
 
 		/// Goal Stuff
@@ -175,15 +180,13 @@
 				to_chat(usr, "Maximum amount of similar objectives reached for this goal.")
 				return
 
-			if(!GLOB.admin_objective_list)
-				generate_admin_objective_list()
-			var/list/objectives_to_choose = GLOB.admin_objective_list.Copy() - owner_datum.blacklisted_similar_objectives
-			if(owner_datum.traitor_kind == TRAITOR_AI)
-				objectives_to_choose -= owner_datum.blacklisted_ai_objectives
-				objectives_to_choose += owner_datum.ai_objectives
+			var/list/all_possible_objectives = owner_datum.possible_objectives.Copy()
 
-			var/new_objective_type = input("Add an objective:", "Objective type", null) as null|anything in objectives_to_choose
-			new_objective_type = objectives_to_choose[new_objective_type]
+			var/new_objective_type = input("Add an objective:", "Objective type", null) as null|anything in all_possible_objectives
+			if(!new_objective_type)
+				return
+
+			new_objective_type = all_possible_objectives[new_objective_type]
 			var/datum/objective/objective_to_add = new new_objective_type
 			objective_to_add.admin_edit(usr)
 			edited_goal.add_similar_objective(objective_to_add)
@@ -208,15 +211,23 @@
 			edited_goal.always_succeed = !edited_goal.always_succeed
 			. = TRUE
 
+		/// Hacky Heretic Stuff
+		if("toggle_ascension")
+			var/datum/advanced_antag_datum/heretic/our_heretic = owner_datum
+			if(our_heretic.finalized)
+				return
+			our_heretic.ascension_enabled = !our_heretic.ascension_enabled
+			. = TRUE
+		if("toggle_sacrificing")
+			var/datum/advanced_antag_datum/heretic/our_heretic = owner_datum
+			if(our_heretic.finalized)
+				return
+			our_heretic.sacrifices_enabled = !our_heretic.sacrifices_enabled
+			. = TRUE
+
 		/// Finalize
 		if("finalize_goals")
-			if(owner_datum.should_equip)
-				return
-
-			owner_datum.should_equip = TRUE
-			owner_datum.finalize_traitor()
-			owner_datum.modify_traitor_points()
-			owner_datum.log_goals_on_finalize()
+			owner_datum.post_finalize_actions()
 			. = TRUE
 
 /datum/adv_traitor_panel/proc/get_backstory_tutorial_text(current_step)
