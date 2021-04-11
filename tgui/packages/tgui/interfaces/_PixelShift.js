@@ -19,14 +19,14 @@ export const _PixelShift = (props, context) => {
             <Button
               align="center"
               icon='arrow-up'
-              onClick={() => act('shift_y', { shift_amount: 1 })} />
+              onClick={() => act('shift_posy')} />
           </Stack.Item>
           <Stack.Item>
             <Stack>
               <Stack.Item>
                 <Button
                 icon='arrow-left'
-                onClick={() => act('shift_x', { shift_amount: -1 })} />
+                onClick={() => act('shift_negx')} />
               </Stack.Item>
               <Stack.Item>
                 <Button
@@ -36,14 +36,14 @@ export const _PixelShift = (props, context) => {
               <Stack.Item>
                 <Button
                   icon='arrow-right'
-                  onClick={() => act('shift_x', { shift_amount: 1 })} />
+                  onClick={() => act('shift_posx')} />
               </Stack.Item>
             </Stack>
           </Stack.Item>
           <Stack.Item>
             <Button
               icon='arrow-down'
-              onClick={() => act('shift_y', { shift_amount: -1 })} />
+              onClick={() => act('shift_negy')} />
           </Stack.Item>
           <Stack.Item>
             <Box>
