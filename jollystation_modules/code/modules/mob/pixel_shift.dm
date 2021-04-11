@@ -12,12 +12,16 @@
 		if(our_mob.pixel_shifted)
 			return FALSE
 	return ..()
+
 /mob/living
 	var/pixel_shifted = FALSE
 
 /mob/living/verb/open_pixel_shift_ui()
 	set name = "Pixel Shift"
 	set category = "IC"
+
+	if(pixel_shifted)
+		return
 
 	if(stat != CONSCIOUS)
 		to_chat(src, "<span class='danger'>You need to be conscious to use pixel shifting.</span>")
@@ -46,7 +50,7 @@
 		return UI_CLOSE
 	if(ui_user.stat != CONSCIOUS)
 		return UI_CLOSE
-	if(HAS_TRAIT(src, TRAIT_UI_BLOCKED) || ui_user.incapacitated())
+	if(ui_user.incapacitated())
 		return UI_DISABLED
 	return UI_INTERACTIVE
 
