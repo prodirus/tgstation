@@ -13,7 +13,7 @@
 /// Signal to stop pixelshifting.
 #define COMSIG_PIXELSHIFT_STOP "pixelshift_stop"
 
-/// Defines for mins and maxs of each direction shift.
+/// Defines for mins and maxs of x and y shifts.
 #define PIXELSHIFT_Y_LIMIT 16
 #define PIXELSHIFT_X_LIMIT 16
 
