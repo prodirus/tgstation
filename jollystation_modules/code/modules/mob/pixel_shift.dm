@@ -1,4 +1,7 @@
 /// --- Pixelshifting UI and component. ---
+/// Keybinding hotkey signal.
+#define COMSIG_KB_LIVING_PIXELSHIFT "pixelshift"
+
 /// Signals to pixelshift certain directions.
 #define COMSIG_PIXELSHIFT_POSY "pixelshift_posy"
 #define COMSIG_PIXELSHIFT_POSX "pixelshift_posx"
@@ -10,7 +13,11 @@
 /// Signal to stop pixelshifting.
 #define COMSIG_PIXELSHIFT_STOP "pixelshift_stop"
 
-/// prevent_movement can_use implementation to stop unlocking movement.
+/// Defines for mins and maxs of each direction shift.
+#define PIXELSHIFT_Y_LIMIT 16
+#define PIXELSHIFT_X_LIMIT 16
+
+/// prevent_movement can_use implementation to stop unlocking movement while pixel shifted.
 /datum/keybinding/mob/prevent_movement/can_use(client/user)
 	var/mob/living/our_mob = user.mob
 	if(istype(our_mob))
@@ -18,8 +25,37 @@
 			return FALSE
 	return ..()
 
+/// Keybind to open up the pixelshift UI / toggle pixelshifting.
+/datum/keybinding/mob/living/pixel_shift
+	hotkey_keys = list("AltB")
+	name = "pixelshift"
+	full_name = "Toggle Pixel Shift"
+	description = "Toggles the Pixel Shift UI open and closed."
+	keybind_signal = COMSIG_KB_LIVING_PIXELSHIFT
+	category = CATEGORY_CARBON
+
+/datum/keybinding/mob/living/pixel_shift/down(client/user)
+	. = ..()
+	var/mob/living/our_mob = user.mob
+	if(!istype(our_mob))
+		return
+
+	if(our_mob.pixel_shifted)
+		SEND_SIGNAL(our_mob, COMSIG_PIXELSHIFT_STOP)
+	else
+		if(our_mob.stat != CONSCIOUS)
+			to_chat(src, "<span class='danger'>You need to be conscious to use pixel shifting.</span>")
+			return
+
+		if(our_mob.incapacitated())
+			to_chat(src, "<span class='danger'>You aren't able to use pixel shifting right now.</span>")
+			return
+
+		var/datum/pixel_shift_ui/tgui = new(our_mob)
+		tgui.ui_interact(our_mob)
+
 /mob/living
-	/// whether we are currently pixel-shifted.
+	/// Whether we are currently pixel-shifted.
 	var/pixel_shifted = FALSE
 
 /// A verb to open up the pixel shift UI and enable pixel shifting.
@@ -102,9 +138,9 @@
 	dupe_mode = COMPONENT_DUPE_UNIQUE
 	/// The parent, typecasted to mob/living.
 	var/mob/living/living_parent
-	/// our shift on the X axis. -16 to 16
+	/// Our shift on the X axis.
 	var/x_shift = 0
-	/// our shift on the Y axis. -16 to 16
+	/// Our shift on the Y axis.
 	var/y_shift = 0
 
 /datum/component/pixel_shift/Initialize()
@@ -117,14 +153,14 @@
 	x_shift = living_parent.pixel_x
 	y_shift = living_parent.pixel_y
 
-	/// Moving at all or the RESET signal will reset the offsets to the base_pixel.
+	// Moving at all or the RESET signal will reset the offsets to the base_pixel.
 	RegisterSignal(parent, list(COMSIG_MOVABLE_PRE_MOVE, COMSIG_PIXELSHIFT_RESET), .proc/reset_offsets)
-	/// Movement keys in any direction or the pixelshift signals will move the user in a direction.
+	// Movement keys in any direction or the pixelshift signals will move the user in a direction.
 	RegisterSignal(parent, list(COMSIG_KB_MOVEMENT_NORTH_DOWN, COMSIG_PIXELSHIFT_POSY), .proc/shift_pos_y)
 	RegisterSignal(parent, list(COMSIG_KB_MOVEMENT_EAST_DOWN, COMSIG_PIXELSHIFT_POSX), .proc/shift_pos_x)
 	RegisterSignal(parent, list(COMSIG_KB_MOVEMENT_SOUTH_DOWN, COMSIG_PIXELSHIFT_NEGY), .proc/shift_neg_y)
 	RegisterSignal(parent, list(COMSIG_KB_MOVEMENT_WEST_DOWN, COMSIG_PIXELSHIFT_NEGX), .proc/shift_neg_x)
-	/// Resist, getting pulled, or the STOP signal will reset the user and qdel the component.
+	// Resist, getting pulled, or the STOP signal will reset the user and qdel the component.
 	RegisterSignal(parent, list(COMSIG_LIVING_RESIST, COMSIG_LIVING_GET_PULLED, COMSIG_PIXELSHIFT_STOP), .proc/stop_pixel_shift)
 
 	to_chat(parent, "<span class='notice'>You are now pixel shifting. Movement has been locked. <b>Resist</b> or close the UI to stop pixel shifting.</span>")
@@ -157,28 +193,32 @@
 /datum/component/pixel_shift/proc/shift_pos_y(datum/source)
 	SIGNAL_HANDLER
 
-	y_shift = clamp(y_shift + 1, -16, 16)
+	var/adjusted_min_y = -PIXELSHIFT_Y_LIMIT + living_parent.base_pixel_y + living_parent.body_position_pixel_y_offset
+	var/adjusted_max_y = PIXELSHIFT_Y_LIMIT + living_parent.base_pixel_y + living_parent.body_position_pixel_y_offset
+	y_shift = clamp(y_shift + 1, adjusted_min_y, adjusted_max_y)
 	update_offsets()
 
 /// Shifts the user in the positive X direction (Right)
 /datum/component/pixel_shift/proc/shift_pos_x(datum/source)
 	SIGNAL_HANDLER
 
-	x_shift = clamp(x_shift + 1, -16, 16)
+	x_shift = clamp(x_shift + 1, -PIXELSHIFT_X_LIMIT, PIXELSHIFT_X_LIMIT)
 	update_offsets()
 
 /// Shifts the user in the negative Y direction (Down)
 /datum/component/pixel_shift/proc/shift_neg_y(datum/source)
 	SIGNAL_HANDLER
 
-	y_shift = clamp(y_shift - 1, -16, 16)
+	var/adjusted_min_y = -PIXELSHIFT_Y_LIMIT + living_parent.base_pixel_y + living_parent.body_position_pixel_y_offset
+	var/adjusted_max_y = PIXELSHIFT_Y_LIMIT + living_parent.base_pixel_y + living_parent.body_position_pixel_y_offset
+	y_shift = clamp(y_shift - 1, adjusted_min_y, adjusted_max_y)
 	update_offsets()
 
 /// Shifts the user in the negative X direction (Left)
 /datum/component/pixel_shift/proc/shift_neg_x(datum/source)
 	SIGNAL_HANDLER
 
-	x_shift = clamp(x_shift - 1, -16, 16)
+	x_shift = clamp(x_shift - 1, -PIXELSHIFT_X_LIMIT, PIXELSHIFT_X_LIMIT)
 	update_offsets()
 
 /// Resets the user's x and y shift to their base_pixel (+ any position offset)
