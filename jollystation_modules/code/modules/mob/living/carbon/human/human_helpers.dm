@@ -92,3 +92,11 @@
 
 	returned_links += "\n"
 	return returned_links
+
+/// Mob proc for checking digitigrades. Non-humans are always FALSE
+/mob/proc/is_digitigrade()
+	return FALSE
+
+/// Humans check for DIGITIGRADE in species_traits
+/mob/living/carbon/human/is_digitigrade()
+	return (DIGITIGRADE in dna.species.species_traits)

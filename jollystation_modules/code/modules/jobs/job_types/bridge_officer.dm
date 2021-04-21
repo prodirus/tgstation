@@ -34,15 +34,20 @@
 	id = /obj/item/card/id/advanced/silver
 	belt = /obj/item/pda/heads/hos
 	ears = /obj/item/radio/headset/heads/bo/alt
-	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
+	glasses = /obj/item/clothing/glasses/sunglasses
 	gloves = /obj/item/clothing/gloves/color/black
-	uniform = /obj/item/clothing/under/rank/civilian/bo/black
+	uniform = /obj/item/clothing/under/rank/security/bridge_officer/black
 	shoes = /obj/item/clothing/shoes/laceup
-	suit = /obj/item/clothing/suit/armor/vest
+	head = /obj/item/clothing/head/beret/black
+	suit = /obj/item/clothing/suit/armor/vest/blueshirt
+	suit_store = /obj/item/gun/energy/disabler
 	id_trim = /datum/id_trim/job/bridge_officer
 
 	implants = list(/obj/item/implant/mindshield)
 
-	backpack_contents = list(
-		/obj/item/melee/classic_baton/telescopic=1, /obj/item/gun/energy/disabler=1)
+	backpack_contents = list(/obj/item/melee/classic_baton/telescopic = 1, /obj/item/modular_computer/tablet/preset/advanced/command = 1)
 
+/datum/outfit/job/bo/pre_equip(mob/living/carbon/human/H)
+	..()
+	if(prob(0.1))
+		r_pocket = /obj/item/assembly/flash/memorizer

@@ -25,6 +25,6 @@
 /datum/outfit/job/scientist/toxicologist
 	name = "Toxicologist"
 	suit = /obj/item/clothing/suit/toggle/labcoat/toxic
-	uniform = /obj/item/clothing/under/rank/rn/toxicologist
+	uniform = /obj/item/clothing/under/rank/rnd/toxicologist
 	jobtype = /datum/job/toxicologist
 	id_trim = /datum/id_trim/job/toxicologist
