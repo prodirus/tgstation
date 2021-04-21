@@ -98,16 +98,6 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 
 	return ..()
 
-	RegisterSignal(src, COMSIG_MOVABLE_CROSSED_OVER, .proc/on_crossed_over_movable)
-	RegisterSignal(src, COMSIG_ATOM_ENTERING, .proc/on_entering_atom)
-
-/obj/effect/immovablerod/Destroy(force)
-	UnregisterSignal(src, COMSIG_MOVABLE_CROSSED_OVER, COMSIG_ATOM_ENTERING)
-	RemoveElement(/datum/element/point_of_interest)
-	SSaugury.unregister_doom(src)
-
-	return ..()
-
 /obj/effect/immovablerod/examine(mob/user)
 	. = ..()
 	if(!isobserver(user))
