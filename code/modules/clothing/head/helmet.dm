@@ -202,13 +202,10 @@
 /obj/item/clothing/head/helmet/constable
 	name = "constable helmet"
 	desc = "A british looking helmet."
-	worn_icon = 'icons/mob/large-worn-icons/64x64/head.dmi'
 	icon_state = "constable"
 	inhand_icon_state = "constable"
-	worn_x_dimension = 64
-	worn_y_dimension = 64
-	clothing_flags = LARGE_WORN_ICON
 	custom_price = PAYCHECK_HARD * 1.5
+	worn_y_offset = 4
 
 /obj/item/clothing/head/helmet/swat/nanotrasen
 	name = "\improper SWAT helmet"
@@ -229,6 +226,11 @@
 	max_heat_protection_temperature = SPACE_HELM_MAX_TEMP_PROTECT
 	strip_delay = 80
 	dog_fashion = null
+
+/obj/item/clothing/head/helmet/thunderdome/holosuit
+	cold_protection = null
+	heat_protection = null
+	armor = list(MELEE = 10, BULLET = 10, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
 
 /obj/item/clothing/head/helmet/roman
 	name = "\improper Roman helmet"

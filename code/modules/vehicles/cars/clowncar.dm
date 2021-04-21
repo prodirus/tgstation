@@ -30,14 +30,6 @@
 	if(light_on && (obj_flags & EMAGGED))
 		set_light_color(pick(headlight_colors))
 
-/obj/vehicle/sealed/car/clowncar/Initialize()
-	. = ..()
-	START_PROCESSING(SSobj,src)
-
-/obj/vehicle/sealed/car/clowncar/process()
-	if(light_on && (obj_flags & EMAGGED))
-		set_light_color(pick(headlight_colors))
-
 /obj/vehicle/sealed/car/clowncar/generate_actions()
 	. = ..()
 	initialize_controller_action_type(/datum/action/vehicle/sealed/horn, VEHICLE_CONTROL_DRIVE)

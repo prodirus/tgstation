@@ -16,13 +16,5 @@ reset_label = "GBP: Reset"
 "Quality of Life" = 1
 "Refactor" = 10
 "Sound" = 1
-<<<<<<< HEAD
-<<<<<<< HEAD
-"Sprites" = 1
-=======
 "Sprites" = 3
->>>>>>> 2f686038b0a284a27f2db0dd095acef5b7b0889a
-=======
-"Sprites" = 3
->>>>>>> 2ed6461804021bfc8729965f930ae3035cbc78e8
 "Unit Tests" = 6

@@ -53,8 +53,6 @@
 		return TRUE
 
 	// Otherwise, we're minor and now we have to build a list of restricted departments we can change access for.
-	job_templates.Cut()
-	var/list/head_types = list()
 	var/list/managers = SSid_access.sub_department_managers_tgui
 	for(var/access_as_text in managers)
 		var/list/info = managers[access_as_text]
@@ -289,13 +287,6 @@
 			regions += tgui_region_data[region]
 
 	data["regions"] = regions
-
-
-	data["accessFlags"] = SSid_access.flags_by_access
-	data["wildcardFlags"] = SSid_access.wildcard_flags_by_wildcard
-	data["accessFlagNames"] = SSid_access.access_flag_string_by_flag
-	data["showBasic"] = TRUE
-	data["templates"] = job_templates
 
 
 	data["accessFlags"] = SSid_access.flags_by_access
