@@ -377,7 +377,7 @@ GLOBAL_LIST_EMPTY(the_station_areas)
 		return
 	if(SSvote.mode) //Theres already a vote running, default to rotation.
 		maprotate()
-	SSvote.initiate_vote("map", "automatic map rotation")
+	SSvote.initiate_vote("map", "automatic map rotation", TRUE) // NON-MODULE CHANGE: AUTOTRANSFER
 
 /datum/controller/subsystem/mapping/proc/changemap(datum/map_config/VM)
 	if(!VM.MakeNextMap())

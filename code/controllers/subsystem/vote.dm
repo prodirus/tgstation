@@ -76,6 +76,14 @@ SUBSYSTEM_DEF(vote)
 						preferred_map = global.config.defaultmap.map_name
 					choices[preferred_map] += 1
 					greatest_votes = max(greatest_votes, choices[preferred_map])
+			/// NON-MODULE CHANGE: AUTOTRANSFER
+			else if(mode == "transfer")
+				/// multipler applied to non-voters. non-voters count for 1/3rd of a vote, then past two votes they count for 1/4th, 1/5th, and so on.
+				var/non_voters_multiplier = clamp(SScrewtransfer.transfer_votes_attempted + 1, 3, 50)
+				choices["Continue Shift"] += round(non_voters.len / non_voters_multiplier)
+				if(choices["Continue Shift"] >= greatest_votes)
+					greatest_votes = choices["Continue Shift"]
+			/// NON-MODULE CHANGE END
 	. = list()
 	if(greatest_votes)
 		for(var/option in choices)
@@ -130,6 +138,11 @@ SUBSYSTEM_DEF(vote)
 			if("map")
 				SSmapping.changemap(global.config.maplist[.])
 				SSmapping.map_voted = TRUE
+			/// NON-MODULE CHANGE: AUTOTRANSFER
+			if("transfer")
+				if(. == "Initiate Crew Transfer")
+					SScrewtransfer.initiate_crew_transfer()
+			// NON-MODULE CHANGE END
 	if(restart)
 		var/active_admins = FALSE
 		for(var/client/C in GLOB.admins + GLOB.deadmins)
@@ -161,14 +174,14 @@ SUBSYSTEM_DEF(vote)
 	choices[choices[vote]]++
 	return vote
 
-/datum/controller/subsystem/vote/proc/initiate_vote(vote_type, initiator_key)
+/datum/controller/subsystem/vote/proc/initiate_vote(vote_type, initiator_key, forced = FALSE) // NON-MODULE CHANGE: AUTOTRANSFER
 	//Server is still intializing.
 	if(!Master.current_runlevel)
 		to_chat(usr, "<span class='warning'>Cannot start vote, server is not done initializing.</span>")
 		return FALSE
 	var/lower_admin = FALSE
 	var/ckey = ckey(initiator_key)
-	if(GLOB.admin_datums[ckey])
+	if(GLOB.admin_datums[ckey] || forced) //NON-MODULE CHANGE: AUTOTRANSFER
 		lower_admin = TRUE
 
 	if(!mode)
@@ -210,6 +223,17 @@ SUBSYSTEM_DEF(vote)
 					if(!option || mode || !usr.client)
 						break
 					choices.Add(option)
+			/// NON-MODULE CHANGE: AUTOTRANSFER
+			if("transfer")
+				var/mob/dead/observer/caller = usr
+				//Observers/ghosts don't get to decide when a shuttle-call vote happens
+				if(!lower_admin && istype(caller))
+					to_chat(usr, "<span class='warning'>[caller.started_as_observer? "You are not taking part in the round." : "You have died in the round."] If you think it should end, call a restart vote instead.</span>")
+					return FALSE
+
+				SScrewtransfer.transfer_votes_attempted++
+				choices.Add("Initiate Crew Transfer", "Continue Shift")
+			/// NON-MODULE CHANGE END
 			else
 				return FALSE
 		mode = vote_type
