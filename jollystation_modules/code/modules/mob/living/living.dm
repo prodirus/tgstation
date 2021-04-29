@@ -68,9 +68,65 @@
 	if(!LAZYLEN(chosen_speech_sounds))
 		return
 
+	var/list/message_mods = list()
+	message = get_message_mods(message, message_mods)
+
 	/// Pick a sound from our found sounds and play it.
 	var/picked_sound = pick(chosen_speech_sounds)
-	playsound(src, picked_sound, chosen_speech_sounds[picked_sound], vary = TRUE, frequency = sound_frequency, pressure_affected = TRUE, extrarange = -10, ignore_walls = FALSE)
+	if(message_mods[WHISPER_MODE])
+		playspeechsound(picked_sound, max(10, (chosen_speech_sounds[picked_sound] - 10)), TRUE, -10, sound_frequency, TRUE, FALSE, SILENCED_SOUND_EXTRARANGE)
+	else
+		playspeechsound(picked_sound, chosen_speech_sounds[picked_sound], TRUE, -10, sound_frequency, TRUE, FALSE)
+
+/mob/living/proc/playspeechsound(soundin, vol as num, vary, extrarange as num, frequency = null, pressure_affected = TRUE, ignore_walls = TRUE, falloff_distance = SOUND_DEFAULT_FALLOFF_DISTANCE, use_reverb = TRUE, channel = 0)
+	var/turf/turf_source = get_turf(src)
+
+	if (!turf_source)
+		return
+
+	//allocate a channel if necessary now so its the same for everyone
+	channel = channel || SSsounds.random_available_channel()
+
+	// Looping through the player list has the added bonus of working for mobs inside containers
+	var/sound/played_sound = sound(get_sfx(soundin))
+	var/maxdistance = SOUND_RANGE + extrarange
+	var/source_z = turf_source.z
+	var/list/listeners = SSmobs.clients_by_zlevel[source_z].Copy()
+
+	var/turf/above_turf = SSmapping.get_turf_above(turf_source)
+	var/turf/below_turf = SSmapping.get_turf_below(turf_source)
+
+	if(!ignore_walls) //these sounds don't carry through walls
+		listeners = listeners & hearers(maxdistance,turf_source)
+
+		if(above_turf && istransparentturf(above_turf))
+			listeners += hearers(maxdistance,above_turf)
+
+		if(below_turf && istransparentturf(turf_source))
+			listeners += hearers(maxdistance,below_turf)
+
+	else
+		if(above_turf && istransparentturf(above_turf))
+			listeners += SSmobs.clients_by_zlevel[above_turf.z]
+
+		if(below_turf && istransparentturf(turf_source))
+			listeners += SSmobs.clients_by_zlevel[below_turf.z]
+
+	for(var/mob/mob_in_range as anything in listeners)
+		if(!mob_in_range.client?.prefs?.hear_speech_sounds)
+			continue
+		if(get_dist(mob_in_range, turf_source) > maxdistance)
+			continue
+
+		mob_in_range.playsound_local(turf_source, soundin, vol, vary, frequency, SOUND_FALLOFF_EXPONENT, channel, pressure_affected, played_sound, maxdistance, falloff_distance, 1, use_reverb)
+
+	for(var/mob/dead_mob_in_range as anything in SSmobs.dead_players_by_zlevel[source_z])
+		if(!dead_mob_in_range.client?.prefs?.hear_speech_sounds)
+			continue
+		if(get_dist(dead_mob_in_range, turf_source) > maxdistance)
+			continue
+
+		dead_mob_in_range.playsound_local(turf_source, soundin, vol, vary, frequency, SOUND_FALLOFF_EXPONENT, channel, pressure_affected, played_sound, maxdistance, falloff_distance, 1, use_reverb)
 
 /// Extend hear so we can have radio messages make radio sounds.
 /mob/living/Hear(message, atom/movable/speaker, datum/language/message_language, raw_message, radio_freq, list/spans, list/message_mods = list())
@@ -82,6 +138,9 @@
 
 	// Don't bother playing sounds to clientless mobs to save time
 	if(!client)
+		return
+
+	if(!client.prefs?.hear_radio_sounds)
 		return
 
 	// We only deal with radio messages from this point

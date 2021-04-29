@@ -611,7 +611,9 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			dat += "<h2>Misc. Character Settings</h2>"
 			dat += "<b>Runechat Text Color: &nbsp;</b>"
 			dat += "<span style='border: 1px solid #161616; background-color: #[runechat_color];'>&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=rune_chat_text;task=input'>Change</a><BR>"
-			dat += "<i>Set your color to <font color = #aaaaaa>#aaaaaa</font> to have a randomized color on spawn.</i>"
+			dat += "<i>Set your color to <font color = #aaaaaa>#aaaaaa</font> to have a randomized color on spawn.</i><br>"
+			dat += "<b>Hear Speech Sounds:</b> <a href='?_src_=prefs;preference=hear_speech_sounds'>[hear_speech_sounds ? "Enabled" : "Disabled"]</a><br>"
+			dat += "<b>Hear Radio Sounds:</b> <a href='?_src_=prefs;preference=hear_radio_sounds'>[hear_radio_sounds ? "Enabled" : "Disabled"]</a><br>"
 			dat += "<h2>Flavor</h2>"
 			dat += "<a href='?_src_=prefs;preference=flavor_text;task=input'><b>Examine Flavor Text</b></a><br>"
 			dat += "[TextPreview(flavor_text, 65)]"
@@ -2018,6 +2020,12 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					hearted_until = null
 					to_chat(user, "<span class='notice'>OOC Commendation Heart disabled</span>")
 					save_preferences()
+
+				if("hear_speech_sounds")
+					hear_speech_sounds = !hear_speech_sounds
+
+				if("hear_radio_sounds")
+					hear_radio_sounds = !hear_radio_sounds
 
 	ShowChoices(user)
 	return 1
