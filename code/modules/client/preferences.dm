@@ -609,6 +609,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 			dat += "<table><tr><td width='500px' height='300px' valign='center'>"
 			dat += "<h2>Misc. Character Settings</h2>"
+			dat += "<a href='?_src_=prefs;preference=enter_loadout_manager;task=input'>Enter Loadout Manager</a><br>(<i>May appear behind preferences window</i>)<br>"
 			dat += "<b>Runechat Text Color: &nbsp;</b>"
 			dat += "<span style='border: 1px solid #161616; background-color: #[runechat_color];'>&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=rune_chat_text;task=input'>Change</a><BR>"
 			dat += "<i>Set your color to <font color = #aaaaaa>#aaaaaa</font> to have a randomized color on spawn.</i><br>"
@@ -1366,6 +1367,13 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						age = max(min( round(text2num(new_age)), AGE_MAX),AGE_MIN)
 
 				//NON-MODULE CHANGES:
+
+				if("enter_loadout_manager")
+					if(parent.open_loadout_ui)
+						parent.open_loadout_ui.ui_interact(usr)
+					else
+						var/datum/loadout_manager/tgui = new(usr)
+						tgui.ui_interact(usr)
 
 				if("rune_chat_text")
 					var/new_chatcolor = input(user, "Choose your runechat color:", "Character Preference",runechat_color) as color|null

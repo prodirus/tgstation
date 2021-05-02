@@ -259,6 +259,10 @@
 	if(e_name == "rune")
 		AddElement(/datum/element/unique_examine, "A rune of blood inscribed by the followers of the Geometer Nar'sie to channel powerful blood magics through the invoker. Except this one is crayon and not blood - a mockery.", EXAMINE_CHECK_FACTION, list("cult"))
 
+/obj/item/spear/bonespear/ceremonial/Initialize()
+	. = ..()
+	AddElement(/datum/element/unique_examine, "It's common tradition for Ash-kin to build and carry their own spear or axe as their weapon of choice for most of their lives. While most have abandoned this practice since, some are still allowed by the company to carry a ceremonial or traiditional weapon - provided they aren't used for attacking others, of course.", EXAMINE_CHECK_SPECIES, LIZARD_LIST)
+
 #undef SECURITY_JOBS_PLUS_CAP
 #undef TRAITOR_LIST
 #undef CHANGELING_LIST

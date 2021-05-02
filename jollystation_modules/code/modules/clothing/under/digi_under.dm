@@ -137,6 +137,9 @@
 /obj/item/clothing/under/suit/black_really/skirt
 	use_modular_dmi = FALSE
 
+/obj/item/clothing/under/suit/teal/skirt
+	use_modular_dmi = FALSE
+
 /obj/item/clothing/under/suit/henchmen
 	use_modular_dmi = FALSE
 

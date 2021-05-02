@@ -437,6 +437,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	READ_FILE(S["medical_records"] , medical_records)
 	READ_FILE(S["general_records"] , general_records)
 	READ_FILE(S["exploitable_info"] , exploitable_info)
+	READ_FILE(S["loadout_list"] , loadout_list)
 	//NON-MODULE CHANGES END
 
 	if(!CONFIG_GET(flag/join_with_mutant_humans))
@@ -617,6 +618,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	WRITE_FILE(S["security_records"] , security_records)
 	WRITE_FILE(S["medical_records"] , medical_records)
 	WRITE_FILE(S["exploitable_info"] , exploitable_info)
+	WRITE_FILE(S["loadout_list"], loadout_list)
 	//NON-MODULE CHANGES END
 
 	//Custom names
