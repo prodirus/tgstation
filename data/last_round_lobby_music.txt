@@ -65,3 +65,4 @@ config/title_music/sounds/Grass Skirt Crowdkill - SiIvaGunner King for Another D
 config/title_music/sounds/DD2 Meets Terraria The Music - Forest Biome - Build Phase.ogg
 config/title_music/sounds/MEGALOVANIA.ogg
 config/title_music/sounds/Battle Against A True Hero Super Smash Bros. Ultimate - FANMADE.ogg
+config/title_music/sounds/ASGORE.ogg
