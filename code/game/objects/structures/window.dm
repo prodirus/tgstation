@@ -76,13 +76,6 @@
 	if (flags_1 & ON_BORDER_1)
 		AddElement(/datum/element/connect_loc, src, loc_connections)
 
-	var/static/list/loc_connections = list(
-		COMSIG_ATOM_EXIT = .proc/on_exit,
-	)
-
-	if (flags_1 & ON_BORDER_1)
-		AddElement(/datum/element/connect_loc, src, loc_connections)
-
 /obj/structure/window/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/simple_rotation, ROTATION_ALTCLICK | ROTATION_CLOCKWISE | ROTATION_COUNTERCLOCKWISE | ROTATION_VERBS ,null,CALLBACK(src, .proc/can_be_rotated),CALLBACK(src,.proc/after_rotation))
