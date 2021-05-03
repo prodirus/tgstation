@@ -126,8 +126,8 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 		addtimer(CALLBACK(src, .proc/announce_conflict, notadded), 5 SECONDS)
 
 /datum/preferences/proc/announce_conflict(list/notadded)
-	to_chat(parent, "<span class='alertwarning'>KEYBINDING CONFLICT</span>\n\
-					<span class='alertwarning'>There are new <a href='?_src_=prefs;preference=tab;tab=3'>keybindings</a> that default to keys you've already bound. These will be unbound.</span>")
+	to_chat(parent, "<span class='alertwarning'><u>Keybinding Conflict</u></span>\n\
+					<span class='alertwarning'>There are new <a href='?_src_=prefs;preference=tab;tab=3'>keybindings</a> that default to keys you've already bound. The new ones will be unbound.</span>")
 	for(var/item in notadded)
 		var/datum/keybinding/conflicted = item
 		to_chat(parent, "<span class='danger'>[conflicted.category]: [conflicted.full_name] needs updating</span>")
@@ -224,10 +224,6 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 			parsed_favs += path
 	favorite_outfits = uniqueList(parsed_favs)
 
-	// NON-MODULE CHANGES: client prefs
-	READ_FILE(S["hear_speech_sounds"] , hear_speech_sounds)
-	READ_FILE(S["hear_radio_sounds"] , hear_radio_sounds)
-
 	//try to fix any outdated data if necessary
 	if(needs_update >= 0)
 		var/bacpath = "[path].updatebac" //todo: if the savefile version is higher then the server, check the backup, and give the player a prompt to load the backup
@@ -276,10 +272,6 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	pda_color = sanitize_hexcolor(pda_color, 6, 1, initial(pda_color))
 	key_bindings = sanitize_keybindings(key_bindings)
 	favorite_outfits = SANITIZE_LIST(favorite_outfits)
-
-	// NON-MODULE CHANGES: sanitization
-	hear_speech_sounds = sanitize_integer(hear_speech_sounds, FALSE, TRUE, initial(hear_speech_sounds))
-	hear_radio_sounds = sanitize_integer(hear_speech_sounds, FALSE, TRUE, initial(hear_radio_sounds))
 
 	if(needs_update >= 0) //save the updated version
 		var/old_default_slot = default_slot
@@ -358,11 +350,6 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	WRITE_FILE(S["key_bindings"], key_bindings)
 	WRITE_FILE(S["hearted_until"], (hearted_until > world.realtime ? hearted_until : null))
 	WRITE_FILE(S["favorite_outfits"], favorite_outfits)
-
-	// NON-MODULE CHANGES: client prefs
-	WRITE_FILE(S["hear_speech_sounds"] , hear_speech_sounds)
-	WRITE_FILE(S["hear_radio_sounds"] , hear_radio_sounds)
-
 	return TRUE
 
 /datum/preferences/proc/load_character(slot)
@@ -498,22 +485,10 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 
 	randomise = SANITIZE_LIST(randomise)
 
-	if(gender == MALE)
-		hairstyle = sanitize_inlist(hairstyle, GLOB.hairstyles_male_list)
-		facial_hairstyle = sanitize_inlist(facial_hairstyle, GLOB.facial_hairstyles_male_list)
-		underwear = sanitize_inlist(underwear, GLOB.underwear_m)
-		undershirt = sanitize_inlist(undershirt, GLOB.undershirt_m)
-	else if(gender == FEMALE)
-		hairstyle = sanitize_inlist(hairstyle, GLOB.hairstyles_female_list)
-		facial_hairstyle = sanitize_inlist(facial_hairstyle, GLOB.facial_hairstyles_female_list)
-		underwear = sanitize_inlist(underwear, GLOB.underwear_f)
-		undershirt = sanitize_inlist(undershirt, GLOB.undershirt_f)
-	else
-		hairstyle = sanitize_inlist(hairstyle, GLOB.hairstyles_list)
-		facial_hairstyle = sanitize_inlist(facial_hairstyle, GLOB.facial_hairstyles_list)
-		underwear = sanitize_inlist(underwear, GLOB.underwear_list)
-		undershirt = sanitize_inlist(undershirt, GLOB.undershirt_list)
-
+	hairstyle = sanitize_inlist(hairstyle, GLOB.hairstyles_list)
+	facial_hairstyle = sanitize_inlist(facial_hairstyle, GLOB.facial_hairstyles_list)
+	underwear = sanitize_inlist(underwear, GLOB.underwear_list)
+	undershirt = sanitize_inlist(undershirt, GLOB.undershirt_list)
 	socks = sanitize_inlist(socks, GLOB.socks_list)
 	age = sanitize_integer(age, AGE_MIN, AGE_MAX, initial(age))
 	hair_color = sanitize_hexcolor(hair_color, 3, 0)

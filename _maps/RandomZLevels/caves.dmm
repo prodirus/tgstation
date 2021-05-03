@@ -1820,12 +1820,6 @@
 	initial_gas_mix = "n2=23;o2=14;TEMP=2.7"
 	},
 /area/awaymission/caves/bmp_asteroid)
-"fQ" = (
-/turf/open/floor/iron/elevatorshaft{
-	initial_gas_mix = "n2=23;o2=14;TEMP=2.7";
-	name = "elevator flooring"
-	},
-/area/awaymission/caves/bmp_asteroid)
 "fR" = (
 /obj/structure/grille,
 /obj/structure/barricade/wooden,
@@ -1843,13 +1837,6 @@
 "fT" = (
 /obj/machinery/iv_drip,
 /turf/open/floor/iron,
-/area/awaymission/caves/bmp_asteroid)
-"fU" = (
-/obj/effect/landmark/awaystart,
-/turf/open/floor/iron/elevatorshaft{
-	initial_gas_mix = "n2=23;o2=14;TEMP=2.7";
-	name = "elevator flooring"
-	},
 /area/awaymission/caves/bmp_asteroid)
 "fW" = (
 /obj/structure/girder,
@@ -1949,10 +1936,6 @@
 	initial_gas_mix = "n2=23;o2=14;TEMP=2.7"
 	},
 /area/awaymission/caves/bmp_asteroid/level_two)
-"gl" = (
-/obj/item/plate,
-/turf/open/floor/iron,
-/area/awaymission/caves/bmp_asteroid)
 "gm" = (
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/iron,
@@ -2005,12 +1988,6 @@
 /area/awaymission/caves/bmp_asteroid)
 "gw" = (
 /obj/structure/reagent_dispensers/beerkeg,
-/turf/open/floor/iron,
-/area/awaymission/caves/bmp_asteroid)
-"gx" = (
-/obj/structure/table,
-/obj/item/kitchen/fork,
-/obj/item/plate,
 /turf/open/floor/iron,
 /area/awaymission/caves/bmp_asteroid)
 "gy" = (
@@ -2187,6 +2164,17 @@
 "lO" = (
 /turf/open/floor/plating/asteroid/basalt/airless,
 /area/awaymission/caves/bmp_asteroid/level_two)
+"wq" = (
+/obj/item/plate,
+/turf/open/floor/iron,
+/area/awaymission/caves/bmp_asteroid)
+"Dg" = (
+/obj/effect/landmark/awaystart,
+/turf/open/floor/plating/elevatorshaft{
+	initial_gas_mix = "n2=23;o2=14;TEMP=2.7";
+	name = "elevator flooring"
+	},
+/area/awaymission/caves/bmp_asteroid)
 "OX" = (
 /turf/closed/indestructible/oldshuttle{
 	desc = "Go through.";
@@ -2195,6 +2183,18 @@
 	name = "the other side"
 	},
 /area/space/nearstation)
+"SJ" = (
+/turf/open/floor/plating/elevatorshaft{
+	initial_gas_mix = "n2=23;o2=14;TEMP=2.7";
+	name = "elevator flooring"
+	},
+/area/awaymission/caves/bmp_asteroid)
+"XQ" = (
+/obj/structure/table,
+/obj/item/kitchen/fork,
+/obj/item/plate,
+/turf/open/floor/iron,
+/area/awaymission/caves/bmp_asteroid)
 
 (1,1,1) = {"
 aa
@@ -13712,10 +13712,10 @@ eQ
 cj
 eQ
 fJ
-fQ
-fQ
-fQ
-fQ
+SJ
+SJ
+SJ
+SJ
 fJ
 eQ
 eQ
@@ -13969,10 +13969,10 @@ eQ
 eQ
 eQ
 fJ
-fQ
-fQ
-fQ
-fQ
+SJ
+SJ
+SJ
+SJ
 fJ
 eQ
 eQ
@@ -14226,10 +14226,10 @@ eQ
 eQ
 eQ
 fJ
-fQ
-fU
-fQ
-fQ
+SJ
+Dg
+SJ
+SJ
 fJ
 eQ
 eQ
@@ -14483,10 +14483,10 @@ cj
 eQ
 eQ
 fJ
-fQ
-fQ
-fQ
-fQ
+SJ
+SJ
+SJ
+SJ
 fJ
 eQ
 eQ
@@ -15774,7 +15774,7 @@ dX
 fY
 gb
 dX
-gl
+wq
 ev
 ev
 fN
@@ -16805,7 +16805,7 @@ bM
 bM
 gp
 gt
-gx
+XQ
 fH
 eQ
 eQ

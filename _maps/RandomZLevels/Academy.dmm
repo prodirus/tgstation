@@ -2293,26 +2293,6 @@
 /obj/structure/cable,
 /turf/open/floor/plating,
 /area/awaymission/academy/academyaft)
-"iW" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/turf/open/floor/iron/airless/white{
-	dir = 4
-	},
-/area/awaymission/academy/academyaft)
-"iX" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/structure/table,
-/obj/item/soulstone,
-/obj/effect/turf_decal/tile/red{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/red,
-/turf/open/floor/iron/airless/white,
-/area/awaymission/academy/academyaft)
 "iY" = (
 /obj/structure/shuttle/engine/propulsion/left,
 /turf/open/space,
@@ -2332,20 +2312,6 @@
 	},
 /obj/structure/cable,
 /turf/open/floor/iron,
-/area/awaymission/academy/academyaft)
-"jf" = (
-/obj/structure/cable,
-/turf/open/floor/iron/airless/white{
-	dir = 4
-	},
-/area/awaymission/academy/academyaft)
-"jg" = (
-/obj/effect/turf_decal/tile/red{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/red,
-/obj/structure/cable,
-/turf/open/floor/iron/airless/white,
 /area/awaymission/academy/academyaft)
 "ji" = (
 /obj/structure/table,
@@ -2375,22 +2341,6 @@
 	dir = 8
 	},
 /turf/open/floor/carpet,
-/area/awaymission/academy/academyaft)
-"jn" = (
-/turf/open/floor/iron/airless/white{
-	dir = 4
-	},
-/area/awaymission/academy/academyaft)
-"jo" = (
-/obj/structure/table,
-/obj/item/organ/brain{
-	name = "The preserved brain of Harry Houdini"
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/red,
-/turf/open/floor/iron/airless/white,
 /area/awaymission/academy/academyaft)
 "jp" = (
 /obj/item/weldingtool,
@@ -2468,22 +2418,6 @@
 	dir = 8
 	},
 /turf/open/floor/iron,
-/area/awaymission/academy/academyaft)
-"jz" = (
-/obj/structure/window/reinforced,
-/turf/open/floor/iron/airless/white{
-	dir = 4
-	},
-/area/awaymission/academy/academyaft)
-"jA" = (
-/obj/structure/table,
-/obj/structure/window/reinforced,
-/obj/item/batterer,
-/obj/effect/turf_decal/tile/red{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/red,
-/turf/open/floor/iron/airless/white,
 /area/awaymission/academy/academyaft)
 "jB" = (
 /obj/item/shard{
@@ -2834,12 +2768,6 @@
 /mob/living/simple_animal/hostile/poison/giant_spider/hunter,
 /turf/open/floor/engine/cult,
 /area/awaymission/academy/academycellar)
-"lk" = (
-/obj/structure/safe/floor,
-/obj/item/gun/magic/wand/fireball,
-/obj/item/clothing/suit/space/hardsuit/wizard,
-/turf/open/floor/wood,
-/area/awaymission/academy/headmaster)
 "ll" = (
 /turf/closed/indestructible/riveted,
 /area/awaymission/academy/academyengine)
@@ -3288,12 +3216,40 @@
 /obj/structure/cable,
 /turf/open/floor/iron,
 /area/awaymission/academy/academyaft)
+"oR" = (
+/obj/structure/window/reinforced,
+/turf/open/floor/iron/white/airless{
+	dir = 4
+	},
+/area/awaymission/academy/academyaft)
+"sn" = (
+/obj/effect/turf_decal/tile/red{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/red,
+/obj/structure/cable,
+/turf/open/floor/iron/white/airless,
+/area/awaymission/academy/academyaft)
 "sw" = (
 /obj/machinery/power/terminal{
 	dir = 1
 	},
 /turf/open/floor/vault,
 /area/awaymission/academy/academyengine)
+"tw" = (
+/obj/structure/safe/floor,
+/obj/item/gun/magic/wand/fireball,
+/obj/item/clothing/suit/space/hardsuit/wizard,
+/turf/open/floor/wood,
+/area/awaymission/academy/headmaster)
+"uP" = (
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/open/floor/iron/white/airless{
+	dir = 4
+	},
+/area/awaymission/academy/academyaft)
 "AA" = (
 /obj/structure/cable,
 /turf/open/floor/carpet,
@@ -3318,6 +3274,17 @@
 /obj/structure/cable,
 /turf/open/floor/iron,
 /area/awaymission/academy/classrooms)
+"JN" = (
+/obj/structure/table,
+/obj/item/organ/brain{
+	name = "The preserved brain of Harry Houdini"
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/red,
+/turf/open/floor/iron/white/airless,
+/area/awaymission/academy/academyaft)
 "LW" = (
 /obj/machinery/door/airlock/maintenance_hatch,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
@@ -3326,6 +3293,24 @@
 /obj/structure/cable,
 /turf/open/floor/plating,
 /area/awaymission/academy/academyaft)
+"Ml" = (
+/obj/structure/cable,
+/turf/open/floor/iron/white/airless{
+	dir = 4
+	},
+/area/awaymission/academy/academyaft)
+"Mm" = (
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/table,
+/obj/item/soulstone,
+/obj/effect/turf_decal/tile/red{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/red,
+/turf/open/floor/iron/white/airless,
+/area/awaymission/academy/academyaft)
 "Tk" = (
 /obj/machinery/door/airlock/maintenance_hatch,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
@@ -3333,6 +3318,21 @@
 	},
 /obj/structure/cable,
 /turf/open/floor/plating,
+/area/awaymission/academy/academyaft)
+"Wb" = (
+/turf/open/floor/iron/white/airless{
+	dir = 4
+	},
+/area/awaymission/academy/academyaft)
+"YF" = (
+/obj/structure/table,
+/obj/structure/window/reinforced,
+/obj/item/batterer,
+/obj/effect/turf_decal/tile/red{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/red,
+/turf/open/floor/iron/white/airless,
 /area/awaymission/academy/academyaft)
 
 (1,1,1) = {"
@@ -12331,7 +12331,7 @@ ai
 al
 as
 aB
-lk
+tw
 lm
 as
 al
@@ -13042,11 +13042,11 @@ il
 iz
 il
 fD
-iW
-jf
-jn
-jf
-jz
+uP
+Ml
+Wb
+Ml
+oR
 jC
 hc
 hc
@@ -13172,11 +13172,11 @@ il
 il
 il
 fD
-iX
-jg
-jo
-jg
-jA
+Mm
+sn
+JN
+sn
+YF
 hc
 hc
 aa

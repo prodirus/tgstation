@@ -316,19 +316,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/awaymission/cabin)
-"aS" = (
-/obj/structure/sink/kitchen{
-	desc = "A sink used for washing one's hands and face. It looks rusty and home-made";
-	name = "sink";
-	pixel_y = 28
-	},
-/obj/structure/janitorialcart,
-/obj/item/mop,
-/obj/item/reagent_containers/glass/bucket,
-/obj/item/caution,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating,
-/area/awaymission/cabin)
 "aT" = (
 /obj/machinery/door/window/eastleft{
 	name = "fireplace"
@@ -597,18 +584,6 @@
 "bO" = (
 /turf/open/floor/iron/cafeteria,
 /area/awaymission/cabin)
-"bP" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/visible{
-	dir = 8
-	},
-/turf/open/floor/iron/white,
-/area/awaymission/cabin)
-"bQ" = (
-/obj/machinery/atmospherics/pipe/smart/manifold4w/general/visible{
-	dir = 4
-	},
-/turf/open/floor/iron/white,
-/area/awaymission/cabin)
 "bS" = (
 /turf/open/floor/wood/cold,
 /area/awaymission/cabin/snowforest)
@@ -764,15 +739,6 @@
 	},
 /obj/structure/cable,
 /turf/open/floor/wood,
-/area/awaymission/cabin)
-"cu" = (
-/obj/machinery/atmospherics/components/binary/thermomachine/freezer/on{
-	dir = 1
-	},
-/obj/machinery/light{
-	dir = 4
-	},
-/turf/open/floor/iron/white,
 /area/awaymission/cabin)
 "cv" = (
 /obj/machinery/light{
@@ -5272,6 +5238,40 @@
 /obj/machinery/door/airlock/maintenance{
 	name = "Maintenance"
 	},
+/turf/open/floor/plating,
+/area/awaymission/cabin)
+"qr" = (
+/obj/machinery/atmospherics/pipe/smart/manifold4w/general/visible{
+	dir = 4
+	},
+/turf/open/floor/iron/white,
+/area/awaymission/cabin)
+"tB" = (
+/obj/machinery/atmospherics/pipe/smart/manifold4w/general/visible{
+	dir = 8
+	},
+/turf/open/floor/iron/white,
+/area/awaymission/cabin)
+"BT" = (
+/obj/machinery/atmospherics/components/binary/thermomachine/freezer/on{
+	dir = 1
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/floor/iron/white,
+/area/awaymission/cabin)
+"Dg" = (
+/obj/structure/sink/kitchen{
+	desc = "A sink used for washing one's hands and face. It looks rusty and home-made";
+	name = "sink";
+	pixel_y = 28
+	},
+/obj/structure/janitorialcart,
+/obj/item/mop,
+/obj/item/reagent_containers/glass/bucket,
+/obj/item/clothing/suit/caution,
+/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
 /area/awaymission/cabin)
 
@@ -27019,7 +27019,7 @@ an
 an
 an
 an
-aS
+Dg
 hg
 aq
 ht
@@ -33964,7 +33964,7 @@ eg
 aq
 an
 bF
-bP
+tB
 cm
 ho
 bE
@@ -34221,8 +34221,8 @@ eg
 nS
 an
 bF
-bQ
-cu
+qr
+BT
 hp
 js
 hp

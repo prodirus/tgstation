@@ -904,14 +904,6 @@
 	},
 /turf/open/floor/iron,
 /area/awaymission/spacebattle/cruiser)
-"dX" = (
-/obj/effect/mob_spawn/human/engineer/rig/gunner{
-	mob_name = "Andrew Thorn";
-	name = "Andrew Thorn"
-	},
-/obj/effect/decal/cleanable/blood,
-/turf/open/floor/plating/airless,
-/area/awaymission/spacebattle/cruiser)
 "dY" = (
 /obj/effect/spawner/structure/window/hollow/reinforced/middle{
 	dir = 4
@@ -1067,14 +1059,6 @@
 /obj/structure/chair,
 /turf/open/floor/mineral/plastitanium/red,
 /area/awaymission/spacebattle/syndicate1)
-"eH" = (
-/obj/effect/mob_spawn/human/engineer/rig/gunner{
-	mob_name = "Peter West";
-	name = "Peter West"
-	},
-/obj/effect/decal/cleanable/blood,
-/turf/open/floor/plating/airless,
-/area/awaymission/spacebattle/cruiser)
 "eK" = (
 /turf/open/floor/mineral/plastitanium/red,
 /area/awaymission/spacebattle/syndicate4)
@@ -1185,14 +1169,6 @@
 	dir = 8
 	},
 /turf/open/floor/iron,
-/area/awaymission/spacebattle/cruiser)
-"fa" = (
-/obj/effect/mob_spawn/human/engineer/rig/gunner{
-	mob_name = "Eric Abnett";
-	name = "Eric Abnett"
-	},
-/obj/effect/decal/cleanable/blood,
-/turf/open/floor/plating/airless,
 /area/awaymission/spacebattle/cruiser)
 "fb" = (
 /obj/structure/closet/crate,
@@ -1772,13 +1748,6 @@
 	},
 /turf/open/floor/iron,
 /area/awaymission/spacebattle/cruiser)
-"gO" = (
-/obj/effect/mob_spawn/human/engineer/rig/gunner{
-	name = "Jeremy Tailor"
-	},
-/obj/effect/decal/cleanable/blood,
-/turf/open/floor/plating/airless,
-/area/awaymission/spacebattle/cruiser)
 "gP" = (
 /obj/machinery/porta_turret{
 	dir = 8;
@@ -1873,15 +1842,6 @@
 /obj/structure/table/wood,
 /obj/item/paper_bin,
 /turf/open/floor/wood,
-/area/awaymission/spacebattle/cruiser)
-"hh" = (
-/obj/effect/mob_spawn/human/engineer/rig/gunner{
-	mob_name = "Dan Hedricks";
-	name = "Dan Hedricks"
-	},
-/obj/effect/decal/cleanable/blood,
-/obj/effect/decal/cleanable/blood,
-/turf/open/floor/plating/airless,
 /area/awaymission/spacebattle/cruiser)
 "hi" = (
 /obj/effect/spawner/structure/window/hollow/reinforced/end{
@@ -2020,13 +1980,6 @@
 "hK" = (
 /obj/structure/closet/secure_closet/captains,
 /turf/open/floor/wood,
-/area/awaymission/spacebattle/cruiser)
-"hL" = (
-/obj/effect/mob_spawn/human/engineer/rig/gunner{
-	mob_name = "William Gannon";
-	name = "William Gannon"
-	},
-/turf/open/floor/iron,
 /area/awaymission/spacebattle/cruiser)
 "hM" = (
 /obj/effect/turf_decal/stripes/line{
@@ -2346,16 +2299,9 @@
 "jl" = (
 /turf/closed/wall/mineral/plasma,
 /area/awaymission/spacebattle/secret)
-"jm" = (
-/turf/open/floor/iron/rockvault/alien,
-/area/awaymission/spacebattle/secret)
 "jn" = (
 /obj/machinery/door/airlock/plasma,
 /turf/closed/wall/mineral/plasma,
-/area/awaymission/spacebattle/secret)
-"jo" = (
-/obj/item/clothing/suit/space/hardsuit/wizard,
-/turf/open/floor/iron/rockvault/alien,
 /area/awaymission/spacebattle/secret)
 "jp" = (
 /obj/vehicle/sealed/mecha/combat/gygax,
@@ -2793,6 +2739,21 @@
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/ion,
 /turf/open/floor/plating,
 /area/awaymission/spacebattle/cruiser)
+"pb" = (
+/obj/effect/mob_spawn/human/engineer/rig/gunner{
+	name = "Jeremy Tailor"
+	},
+/obj/effect/decal/cleanable/blood,
+/turf/open/floor/plating/airless,
+/area/awaymission/spacebattle/cruiser)
+"sl" = (
+/obj/effect/mob_spawn/human/engineer/rig/gunner{
+	mob_name = "Peter West";
+	name = "Peter West"
+	},
+/obj/effect/decal/cleanable/blood,
+/turf/open/floor/plating/airless,
+/area/awaymission/spacebattle/cruiser)
 "vw" = (
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/awaymission/spacebattle/syndicate5)
@@ -2802,9 +2763,48 @@
 "BO" = (
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/awaymission/spacebattle/syndicate2)
+"Cm" = (
+/obj/item/clothing/suit/space/hardsuit/wizard,
+/turf/open/floor/vault/alien,
+/area/awaymission/spacebattle/secret)
 "Dv" = (
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/awaymission/spacebattle/syndicate3)
+"Gq" = (
+/turf/open/floor/vault/alien,
+/area/awaymission/spacebattle/secret)
+"Iy" = (
+/obj/effect/mob_spawn/human/engineer/rig/gunner{
+	mob_name = "William Gannon";
+	name = "William Gannon"
+	},
+/turf/open/floor/iron,
+/area/awaymission/spacebattle/cruiser)
+"IL" = (
+/obj/effect/mob_spawn/human/engineer/rig/gunner{
+	mob_name = "Eric Abnett";
+	name = "Eric Abnett"
+	},
+/obj/effect/decal/cleanable/blood,
+/turf/open/floor/plating/airless,
+/area/awaymission/spacebattle/cruiser)
+"RW" = (
+/obj/effect/mob_spawn/human/engineer/rig/gunner{
+	mob_name = "Andrew Thorn";
+	name = "Andrew Thorn"
+	},
+/obj/effect/decal/cleanable/blood,
+/turf/open/floor/plating/airless,
+/area/awaymission/spacebattle/cruiser)
+"Tc" = (
+/obj/effect/mob_spawn/human/engineer/rig/gunner{
+	mob_name = "Dan Hedricks";
+	name = "Dan Hedricks"
+	},
+/obj/effect/decal/cleanable/blood,
+/obj/effect/decal/cleanable/blood,
+/turf/open/floor/plating/airless,
+/area/awaymission/spacebattle/cruiser)
 "UZ" = (
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/awaymission/spacebattle/syndicate1)
@@ -36363,7 +36363,7 @@ gZ
 bT
 cc
 cc
-hL
+Iy
 bT
 cc
 cc
@@ -38671,7 +38671,7 @@ cZ
 cZ
 cZ
 cZ
-gO
+pb
 cZ
 cZ
 cZ
@@ -39172,7 +39172,7 @@ cc
 cc
 bT
 dD
-dX
+RW
 cZ
 cZ
 cZ
@@ -39434,7 +39434,7 @@ cZ
 cZ
 cZ
 cZ
-fa
+IL
 cZ
 cZ
 fy
@@ -39958,7 +39958,7 @@ cZ
 jV
 cZ
 cZ
-hh
+Tc
 dD
 cZ
 cZ
@@ -40974,7 +40974,7 @@ cZ
 cZ
 cZ
 dD
-eH
+sl
 dD
 cZ
 cZ
@@ -64478,15 +64478,15 @@ jk
 jk
 aa
 jl
-jm
-jm
-jm
-jm
-jm
-jm
-jm
-jm
-jm
+Gq
+Gq
+Gq
+Gq
+Gq
+Gq
+Gq
+Gq
+Gq
 jl
 aa
 aa
@@ -64735,15 +64735,15 @@ jk
 jk
 aa
 jl
-jm
-jm
-jm
-jm
-jm
-jm
-jm
-jm
-jm
+Gq
+Gq
+Gq
+Gq
+Gq
+Gq
+Gq
+Gq
+Gq
 jl
 aa
 aa
@@ -64992,15 +64992,15 @@ jk
 jk
 aa
 jl
-jm
-jm
-jm
-jm
-jm
-jm
-jm
-jm
-jm
+Gq
+Gq
+Gq
+Gq
+Gq
+Gq
+Gq
+Gq
+Gq
 jl
 aa
 aa
@@ -65249,15 +65249,15 @@ jk
 jk
 aa
 jl
-jm
-jm
-jm
-jm
-jm
-jm
-jm
-jm
-jm
+Gq
+Gq
+Gq
+Gq
+Gq
+Gq
+Gq
+Gq
+Gq
 jl
 aa
 aa
@@ -65506,15 +65506,15 @@ jk
 jk
 aa
 jl
-jm
-jm
-jm
-jm
-jm
-jm
-jm
-jm
-jm
+Gq
+Gq
+Gq
+Gq
+Gq
+Gq
+Gq
+Gq
+Gq
 jl
 aa
 aa
@@ -65763,15 +65763,15 @@ jk
 jk
 aa
 jl
-jm
-jm
-jm
-jm
-jm
-jm
-jm
-jm
-jm
+Gq
+Gq
+Gq
+Gq
+Gq
+Gq
+Gq
+Gq
+Gq
 jl
 aa
 aa
@@ -66020,15 +66020,15 @@ jk
 aa
 aa
 jl
-jm
-jm
-jm
-jm
-jm
-jm
-jm
-jm
-jm
+Gq
+Gq
+Gq
+Gq
+Gq
+Gq
+Gq
+Gq
+Gq
 jl
 aa
 aa
@@ -66277,15 +66277,15 @@ aa
 aa
 aa
 jl
-jm
-jm
-jm
-jm
-jm
-jm
-jm
-jm
-jm
+Gq
+Gq
+Gq
+Gq
+Gq
+Gq
+Gq
+Gq
+Gq
 jl
 aa
 aa
@@ -66534,15 +66534,15 @@ aa
 aa
 aa
 jl
-jm
-jm
-jm
-jm
-jm
-jm
-jm
-jm
-jm
+Gq
+Gq
+Gq
+Gq
+Gq
+Gq
+Gq
+Gq
+Gq
 jl
 aa
 aa
@@ -66791,15 +66791,15 @@ aa
 aa
 aa
 jl
-jm
-jm
-jm
-jm
-jm
-jm
-jm
-jm
-jm
+Gq
+Gq
+Gq
+Gq
+Gq
+Gq
+Gq
+Gq
+Gq
 jl
 aa
 aa
@@ -67048,15 +67048,15 @@ aa
 aa
 aa
 jl
-jm
-jm
-jm
-jm
-jo
-jm
-jm
-jm
-jm
+Gq
+Gq
+Gq
+Gq
+Cm
+Gq
+Gq
+Gq
+Gq
 jl
 aa
 aa
