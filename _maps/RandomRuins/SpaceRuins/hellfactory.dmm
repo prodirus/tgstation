@@ -8,12 +8,6 @@
 "ac" = (
 /turf/closed/wall/r_wall,
 /area/ruin/space/has_grav/hellfactory)
-"ad" = (
-/obj/machinery/atmospherics/components/binary/thermomachine/freezer/on{
-	dir = 4
-	},
-/turf/open/floor/plastic,
-/area/ruin/space/has_grav/hellfactory)
 "ae" = (
 /obj/machinery/atmospherics/pipe/layer_manifold/visible{
 	dir = 4
@@ -810,13 +804,6 @@
 /obj/effect/turf_decal/caution/stand_clear/white,
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/hellfactory)
-"cw" = (
-/obj/effect/turf_decal{
-	dir = 1
-	},
-/obj/item/stack/tile/iron,
-/turf/open/floor/plating,
-/area/ruin/space/has_grav/hellfactory)
 "cx" = (
 /obj/effect/turf_decal{
 	dir = 1
@@ -843,10 +830,6 @@
 /obj/item/trash/raisins,
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/hellfactory)
-"cB" = (
-/obj/item/stack/tile/iron,
-/turf/open/floor/plating,
-/area/ruin/space/has_grav/hellfactory)
 "cC" = (
 /obj/machinery/light{
 	dir = 4
@@ -871,16 +854,6 @@
 	icon_state = "platingdmg1"
 	},
 /area/ruin/space/has_grav/hellfactory)
-"cG" = (
-/obj/effect/turf_decal/delivery/white,
-/obj/effect/turf_decal/delivery/red,
-/obj/item/stack/tile/iron,
-/obj/machinery/door/poddoor,
-/turf/open/floor/plating{
-	broken = 1;
-	icon_state = "platingdmg1"
-	},
-/area/ruin/space/has_grav/hellfactory)
 "cH" = (
 /obj/effect/turf_decal/delivery/white,
 /obj/structure/grille/broken,
@@ -893,15 +866,6 @@
 "cI" = (
 /obj/effect/turf_decal/delivery/white,
 /obj/effect/turf_decal/delivery/red,
-/obj/machinery/door/poddoor,
-/turf/open/floor/plating{
-	broken = 1;
-	icon_state = "platingdmg1"
-	},
-/area/ruin/space/has_grav/hellfactory)
-"cJ" = (
-/obj/effect/turf_decal/delivery/white,
-/obj/item/stack/tile/iron,
 /obj/machinery/door/poddoor,
 /turf/open/floor/plating{
 	broken = 1;
@@ -968,6 +932,12 @@
 /obj/structure/window,
 /turf/open/floor/iron,
 /area/ruin/space/has_grav/hellfactory)
+"fw" = (
+/obj/machinery/atmospherics/components/binary/thermomachine/freezer/on{
+	dir = 4
+	},
+/turf/open/floor/plastic,
+/area/ruin/space/has_grav/hellfactory)
 "hv" = (
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plastic,
@@ -976,6 +946,25 @@
 /obj/machinery/light/floor,
 /obj/effect/turf_decal/bot_white/right,
 /turf/open/floor/iron/dark,
+/area/ruin/space/has_grav/hellfactory)
+"mv" = (
+/obj/effect/turf_decal/delivery/white,
+/obj/effect/turf_decal/delivery/red,
+/obj/item/stack/tile/iron/base,
+/obj/machinery/door/poddoor,
+/turf/open/floor/plating{
+	broken = 1;
+	icon_state = "platingdmg1"
+	},
+/area/ruin/space/has_grav/hellfactory)
+"mw" = (
+/obj/effect/turf_decal/delivery/white,
+/obj/item/stack/tile/iron/base,
+/obj/machinery/door/poddoor,
+/turf/open/floor/plating{
+	broken = 1;
+	icon_state = "platingdmg1"
+	},
 /area/ruin/space/has_grav/hellfactory)
 "nd" = (
 /obj/structure/sign/warning/vacuum,
@@ -1060,6 +1049,10 @@
 /obj/machinery/light/small,
 /turf/open/floor/plating,
 /area/ruin/space/has_grav/hellfactory)
+"Re" = (
+/obj/item/stack/tile/iron/base,
+/turf/open/floor/plating,
+/area/ruin/space/has_grav/hellfactory)
 "Sz" = (
 /obj/effect/decal/cleanable/oil,
 /turf/open/floor/plating,
@@ -1072,6 +1065,13 @@
 /obj/structure/cable,
 /turf/open/floor/iron/grimy,
 /area/ruin/space/has_grav/hellfactoryoffice)
+"UP" = (
+/obj/effect/turf_decal{
+	dir = 1
+	},
+/obj/item/stack/tile/iron/base,
+/turf/open/floor/plating,
+/area/ruin/space/has_grav/hellfactory)
 "Wh" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating,
@@ -1175,7 +1175,7 @@ aa
 aa
 aa
 aW
-ad
+fw
 au
 aC
 aM
@@ -1355,7 +1355,7 @@ ry
 by
 by
 cv
-cG
+mv
 aa
 aa
 aa
@@ -1381,7 +1381,7 @@ by
 oJ
 Wh
 by
-cw
+UP
 cH
 aa
 aa
@@ -1436,7 +1436,7 @@ cz
 cC
 cP
 cy
-cJ
+mw
 aa
 aa
 aa
@@ -1570,7 +1570,7 @@ ab
 as
 aL
 cr
-cB
+Re
 cL
 nd
 aa

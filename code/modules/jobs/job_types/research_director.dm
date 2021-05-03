@@ -25,6 +25,12 @@
 	bounty_types = CIV_JOB_SCI
 
 	family_heirlooms = list(/obj/item/book/manual/wiki/cytology, /obj/item/reagent_containers/glass/beaker) //NON MODULAR CHANGE
+	
+	mail_goodies = list(
+		/obj/item/storage/box/monkeycubes = 30,
+		/obj/item/circuitboard/machine/sleeper/party = 3,
+		/obj/item/borg/upgrade/ai = 2
+	)
 
 /datum/job/research_director/announce(mob/living/carbon/human/H, announce_captaincy = FALSE)
 	..()
